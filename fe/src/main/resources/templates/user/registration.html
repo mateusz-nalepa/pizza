@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form
+                    th:action="@{/registration}"
+                    th:object="${userDto}"
+                    method="post"
+                    class="form-horizontal"
+                    role="form">
+                <span th:utext="${successMessage}"></span>
+                <h2>Registration Form</h2>
+                <div th:replace="fragments/components :: inputTextField(inputName='name', placeholder='Name')"></div>
+                <div th:replace="fragments/components :: inputTextField(inputName='lastName', placeholder='Last Name')"></div>
+                <div th:replace="fragments/components :: inputEmailField(inputName='email', placeholder='Email')"></div>
+                <div th:replace="fragments/components :: inputPasswordField(inputName='password', placeholder='Password')"></div>
+                <div th:replace="fragments/components :: submitButton(value='Submit Dupa')"></div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,30 +1,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+>
 <head>
 </head>
 <body>
 <div th:fragment="footer">
+    <footer class="footer-basic-centered ">
+        <p class="footer-company-motto" style="color:#AB4642;">Potrawy</p>
+        <p class="footer-company-name">Mateusz Nalepa. Wszystkie prawa zastrzeżone &copy; 2016</p>
+        <p class="footer-company-name"><a href="mailto:mateuszcholyn@gmail.com">Wyślij maila</a></p>
+    </footer>
 
-    <div class="container">
-
-        <footer>
-            <!-- this is footer -->
-            &copy; 2017 mkyong.com
-            <span sec:authorize="isAuthenticated()">
-                | Logged user: <span sec:authentication="name"></span> |
-                Roles: <span sec:authentication="principal.authorities"></span> |
-                <a th:href="@{/logout}">Sign Out</a>
-            </span>
-
-            <script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.js}" src="webjars/jquery/3.2.1/jquery.js"></script>
-            <script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}" src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-            <!--<script type="text/javascript" src="webjars/jquery/3.2.1/jquery.js"></script>-->
-            <!--<script type="text/javascript" src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
-            <script type="text/javascript" th:href="@{/js/main.js}" src="../../js/main.js"></script>
-
-        </footer>
-    </div>
-
+    <!--<footer class="footer">-->
+    <!--<div class="container">-->
+    <!--<span class="text-muted">Place sticky footer content here.</span>-->
+    <!--</div>-->
+    <!--</footer>-->
+    <!--<div id="footer">-->
+    <!--<div class="container">-->
+    <!--<p class="muted credit">Example courtesy <a href="http://martinbean.co.uk">Martin Bean</a> and <a href="http://ryanfait.com/sticky-footer/">Ryan Fait</a>.</p>-->
+    <!--</div>-->
+    <!--</div>-->
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.js}"
+            src="webjars/jquery/3.2.1/jquery.js"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"
+            src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" th:href="@{/js/main.js}" src="../../js/main.js"></script>
 </div>
 </body>
 </html>

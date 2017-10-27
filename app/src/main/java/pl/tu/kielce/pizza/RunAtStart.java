@@ -2,26 +2,26 @@ package pl.tu.kielce.pizza;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import pl.tu.kielce.pizza.dto.user.RoleDto;
-import pl.tu.kielce.pizza.dto.user.UserDto;
-import pl.tu.kielce.pizza.dto.user.UserProfile;
+import pl.tu.kielce.pizza.security.dto.RoleDto;
+import pl.tu.kielce.pizza.security.dto.UserDto;
 import pl.tu.kielce.pizza.security.mapper.UserMapper;
 import pl.tu.kielce.pizza.security.model.jpa.Role;
-import pl.tu.kielce.pizza.security.repository.RoleRepository;
-import pl.tu.kielce.pizza.security.model.jpa.User;
+import pl.tu.kielce.pizza.security.repository.role.RoleRepository;
 import pl.tu.kielce.pizza.security.service.UserServiceImpl;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Component
 //@RequiredArgsConstructor
 public class RunAtStart implements CommandLineRunner {
 
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private UserServiceImpl userService;
@@ -36,8 +36,6 @@ public class RunAtStart implements CommandLineRunner {
     public void run(String... strings) throws Exception {
         createRoles();
         defaultUser();
-
-
     }
 
     private void createRoles() {
