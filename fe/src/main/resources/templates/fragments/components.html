@@ -1,0 +1,28 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="inputTextField(inputName, placeholder)">
+    <div class="form-group">
+        <input
+                type="text"
+                class="form-control input-lg"
+                th:name="${inputName}"
+                th:placeholder="${placeholder}"
+                required="required"
+                th:field="*{__${inputName}__}"/>
+        <p th:if="${#fields.hasErrors('__${inputName}__')}" th:errors="*{__${inputName}__}">Name Error</p>
+        <!--<p th:if="${#fields.hasErrors(${inputName})}" th:errors="*{__${inputName}__}">Name Error</p>-->
+    </div>
+</div>
+
+<div th:fragment="submitButton(value)">
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6">
+            <input type="submit" class="btn btn-lg btn-primary btn-block"
+                   th:value="${value}"/>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6">
+        </div>
+    </div>
+</div>
+
+</html>
