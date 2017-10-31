@@ -80,8 +80,9 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private static final String PERMIT_ALL_LIST[] = {
             "/",
-            "/login",
-            "/registration"
+            "/login/**",
+            "/registration/**",
+            "/language/**"
     };
 
     private static final String PERMIT_ADMIN_LIST[] = {

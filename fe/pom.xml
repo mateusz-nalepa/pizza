@@ -7,18 +7,40 @@
     <parent>
         <groupId>pl.tu.kielce</groupId>
         <artifactId>pizza</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.0.1</version>
+
     </parent>
 
     <artifactId>fe</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
 
     <dependencies>
         <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>3.3.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>3.2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>1.5.4.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity4</artifactId>
+        </dependency>
+        <dependency>
             <groupId>pl.tu.kielce</groupId>
             <artifactId>common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.0.1</version>
         </dependency>
     </dependencies>
-    
+
 </project>

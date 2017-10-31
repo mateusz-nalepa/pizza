@@ -7,28 +7,40 @@
     <parent>
         <groupId>pl.tu.kielce</groupId>
         <artifactId>pizza</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.0.1</version>
     </parent>
 
-    <groupId>pl.tu.kielce</groupId>
     <artifactId>app</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <dependency>
             <groupId>pl.tu.kielce</groupId>
             <artifactId>common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.0.1</version>
         </dependency>
         <dependency>
             <groupId>pl.tu.kielce</groupId>
             <artifactId>be</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.0.1</version>
         </dependency>
         <dependency>
             <groupId>pl.tu.kielce</groupId>
             <artifactId>fe</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.0.1</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>

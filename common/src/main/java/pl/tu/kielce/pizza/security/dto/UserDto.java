@@ -5,13 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Collections;
 import java.util.Set;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-//@RequiredArgsConstructor
 public class UserDto {
 
     private int id;
@@ -20,5 +20,5 @@ public class UserDto {
     private String password;
     private String lastName;
     private boolean active;
-    private Set<RoleDto> roles;
+    private Set<RoleDto> roles = Collections.emptySet();
 }

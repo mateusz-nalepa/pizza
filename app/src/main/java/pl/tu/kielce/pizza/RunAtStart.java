@@ -1,12 +1,12 @@
 package pl.tu.kielce.pizza;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import pl.tu.kielce.pizza.security.dto.RoleDto;
 import pl.tu.kielce.pizza.security.dto.UserDto;
-import pl.tu.kielce.pizza.security.mapper.UserMapper;
 import pl.tu.kielce.pizza.security.model.jpa.Role;
 import pl.tu.kielce.pizza.security.repository.role.RoleRepository;
 import pl.tu.kielce.pizza.security.service.UserServiceImpl;
@@ -16,8 +16,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+//import pl.tu.kielce.pizza.security.dto.RoleDto;
+//import pl.tu.kielce.pizza.security.dto.UserDto;
+
 @Component
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 public class RunAtStart implements CommandLineRunner {
 
     @Autowired
@@ -28,9 +31,6 @@ public class RunAtStart implements CommandLineRunner {
 
     @Autowired
     private RoleRepository roleRepository;
-
-    @Autowired
-    private UserMapper userMapper;
 
     @Override
     public void run(String... strings) throws Exception {
