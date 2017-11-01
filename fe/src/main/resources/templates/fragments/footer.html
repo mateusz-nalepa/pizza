@@ -4,22 +4,12 @@
 </head>
 <body>
 <div th:fragment="footer">
-    <footer class="footer-basic-centered ">
-        <p class="footer-company-motto" style="color:#AB4642;">Potrawy</p>
-        <p class="footer-company-name">Mateusz Nalepa. Wszystkie prawa zastrzeżone &copy; 2016</p>
-        <p class="footer-company-name"><a href="mailto:mateuszcholyn@gmail.com">Wyślij maila</a></p>
+    <footer class="footer-basic-centered" style="background-color: #F8F8F8;">
+        <p class="footer-company-motto main-label">Potrawy</p>
+        <p class="footer-company-name main-label" th:text="#{footer.copyright}"></p>
+        <p class="footer-company-name main-label"><a href="mailto:mateuszcholyn@gmail.com" th:text="#{footer.sendMail}"></a></p>
     </footer>
 
-    <!--<footer class="footer">-->
-    <!--<div class="container">-->
-    <!--<span class="text-muted">Place sticky footer content here.</span>-->
-    <!--</div>-->
-    <!--</footer>-->
-    <!--<div id="footer">-->
-    <!--<div class="container">-->
-    <!--<p class="muted credit">Example courtesy <a href="http://martinbean.co.uk">Martin Bean</a> and <a href="http://ryanfait.com/sticky-footer/">Ryan Fait</a>.</p>-->
-    <!--</div>-->
-    <!--</div>-->
     <script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.js}"
             src="webjars/jquery/3.2.1/jquery.js"></script>
     <script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"

@@ -1,8 +1,20 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
-<div th:fragment="headerH4(inputName, placeholder)">
+
+<div th:fragment="headerH2(text)">
+    <h2 th:text="${text}">
+    </h2>
+</div>
+
+<div th:fragment="headerH4(text)">
     <h4>
-        <label th:for="${inputName}" th:text="${placeholder}"></label>
+        <label th:text="${text}"></label>
+    </h4>
+</div>
+
+<div th:fragment="headerH4forInput(inputName, label)">
+    <h4>
+        <label th:for="${inputName}" th:text="#{${label}}"></label>
     </h4>
 </div>
 
@@ -10,56 +22,89 @@
     <p th:if="${#fields.hasErrors('__${inputName}__')}" th:errors="*{__${inputName}__}"></p>
 </div>
 
-<div th:fragment="inputTextField(inputName, placeholder)">
+<div th:fragment="inputTextField(inputName, label)">
     <div class="form-group">
-        <div th:replace="fragments/components :: headerH4(inputName=${inputName}, placeholder=${placeholder})"></div>
+        <div th:replace="fragments/components :: headerH4forInput(inputName=${inputName}, label=${label})"></div>
         <input
                 type="text"
                 class="form-control input-lg"
                 th:name="${inputName}"
-                th:placeholder="${placeholder}"
+                th:placeholder="#{${label}}"
                 required="required"
                 th:field="*{__${inputName}__}"/>
         <div th:replace="fragments/components :: fieldError(inputName=${inputName})"></div>
     </div>
 </div>
 
-<div th:fragment="inputEmailField(inputName, placeholder)">
+<div th:fragment="inputNormalEmailField(inputName, label)">
     <div class="form-group">
-        <div th:replace="fragments/components :: headerH4(inputName=${inputName}, placeholder=${placeholder})"></div>
         <input
                 type="email"
                 class="form-control input-lg"
                 th:name="${inputName}"
-                th:placeholder="${placeholder}"
-                required="required"
-                th:field="*{__${inputName}__}"/>
-        <div th:replace="fragments/components :: fieldError(inputName=${inputName})"></div>
+                th:id="${inputName}"
+                th:placeholder="#{${label}}"
+                required="required"/>
     </div>
 </div>
 
-<div th:fragment="inputPasswordField(inputName, placeholder)">
+<div th:fragment="inputNormalPasswordField(inputName, label)">
     <div class="form-group">
-        <div th:replace="fragments/components :: headerH4(inputName=${inputName}, placeholder=${placeholder})"></div>
         <input
                 type="password"
                 class="form-control input-lg"
                 th:name="${inputName}"
-                th:placeholder="${placeholder}"
+                th:id="${inputName}"
+                th:placeholder="#{${label}}"
+                required="required"/>
+    </div>
+</div>
+
+
+<div th:fragment="inputEmailField(inputName, label)">
+    <div class="form-group">
+        <div th:replace="fragments/components :: headerH4forInput(inputName=${inputName}, label=${label})"></div>
+        <input
+                type="email"
+                class="form-control input-lg"
+                th:name="${inputName}"
+                th:placeholder="#{${label}}"
                 required="required"
                 th:field="*{__${inputName}__}"/>
         <div th:replace="fragments/components :: fieldError(inputName=${inputName})"></div>
     </div>
 </div>
 
-<div th:fragment="submitButton(value)">
+<div th:fragment="inputPasswordField(inputName, label)">
+    <div class="form-group">
+        <div th:replace="fragments/components :: headerH4forInput(inputName=${inputName}, label=${label})"></div>
+        <input
+                type="password"
+                class="form-control input-lg"
+                th:name="${inputName}"
+                th:placeholder="#{${label}}"
+                required="required"
+                th:field="*{__${inputName}__}"/>
+        <div th:replace="fragments/components :: fieldError(inputName=${inputName})"></div>
+    </div>
+</div>
+
+<div th:fragment="submitButton(label)">
     <div class="form-group">
         <button
                 type="submit"
                 class="btn btn-primary btn-lg btn-block"
-                th:text="${value}">
+                th:text="#{${label}}">
         </button>
     </div>
+</div>
+
+<div th:fragment="submitButtonSmall(label)">
+    <button
+            type="submit"
+            th:text="#{${label}}">
+        <!--class="btn btn-xs btn-primary"-->
+    </button>
 </div>
 
 </html>

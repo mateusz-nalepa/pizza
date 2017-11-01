@@ -18,15 +18,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Project name</a>
+                <a class="navbar-brand" th:href="@{/}">Pizza</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a th:href="@{/registration}">Registration</a></li>
-                    <li><a th:href="@{/login}">Login</a></li>
+                    <li><a th:href="@{/registration}" th:text="#{registration}"></a></li>
+                    <li><a th:href="@{/login}" th:text="#{login}"></a></li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right" th:if="${#httpServletRequest.remoteUser} != null">
                     <li>
                         <a th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]</a>
                     </li>
@@ -40,7 +39,7 @@
                     <li>
                         <a>
                             <form th:action="@{/logout}" method="post">
-                                <input class="btn-large" type="submit" value="Sign Out"/>
+                                <div th:replace="fragments/components :: submitButtonSmall(label='signout')"></div>
                             </form>
                         </a>
                     </li>

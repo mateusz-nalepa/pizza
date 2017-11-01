@@ -5,8 +5,8 @@
     <div th:replace="fragments/header :: header-css"></div>
 </head>
 <body>
-<div th:replace="fragments/header :: header"></div>
 <div class="container">
+<div th:replace="fragments/header :: header"></div>
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <form
@@ -16,12 +16,20 @@
                     class="form-horizontal"
                     role="form">
                 <span th:utext="${successMessage}"></span>
-                <h2>Registration Form</h2>
-                <div th:replace="fragments/components :: inputTextField(inputName='name', placeholder='Name')"></div>
-                <div th:replace="fragments/components :: inputTextField(inputName='lastName', placeholder='Last Name')"></div>
-                <div th:replace="fragments/components :: inputEmailField(inputName='email', placeholder='Email')"></div>
-                <div th:replace="fragments/components :: inputPasswordField(inputName='password', placeholder='Password')"></div>
-                <div th:replace="fragments/components :: submitButton(value='Submit Dupa')"></div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div th:replace="fragments/components :: inputTextField(inputName='name', label='name')">
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-5">
+                        <div th:replace="fragments/components :: inputTextField(inputName='lastName', label='lastName')">
+                        </div>
+                    </div>
+                </div>
+                <div th:replace="fragments/components :: inputEmailField(inputName='email', label='email')"></div>
+                <div th:replace="fragments/components :: inputPasswordField(inputName='password', label='password')"></div>
+                <div th:replace="fragments/components :: submitButton(label='register')"></div>
             </form>
         </div>
     </div>
