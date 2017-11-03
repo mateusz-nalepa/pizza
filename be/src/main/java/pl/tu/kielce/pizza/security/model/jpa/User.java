@@ -5,8 +5,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Email;
+import pl.tu.kielce.pizza.common.model.jpa.Address;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -41,6 +43,15 @@ public class User {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
+    @ManyToOne
+    private User user;
+
+    @OneToMany(mappedBy="user")
+    private Set<User> users = new HashSet<>();
+
+    @Embedded
+    private Address address;
+
     public void activate() {
         this.active = true;
     }
@@ -48,6 +59,5 @@ public class User {
     public void deActivate() {
         this.active = false;
     }
-
 
 }
