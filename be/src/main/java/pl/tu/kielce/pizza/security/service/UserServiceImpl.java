@@ -4,8 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.tu.kielce.pizza.security.dto.UserDto;
-import pl.tu.kielce.pizza.security.repository.role.RoleRepository;
-import pl.tu.kielce.pizza.security.repository.user.UserExecutor;
+import pl.tu.kielce.pizza.security.repository.UserExecutor;
 
 @Service
 @RequiredArgsConstructor
@@ -13,10 +12,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Autowired
-    UserExecutor userExecutor;
-
-    @Autowired
-    RoleRepository roleRepository;
+    private final UserExecutor userExecutor;
 
     @Override
     public UserDto findByEmail(String email) {

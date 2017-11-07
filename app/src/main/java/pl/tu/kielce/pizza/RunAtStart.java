@@ -3,8 +3,12 @@ package pl.tu.kielce.pizza;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import pl.tu.kielce.pizza.common.dto.AddressDto;
+import pl.tu.kielce.pizza.department.dto.DepartmentDto;
+import pl.tu.kielce.pizza.department.repository.DepartmentExecutor;
+import pl.tu.kielce.pizza.ingredient.dto.IngredientDto;
+import pl.tu.kielce.pizza.ingredient.executor.IngredientExecutor;
 import pl.tu.kielce.pizza.security.dto.RoleDto;
 import pl.tu.kielce.pizza.security.dto.UserDto;
 import pl.tu.kielce.pizza.security.model.jpa.Role;
@@ -16,26 +20,40 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-//import pl.tu.kielce.pizza.security.dto.RoleDto;
-//import pl.tu.kielce.pizza.security.dto.UserDto;
-
 @Component
 @RequiredArgsConstructor
 public class RunAtStart implements CommandLineRunner {
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final UserServiceImpl userService;
 
     @Autowired
-    private UserServiceImpl userService;
+    private final DepartmentExecutor departmentExecutor;
 
     @Autowired
-    private RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
+
+    @Autowired
+    private final IngredientExecutor ingredientExecutor;
 
     @Override
     public void run(String... strings) throws Exception {
         createRoles();
-        defaultUser();
+        defaultUsers();
+        defaultDepartment();
+        defaultIngredients();
+        departmentExecutor.freeManagers();
+    }
+
+    private void defaultIngredients() {
+        IngredientDto ingredientDto = IngredientDto.builder().name("Mąka").description("Używana do pieczenia").build();
+        ingredientExecutor.add(ingredientDto);
+
+        ingredientDto = IngredientDto.builder().name("Ser").description("Pizza się dzięki niemu ciągnie").build();
+        ingredientExecutor.add(ingredientDto);
+
+        ingredientDto = IngredientDto.builder().name("Szynka").description("Nadaje unikalego smaku").build();
+        ingredientExecutor.add(ingredientDto);
     }
 
     private void createRoles() {
@@ -47,13 +65,26 @@ public class RunAtStart implements CommandLineRunner {
         roleRepository.save(roles);
     }
 
-    private void defaultUser() {
+    private void defaultUsers() {
         UserDto userDto = UserDto
                 .builder()
                 .name("HODOREK")
                 .email("admin@pizza.pl")
                 .name("Mateusz")
                 .lastName("Nalepa")
+                .password("asd123")
+                .active(true)
+                .roles(defaultRoles())
+                .build();
+
+        userService.saveUser(userDto);
+
+        userDto = UserDto
+                .builder()
+                .name("HODOREK2")
+                .email("admin2@pizza.pl")
+                .name("Mateusz2")
+                .lastName("Nalepa2")
                 .password("asd123")
                 .active(true)
                 .roles(defaultRoles())
@@ -72,6 +103,30 @@ public class RunAtStart implements CommandLineRunner {
         roleDtos.add(managerRole);
         return roleDtos;
 
+    }
+
+    private void defaultDepartment() {
+
+        DepartmentDto departmentDto = DepartmentDto
+                .builder()
+                .multiplier(0.10)
+                .manager(UserDto.builder().id(1L).build())
+                .active(true)
+                .address(defaultAddress())
+                .build();
+
+        departmentDto = departmentExecutor.save(departmentDto);
+        System.out.println("ZAPISALEM SIE");
+    }
+
+    private AddressDto defaultAddress() {
+        return AddressDto
+                .builder()
+                .city("Kielce")
+                .street("Wiosenna")
+                .houseNumber(5)
+                .flatNumber(28)
+                .build();
     }
 
 }

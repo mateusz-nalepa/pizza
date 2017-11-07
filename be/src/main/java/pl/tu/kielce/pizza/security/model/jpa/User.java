@@ -8,7 +8,6 @@ import org.hibernate.validator.constraints.Email;
 import pl.tu.kielce.pizza.common.model.jpa.Address;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 
@@ -24,7 +23,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
-    private int id;
+    private Long id;
 
     @Email(message = "*Please provide a valid Email")
     private String email;
@@ -37,20 +36,22 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
-    private boolean active;
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-    @ManyToOne
-    private User user;
-
-    @OneToMany(mappedBy="user")
-    private Set<User> users = new HashSet<>();
+//    @ManyToOne
+//    private User user;
+//
+//    @OneToMany(mappedBy="user")
+//    @Builder.Default
+//    private Set<User> users = new HashSet<>();
 
     @Embedded
     private Address address;
+
+    private boolean active;
 
     public void activate() {
         this.active = true;

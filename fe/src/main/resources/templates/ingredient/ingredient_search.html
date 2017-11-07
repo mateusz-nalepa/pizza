@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/header :: header"></div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th th:text="#{common.id}">ID</th>
+            <th th:text="#{ingredient.name}"></th>
+            <th th:text="#{ingredient.description}"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="ingredient : ${ingredients}">
+            <td>
+                <a th:href="@{/manager/ingredient/} + ${ingredient.id}" th:text="${ingredient.id}"></a>
+            </td>
+            <td th:text="${ingredient.name}"></td>
+            <td th:text="${ingredient.description}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:replace="fragments/footer :: footer"></div>
+</div>
+</body>
+</html>

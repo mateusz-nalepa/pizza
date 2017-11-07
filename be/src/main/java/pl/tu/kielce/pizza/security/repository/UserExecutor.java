@@ -1,4 +1,4 @@
-package pl.tu.kielce.pizza.security.repository.user;
+package pl.tu.kielce.pizza.security.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +8,7 @@ import pl.tu.kielce.pizza.security.mapper.UserMapper;
 import pl.tu.kielce.pizza.security.model.jpa.Role;
 import pl.tu.kielce.pizza.security.model.jpa.User;
 import pl.tu.kielce.pizza.security.repository.role.RoleRepository;
+import pl.tu.kielce.pizza.security.repository.user.UserRepository;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -17,13 +18,13 @@ import java.util.Set;
 public class UserExecutor {
 
     @Autowired
-    private RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
 
     @Autowired
-    private UserMapper userMapper;
+    private final UserMapper userMapper;
 
     @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public UserDto save(UserDto userDto) {
         //TODO role będą pobierane z bazy wg parametrów w userDto

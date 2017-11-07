@@ -13,6 +13,27 @@
     <artifactId>app</artifactId>
     <packaging>jar</packaging>
 
+
+    <profiles>
+        <profile>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <id>prod</id>
+            <properties>
+                <spring.datasource.url>jdbc:mysql://localhost:3306/pizza</spring.datasource.url>
+                <spring.profiles.active>prod</spring.profiles.active>
+            </properties>
+        </profile>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <spring.datasource.url>jdbc:h2:file:~/test</spring.datasource.url>
+                <spring.profiles.active>dev</spring.profiles.active>
+            </properties>
+        </profile>
+    </profiles>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

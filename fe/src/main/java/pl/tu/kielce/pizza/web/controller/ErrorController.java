@@ -35,7 +35,7 @@ public class ErrorController implements org.springframework.boot.autoconfigure.w
                 break;
             }
         }
-        model.addAttribute("errorMsg", errorMsg);
+        model.addAttribute("errorMsg", "ERRORCONTROLLER: " + errorMsg);
         return "error/error-page";
     }
 

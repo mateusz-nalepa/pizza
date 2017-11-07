@@ -36,6 +36,32 @@
                            role="button"
                            aria-haspopup="true"
                            aria-expanded="false"
+                           th:inline="text">[[#{departments}]]<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{/manager/department/all}" th:text="#{department.list}"></a></li>
+                            <li><a th:href="@{/manager/department/}" th:text="#{department.add}"></a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#"
+                           class="dropdown-toggle"
+                           data-toggle="dropdown"
+                           role="button"
+                           aria-haspopup="true"
+                           aria-expanded="false"
+                           th:inline="text">[[#{ingredients}]]<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{/manager/ingredient/all}" th:text="#{ingredient.list}"></a></li>
+                            <li><a th:href="@{/manager/ingredient/}" th:text="#{ingredient.add}"></a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#"
+                           class="dropdown-toggle"
+                           data-toggle="dropdown"
+                           role="button"
+                           aria-haspopup="true"
+                           aria-expanded="false"
                             th:inline="text">[[#{users}]]<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="#" th:text="#{users.list}"></a></li>

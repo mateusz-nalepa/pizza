@@ -8,7 +8,8 @@
 <div class="container">
 <div th:replace="fragments/header :: header"></div>
     <div class="row">
-        <div class="col-md-6 col-md-offset-3">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
             <form
                     th:action="@{/registration}"
                     th:object="${userDto}"
@@ -32,6 +33,7 @@
                 <div th:replace="fragments/components :: submitButton(label='register')"></div>
             </form>
         </div>
+        <div class="col-md-1"></div>
     </div>
 </div>
 </body>

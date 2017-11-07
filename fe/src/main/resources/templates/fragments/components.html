@@ -36,6 +36,20 @@
     </div>
 </div>
 
+<div th:fragment="inputNumberField(inputName, label)">
+    <div class="form-group">
+        <div th:replace="fragments/components :: headerH4forInput(inputName=${inputName}, label=${label})"></div>
+        <input
+                type="number"
+                class="form-control input-lg"
+                th:name="${inputName}"
+                th:placeholder="#{${label}}"
+                required="required"
+                th:field="*{__${inputName}__}"/>
+        <div th:replace="fragments/components :: fieldError(inputName=${inputName})"></div>
+    </div>
+</div>
+
 <div th:fragment="inputNormalEmailField(inputName, label)">
     <div class="form-group">
         <input
@@ -58,6 +72,16 @@
                 th:placeholder="#{${label}}"
                 required="required"/>
     </div>
+</div>
+
+<div th:fragment="inputHiddenField(inputName)">
+        <input
+                type="text"
+                hidden="hidden"
+                th:name="${inputName}"
+                th:id="${inputName}"
+                th:field="*{__${inputName}__}"
+                required="required"/>
 </div>
 
 
@@ -105,6 +129,28 @@
             th:text="#{${label}}">
         <!--class="btn btn-xs btn-primary"-->
     </button>
+</div>
+
+
+<div th:fragment="h2LabelCentered(label, value)">
+    <h2 class="text-center" th:text="#{${label}} + ' ' + ${value}"></h2>
+</div>
+
+<div th:fragment="h4LabelCentered(label, value)">
+    <h4 class="text-center" th:text="#{${label}} + ' ' + ${value}"></h4>
+</div>
+
+
+<div th:fragment="inputSelectList(inputName, label, selectList)">
+    <div th:replace="fragments/components :: headerH4forInput(inputName=${inputName}, label=${label})"></div>
+    <div class="form-group">
+        <select class="form-control" th:field="*{__${inputName}__}">
+            <option th:each="option : ${selectList}"
+                    th:value="${option.id}"
+                    th:text="${option}">
+            </option>
+        </select>
+    </div>
 </div>
 
 </html>

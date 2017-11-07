@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/header :: header"></div>
+    <div th:replace="fragments/components :: h2LabelCentered(label='department', value=${departmentDto.id})"></div>
+    <div class="row">
+        <div class="col-md-3">
+            <div th:replace="fragments/components :: h4LabelCentered(label='common.city', value=${departmentDto.address.city})"></div>
+        </div>
+        <div class="col-md-3">
+            <div th:replace="fragments/components :: h4LabelCentered(label='common.street', value=${departmentDto.address.street})"></div>
+        </div>
+        <div class="col-md-3">
+            <div th:replace="fragments/components :: h4LabelCentered(label='common.houseNumber', value=${departmentDto.address.houseNumber})"></div>
+        </div>
+        <div class="col-md-3">
+            <div th:replace="fragments/components :: h4LabelCentered(label='common.flatNumber', value=${departmentDto.address.flatNumber})"></div>
+        </div>
+    </div>
+    <div th:replace="fragments/footer :: footer"></div>
+</div>
+</body>
+</html>

@@ -13,7 +13,7 @@ import java.util.Locale;
 public class MessageSourceAccessor {
 
     @Autowired
-    private MessageSource messageSource;
+    private final MessageSource messageSource;
 
     public String getMessage(String messageCode, Object... parameters) {
         Locale locale = LocaleContextHolder.getLocale();

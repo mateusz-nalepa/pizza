@@ -42,4 +42,14 @@ public class Department {
     private List<Pizza> pizzas;
 
     private Double multiplier;
+
+    private boolean active;
+
+    public void activate() {
+        this.active = true;
+    }
+
+    public void deActivate() {
+        this.active = false;
+    }
 }

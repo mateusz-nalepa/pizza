@@ -1,0 +1,19 @@
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+spring:
+  datasource:
+    url: @spring.datasource.url@
+    username: root
+    password:
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    show-sql: true
+    hibernate.ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+  thymeleaf:
+    cache: false

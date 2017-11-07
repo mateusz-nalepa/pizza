@@ -4,11 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.tu.kielce.pizza.ingredient.model.jpa.Item;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -21,13 +20,17 @@ public class Pizza {
     @Id
     @GeneratedValue
     private Long id;
-    private Double flour;
-    private Double cheese;
-    private Double ham;
-    private Double mushrooms;
-    private Double chicken;
-    private Double salami;
-    private Double corn;
+
+    @OneToMany
+    private List<Item> ingredients;
+
+//    private Double flour;
+//    private Double cheese;
+//    private Double ham;
+//    private Double mushrooms;
+//    private Double chicken;
+//    private Double salami;
+//    private Double corn;
 
     private String name;
     private String description;
