@@ -1,21 +1,19 @@
-package pl.tu.kielce.pizza.ingredient.dto;
-
+package pl.tu.kielce.pizza.pantry.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.tu.kielce.pizza.ingredient.dto.IngredientDto;
+
+import java.util.List;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class IngredientDto {
-
-
-    private Long pantryId;
+public class PantryDto {
 
     private Long id;
-    private ItemDto itemDto;
-    private Double quantity;
+    private List<IngredientDto> ingredients;
 }

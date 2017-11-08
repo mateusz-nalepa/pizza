@@ -11,14 +11,14 @@
         <div class="col-md-1"></div>
         <div class="col-md-10">
             <form
-                    th:action="@{/manager/ingredient/}"
-                    th:object="${ingredientDto}"
+                    th:action="@{/manager/item/}"
+                    th:object="${itemDto}"
                     method="post"
                     class="form-horizontal"
                     role="form">
-                <div th:replace="fragments/components :: inputTextField(inputName='name', label='ingredient.name')"></div>
-                <div th:replace="fragments/components :: inputTextField(inputName='description', label='ingredient.description')"></div>
-                <div th:replace="fragments/components :: submitButton(label='ingredient.add')"></div>
+                <div th:replace="fragments/components :: inputTextField(inputName='name', label='item.name')"></div>
+                <div th:replace="fragments/components :: inputTextField(inputName='description', label='item.description')"></div>
+                <div th:replace="fragments/components :: submitButton(label='item.add')"></div>
             </form>
         </div>
         <div class="col-md-1"></div>

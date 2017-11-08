@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import pl.tu.kielce.pizza.ingredient.dto.IngredientDto;
 import pl.tu.kielce.pizza.ingredient.executor.IngredientExecutor;
 
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -17,17 +16,7 @@ public class IngredientServiceImpl implements IngredientService{
     private final IngredientExecutor ingredientExecutor;
 
     @Override
-    public IngredientDto getById(Long ingredientId) {
-        return ingredientExecutor.getById(ingredientId);
-    }
-
-    @Override
     public IngredientDto add(IngredientDto ingredientDto) {
         return ingredientExecutor.add(ingredientDto);
-    }
-
-    @Override
-    public List<IngredientDto> findAll() {
-        return ingredientExecutor.findAll();
     }
 }

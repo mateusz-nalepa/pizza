@@ -153,4 +153,17 @@
     </div>
 </div>
 
+
+<div th:fragment="accordianButton(dataTargetId, label)">
+    <button
+            type="button"
+            data-toggle="collapse"
+            th:attr="data-target=${dataTargetId}"
+            class="btn btn-info btn-block"
+            th:text="#{${label}}">
+    </button>
+</div>
+
+
+
 </html>

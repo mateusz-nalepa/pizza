@@ -1,15 +1,12 @@
 package pl.tu.kielce.pizza.ingredient.model.jpa;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -19,14 +16,12 @@ import javax.validation.constraints.NotNull;
 @Table(name = "INGREDIENT")
 public class Ingredient {
 
-
     @Id
     @GeneratedValue
     private Long id;
 
-    @NotNull
-    private String name;
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private Item item;
 
-    private String description;
-
+    private Double quantity;
 }

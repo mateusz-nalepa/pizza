@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import pl.tu.kielce.pizza.common.dto.AddressDto;
+import pl.tu.kielce.pizza.pantry.dto.PantryDto;
 import pl.tu.kielce.pizza.security.dto.UserDto;
 
 @Data
@@ -17,7 +18,7 @@ public class DepartmentDto  {
 
     private AddressDto address;
 
-//    private PantryDto pantry;
+    private PantryDto pantry;
     private UserDto manager;
 //    private List<User> employees;
 //    private List<Pizza> pizzas;

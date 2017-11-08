@@ -10,17 +10,35 @@
     <div th:replace="fragments/components :: h2LabelCentered(label='department', value=${departmentDto.id})"></div>
     <div class="row">
         <div class="col-md-3">
-            <div th:replace="fragments/components :: h4LabelCentered(label='common.city', value=${departmentDto.address.city})"></div>
+            <div th:replace="fragments/components :: h4LabelCentered(label='common.address.city', value=${departmentDto.address.city})"></div>
         </div>
         <div class="col-md-3">
-            <div th:replace="fragments/components :: h4LabelCentered(label='common.street', value=${departmentDto.address.street})"></div>
+            <div th:replace="fragments/components :: h4LabelCentered(label='common.address.street', value=${departmentDto.address.street})"></div>
         </div>
         <div class="col-md-3">
-            <div th:replace="fragments/components :: h4LabelCentered(label='common.houseNumber', value=${departmentDto.address.houseNumber})"></div>
+            <div th:replace="fragments/components :: h4LabelCentered(label='common.address.houseNumber', value=${departmentDto.address.houseNumber})"></div>
         </div>
         <div class="col-md-3">
-            <div th:replace="fragments/components :: h4LabelCentered(label='common.flatNumber', value=${departmentDto.address.flatNumber})"></div>
+            <div th:replace="fragments/components :: h4LabelCentered(label='common.address.flatNumber', value=${departmentDto.address.flatNumber})"></div>
         </div>
+    </div>
+    <div th:replace="fragments/components :: accordianButton(dataTargetId='#ingredientsState',label='pantry.state')"></div>
+    <div id="ingredientsState" class="collapse">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th th:text="#{ingredient.name}">Name</th>
+                <th th:text="#{ingredient.quantity}">Quantity</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="ingredient : ${departmentDto.pantry.ingredients}">
+                <td th:text="${ingredient.itemDto.name}">Name</td>
+                <td th:text="${ingredient.quantity}">Quantity</td>
+            </tr>
+            </tbody>
+        </table>
+        <hr/>
     </div>
     <div th:replace="fragments/footer :: footer"></div>
 </div>

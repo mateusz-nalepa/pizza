@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.tu.kielce.pizza.ingredient.model.jpa.Item;
+import pl.tu.kielce.pizza.ingredient.model.jpa.Ingredient;
 
 import javax.persistence.*;
 import java.util.List;
@@ -22,7 +22,7 @@ public class Pizza {
     private Long id;
 
     @OneToMany
-    private List<Item> ingredients;
+    private List<Ingredient> ingredients;
 
 //    private Double flour;
 //    private Double cheese;

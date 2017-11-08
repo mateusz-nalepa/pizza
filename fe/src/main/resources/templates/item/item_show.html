@@ -7,13 +7,13 @@
 <body>
 <div class="container">
     <div th:replace="fragments/header :: header"></div>
-    <div th:replace="fragments/components :: h2LabelCentered(label='ingredient', value=${ingredientDto.id})"></div>
+    <div th:replace="fragments/components :: h2LabelCentered(label='item', value=${itemDto.id})"></div>
     <div class="row">
         <div class="col-md-6">
-            <div th:replace="fragments/components :: h4LabelCentered(label='ingredient.name', value=${ingredientDto.name})"></div>
+            <div th:replace="fragments/components :: h4LabelCentered(label='item.name', value=${itemDto.name})"></div>
         </div>
         <div class="col-md-6">
-            <div th:replace="fragments/components :: h4LabelCentered(label='ingredient.description', value=${ingredientDto.description})"></div>
+            <div th:replace="fragments/components :: h4LabelCentered(label='item.description', value=${itemDto.description})"></div>
         </div>
     </div>
     <div th:replace="fragments/footer :: footer"></div>

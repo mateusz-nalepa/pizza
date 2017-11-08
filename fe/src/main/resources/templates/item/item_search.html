@@ -11,17 +11,17 @@
         <thead>
         <tr>
             <th th:text="#{common.id}">ID</th>
-            <th th:text="#{ingredient.name}"></th>
-            <th th:text="#{ingredient.description}"></th>
+            <th th:text="#{item.name}"></th>
+            <th th:text="#{item.description}"></th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="ingredient : ${ingredients}">
+        <tr th:each="item : ${items}">
             <td>
-                <a th:href="@{/manager/ingredient/} + ${ingredient.id}" th:text="${ingredient.id}"></a>
+                <a th:href="@{/manager/item/} + ${item.id}" th:text="${item.id}"></a>
             </td>
-            <td th:text="${ingredient.name}"></td>
-            <td th:text="${ingredient.description}"></td>
+            <td th:text="${item.name}"></td>
+            <td th:text="${item.description}"></td>
         </tr>
         </tbody>
     </table>

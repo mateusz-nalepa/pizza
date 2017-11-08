@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
 import pl.tu.kielce.pizza.common.mapper.CommonMapper;
 import pl.tu.kielce.pizza.department.dto.DepartmentDto;
 import pl.tu.kielce.pizza.department.model.jpa.Department;
+import pl.tu.kielce.pizza.pantry.mapper.PantryMapper;
+import pl.tu.kielce.pizza.pantry.repository.PantryRepository;
 import pl.tu.kielce.pizza.security.mapper.UserMapper;
 
 @Component
@@ -19,7 +21,17 @@ public class DepartmentMapper {
     @Autowired
     private final UserMapper userMapper;
 
+    @Autowired
+    private final PantryRepository pantryRepository;
+
+    @Autowired
+    private final PantryMapper pantryMapper;
+
     public DepartmentDto entityToDto(Department entity) {
+
+//        Pantry pantryEntity = pantryRepository.findOne(entity.getPantry().getId());
+//
+//        PantryDto pantryDto = pantryMapper.entityToDto(pantryEntity);
 
         return DepartmentDto
                 .builder()
@@ -28,6 +40,7 @@ public class DepartmentMapper {
                 .active(entity.isActive())
                 .manager(userMapper.entityToDto(entity.getManager()))
                 .address(commonMapper.addressEntityToDto(entity.getAddress()))
+//                .pantry(pantryDto)
                 .build();
 
     }

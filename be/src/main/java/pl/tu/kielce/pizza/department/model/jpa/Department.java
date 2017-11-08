@@ -29,7 +29,7 @@ public class Department {
     @Embedded
     private Address address;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Pantry pantry;
 
     @OneToOne

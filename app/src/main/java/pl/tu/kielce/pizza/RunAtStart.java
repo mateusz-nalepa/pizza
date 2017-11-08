@@ -8,17 +8,16 @@ import pl.tu.kielce.pizza.common.dto.AddressDto;
 import pl.tu.kielce.pizza.department.dto.DepartmentDto;
 import pl.tu.kielce.pizza.department.repository.DepartmentExecutor;
 import pl.tu.kielce.pizza.ingredient.dto.IngredientDto;
+import pl.tu.kielce.pizza.ingredient.dto.ItemDto;
 import pl.tu.kielce.pizza.ingredient.executor.IngredientExecutor;
+import pl.tu.kielce.pizza.ingredient.executor.ItemExecutor;
 import pl.tu.kielce.pizza.security.dto.RoleDto;
 import pl.tu.kielce.pizza.security.dto.UserDto;
 import pl.tu.kielce.pizza.security.model.jpa.Role;
 import pl.tu.kielce.pizza.security.repository.role.RoleRepository;
 import pl.tu.kielce.pizza.security.service.UserServiceImpl;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Component
 @RequiredArgsConstructor
@@ -34,26 +33,60 @@ public class RunAtStart implements CommandLineRunner {
     private final RoleRepository roleRepository;
 
     @Autowired
+    private final ItemExecutor itemExecutor;
+
+    @Autowired
     private final IngredientExecutor ingredientExecutor;
 
     @Override
     public void run(String... strings) throws Exception {
         createRoles();
         defaultUsers();
-        defaultDepartment();
-        defaultIngredients();
+        List<ItemDto> itemDtos = defaultItems();
+        defaultDepartment(itemDtos);
         departmentExecutor.freeManagers();
+        addDefaultIngredientsToPantry();
+        fetchDepartment();
     }
 
-    private void defaultIngredients() {
-        IngredientDto ingredientDto = IngredientDto.builder().name("Mąka").description("Używana do pieczenia").build();
+    private void fetchDepartment() {
+        departmentExecutor.getById(1L);
+    }
+
+    private void addDefaultIngredientsToPantry() {
+        IngredientDto ingredientDto = IngredientDto
+                .builder()
+                .itemDto(ItemDto.builder().id(1L).build())
+                .pantryId(1L)
+                .quantity(20.0)
+                .build();
         ingredientExecutor.add(ingredientDto);
 
-        ingredientDto = IngredientDto.builder().name("Ser").description("Pizza się dzięki niemu ciągnie").build();
+        ingredientDto = IngredientDto
+                .builder()
+                .itemDto(ItemDto.builder().id(2L).build())
+                .pantryId(1L)
+                .quantity(10.0)
+                .build();
         ingredientExecutor.add(ingredientDto);
+    }
 
-        ingredientDto = IngredientDto.builder().name("Szynka").description("Nadaje unikalego smaku").build();
-        ingredientExecutor.add(ingredientDto);
+    private List<ItemDto> defaultItems() {
+
+        List<ItemDto> items = new ArrayList<>();
+        ItemDto itemDto = ItemDto.builder().name("Mąka").description("Używana do pieczenia").build();
+        ItemDto add = itemExecutor.add(itemDto);
+
+        itemDto = ItemDto.builder().name("Ser").description("Pizza się dzięki niemu ciągnie").build();
+        ItemDto add1 = itemExecutor.add(itemDto);
+
+        itemDto = ItemDto.builder().name("Szynka").description("Nadaje unikalego smaku").build();
+        ItemDto add2 = itemExecutor.add(itemDto);
+
+        items.add(add);
+        items.add(add1);
+        items.add(add2);
+        return items;
     }
 
     private void createRoles() {
@@ -105,7 +138,7 @@ public class RunAtStart implements CommandLineRunner {
 
     }
 
-    private void defaultDepartment() {
+    private void defaultDepartment(List<ItemDto> itemDtos) {
 
         DepartmentDto departmentDto = DepartmentDto
                 .builder()
@@ -116,7 +149,7 @@ public class RunAtStart implements CommandLineRunner {
                 .build();
 
         departmentDto = departmentExecutor.save(departmentDto);
-        System.out.println("ZAPISALEM SIE");
+        System.out.println("--------------I'm saved department--------------");
     }
 
     private AddressDto defaultAddress() {
