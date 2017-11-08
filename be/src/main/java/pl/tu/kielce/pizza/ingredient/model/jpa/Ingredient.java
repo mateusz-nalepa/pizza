@@ -24,4 +24,6 @@ public class Ingredient {
     private Item item;
 
     private Double quantity;
+
+    private Long pantryId;
 }

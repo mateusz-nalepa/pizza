@@ -24,6 +24,7 @@ public class IngredientMapper {
                 .id(entity.getId())
                 .itemDto(itemMapper.entityToDto(entity.getItem()))
                 .quantity(entity.getQuantity())
+                .pantryId(entity.getPantryId())
                 .build();
     }
 
@@ -31,6 +32,7 @@ public class IngredientMapper {
 
         return Ingredient
                 .builder()
+                .pantryId(dto.getPantryId())
                 .item(itemRepository.findOne(dto.getItemDto().getId()))
                 .quantity(dto.getQuantity())
                 .build();

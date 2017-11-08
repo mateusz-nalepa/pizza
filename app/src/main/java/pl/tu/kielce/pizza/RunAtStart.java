@@ -2,7 +2,6 @@ package pl.tu.kielce.pizza;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import pl.tu.kielce.pizza.common.dto.AddressDto;
 import pl.tu.kielce.pizza.department.dto.DepartmentDto;
@@ -11,17 +10,21 @@ import pl.tu.kielce.pizza.ingredient.dto.IngredientDto;
 import pl.tu.kielce.pizza.ingredient.dto.ItemDto;
 import pl.tu.kielce.pizza.ingredient.executor.IngredientExecutor;
 import pl.tu.kielce.pizza.ingredient.executor.ItemExecutor;
+import pl.tu.kielce.pizza.ingredient.service.IngredientService;
 import pl.tu.kielce.pizza.security.dto.RoleDto;
 import pl.tu.kielce.pizza.security.dto.UserDto;
 import pl.tu.kielce.pizza.security.model.jpa.Role;
 import pl.tu.kielce.pizza.security.repository.role.RoleRepository;
 import pl.tu.kielce.pizza.security.service.UserServiceImpl;
 
+import javax.annotation.PostConstruct;
 import java.util.*;
 
 @Component
 @RequiredArgsConstructor
-public class RunAtStart implements CommandLineRunner {
+public class RunAtStart
+//        implements CommandLineRunner
+{
 
     @Autowired
     private final UserServiceImpl userService;
@@ -38,8 +41,12 @@ public class RunAtStart implements CommandLineRunner {
     @Autowired
     private final IngredientExecutor ingredientExecutor;
 
-    @Override
-    public void run(String... strings) throws Exception {
+    @Autowired
+    private final IngredientService ingredientService;
+
+//
+    @PostConstruct
+    public void run()  {
         createRoles();
         defaultUsers();
         List<ItemDto> itemDtos = defaultItems();
@@ -59,16 +66,17 @@ public class RunAtStart implements CommandLineRunner {
                 .itemDto(ItemDto.builder().id(1L).build())
                 .pantryId(1L)
                 .quantity(20.0)
+                .pantryId(1L)
                 .build();
         ingredientExecutor.add(ingredientDto);
 
-        ingredientDto = IngredientDto
-                .builder()
-                .itemDto(ItemDto.builder().id(2L).build())
-                .pantryId(1L)
-                .quantity(10.0)
-                .build();
-        ingredientExecutor.add(ingredientDto);
+//        ingredientDto = IngredientDto
+//                .builder()
+//                .itemDto(ItemDto.builder().id(2L).build())
+//                .pantryId(1L)
+//                .quantity(10.0)
+//                .build();
+//        ingredientExecutor.add(ingredientDto);
     }
 
     private List<ItemDto> defaultItems() {
@@ -162,4 +170,11 @@ public class RunAtStart implements CommandLineRunner {
                 .build();
     }
 
+
+    @PostConstruct
+    public void  asd() {
+//        List<FreeItemDto> freeItemDtos = ingredientService.itemsNotAssignedToDepartment(1L);
+//        ItemDto itemDto = ItemDto.builder().id(2L).build();
+//        ingredientService.addIngredientToDepartment(itemDto,1L);
+    }
 }

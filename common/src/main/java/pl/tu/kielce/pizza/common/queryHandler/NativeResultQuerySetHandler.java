@@ -4,6 +4,7 @@ import lombok.SneakyThrows;
 import pl.tu.kielce.pizza.common.annotation.Column;
 
 import java.lang.reflect.Field;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,12 +26,21 @@ public class NativeResultQuerySetHandler {
         for (Field field : declaredFields) {
             field.setAccessible(true);
             int annotation = field.getAnnotation(Column.class).index();
-            if (objects[annotation] instanceof Long) {
-                field.set(t1, (Long) objects[annotation]);
+
+            Object o = objects[annotation];
+
+            if (o instanceof BigInteger) {
+                BigInteger bigInteger = (BigInteger) o;
+                field.set(t1, bigInteger.longValue());
             }
-            if (objects[annotation] instanceof String) {
-                field.set(t1, (String) objects[annotation]);
+
+            if (o instanceof Long) {
+                field.set(t1, (Long) o);
             }
+            if (o instanceof String) {
+                field.set(t1, (String) o);
+            }
+
         }
         return t1;
     }

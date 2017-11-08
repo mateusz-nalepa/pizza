@@ -39,6 +39,13 @@
             </tbody>
         </table>
         <hr/>
+        <a th:href="@{/manager/ingredient/department/add/} + ${departmentDto.id}">
+            <button
+                    class="btn-primary btn block"
+                    th:text="#{ingredient.add.newToDepartment}">
+            </button>
+        </a>
+        <hr/>
     </div>
     <div th:replace="fragments/footer :: footer"></div>
 </div>
