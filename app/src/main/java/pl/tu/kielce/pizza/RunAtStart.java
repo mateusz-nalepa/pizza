@@ -1,16 +1,17 @@
 package pl.tu.kielce.pizza;
 
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import pl.tu.kielce.pizza.common.dto.AddressDto;
-import pl.tu.kielce.pizza.department.dto.DepartmentDto;
-import pl.tu.kielce.pizza.department.service.DepartmentService;
-import pl.tu.kielce.pizza.security.dto.RoleDto;
-import pl.tu.kielce.pizza.security.dto.UserDto;
-import pl.tu.kielce.pizza.security.model.jpa.Role;
-import pl.tu.kielce.pizza.security.repository.role.RoleRepository;
-import pl.tu.kielce.pizza.security.service.UserService;
+import pl.tu.kielce.pizza.be.security.model.jpa.Role;
+import pl.tu.kielce.pizza.be.security.repository.role.RoleRepository;
+import pl.tu.kielce.pizza.common.common.dto.AddressDto;
+import pl.tu.kielce.pizza.common.department.dto.DepartmentDto;
+import pl.tu.kielce.pizza.common.department.service.DepartmentService;
+import pl.tu.kielce.pizza.common.security.dto.RoleDto;
+import pl.tu.kielce.pizza.common.security.dto.UserDto;
+import pl.tu.kielce.pizza.common.security.service.UserService;
 
 import javax.annotation.PostConstruct;
 import java.util.HashSet;
