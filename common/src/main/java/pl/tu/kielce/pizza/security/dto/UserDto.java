@@ -1,18 +1,18 @@
 package pl.tu.kielce.pizza.security.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.tu.kielce.pizza.common.dto.AuditableEntityDto;
 
 import java.util.Collections;
 import java.util.Set;
 
 @Data
-@Builder
+//@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
+public class UserDto extends AuditableEntityDto{
 
     private Long id;
     private String email;

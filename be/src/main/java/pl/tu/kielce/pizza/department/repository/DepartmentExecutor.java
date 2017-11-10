@@ -3,25 +3,27 @@ package pl.tu.kielce.pizza.department.repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-import pl.tu.kielce.pizza.common.queryHandler.NativeResultQuerySetHandler;
 import pl.tu.kielce.pizza.department.dto.DepartmentDto;
 import pl.tu.kielce.pizza.department.dto.FreeManagerDto;
 import pl.tu.kielce.pizza.department.mapper.DepartmentMapper;
 import pl.tu.kielce.pizza.department.model.jpa.Department;
-import pl.tu.kielce.pizza.pantry.dto.PantryDto;
-import pl.tu.kielce.pizza.pantry.mapper.PantryMapper;
-import pl.tu.kielce.pizza.pantry.model.jpa.Pantry;
-import pl.tu.kielce.pizza.pantry.repository.PantryRepository;
-import pl.tu.kielce.pizza.security.repository.role.RoleRepository;
+import pl.tu.kielce.pizza.security.model.jpa.User;
 import pl.tu.kielce.pizza.security.repository.user.UserRepository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static pl.tu.kielce.pizza.common.util.BeFunctionsUtil.doRead;
 
 @Repository
 @RequiredArgsConstructor
 public class DepartmentExecutor {
+
+
+    @PersistenceContext
+    private EntityManager em;
 
     @Autowired
     private final DepartmentRepository departmentRepository;
@@ -32,50 +34,62 @@ public class DepartmentExecutor {
     @Autowired
     private final UserRepository userRepository;
 
-    @Autowired
-    private final RoleRepository roleRepository;
 
-    @Autowired
-    private final PantryRepository pantryRepository;
-
-    @Autowired
-    private final PantryMapper pantryMapper;
-
-    @Transactional
-    public DepartmentDto getById(Long departmentId) {
-        Department entity = departmentRepository.findOne(departmentId);
-        DepartmentDto departmentDto = departmentMapper.entityToDto(entity);
-        departmentDto.setPantry(fetchPantry(departmentId));
-        return departmentDto;
-    }
-
-    @Transactional
-    public DepartmentDto save(DepartmentDto departmentDto) {
-        Department entity = departmentMapper.dtoToEntity(departmentDto);
-        entity.setPantry(new Pantry());
-        entity.setManager(userRepository.findOne(departmentDto.getManager().getId()));
-        entity = departmentRepository.save(entity);
-        return departmentMapper.entityToDto(entity);
-    }
+//    @Transactional
+//    public DepartmentDto getById(Long departmentId) {
+//        Department entity = departmentRepository.findOne(departmentId);
+//        DepartmentDto departmentDto = departmentMapper.entityToDto(entity);
+//        departmentDto.setPantry(fetchPantry(departmentId));
+//        return departmentDto;
+//    }
 
     public List<DepartmentDto> findAll() {
 
         return departmentRepository
-                .findAllActive()
+                .findAll()
                 .stream()
                 .map(departmentMapper::entityToDto)
                 .collect(Collectors.toList());
     }
+//
+//    public List<FreeManagerDto> freeManagers() {
+//
+//        List<Object[]> freeManagers = userRepository.findFreeManagers("MANAGER");
+//        return NativeResultQuerySetHandler.resultList(freeManagers, FreeManagerDto.class);
+//
+//    }
+
+//    private PantryDto fetchPantry(Long departmentId) {
+//        Pantry pantryEntity = pantryRepository.findByDepartmendId(departmentId);
+//        return pantryMapper.entityToDto(pantryEntity);
+//    }
+
+
+    public DepartmentDto create(DepartmentDto departmentDto) {
+        Department department = departmentMapper.dtoToEntity(departmentDto);
+
+        User user = userRepository.findOne(departmentDto.getManager().getId());
+        user.setDepartment(department);
+        user = userRepository.save(user);
+
+        return departmentMapper.entityToDto(user.getDepartment());
+    }
 
     public List<FreeManagerDto> freeManagers() {
+        userRepository.findFreeManagers();
 
-        List<Object[]> freeManagers = userRepository.findAllFreeManagers("MANAGER");
-        return NativeResultQuerySetHandler.resultList(freeManagers, FreeManagerDto.class);
-
+        return null;
     }
 
-    private PantryDto fetchPantry(Long departmentId) {
-        Pantry pantryEntity = pantryRepository.findByDepartmendId(departmentId);
-        return pantryMapper.entityToDto(pantryEntity);
+    public DepartmentDto findOne(Long departmentId) {
+        return doRead(
+                departmentId,
+                departmentRepository::findOne,
+                departmentMapper::entityToDto
+        );
     }
+
+
+
+
 }

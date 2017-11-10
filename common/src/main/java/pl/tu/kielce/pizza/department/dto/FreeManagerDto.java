@@ -1,16 +1,14 @@
 package pl.tu.kielce.pizza.department.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import pl.tu.kielce.pizza.common.annotation.Column;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class FreeManagerDto {
+public class FreeManagerDto implements SelectItem {
 
     @Column
     private Long id;
@@ -22,7 +20,8 @@ public class FreeManagerDto {
     private String lastName;
 
     @Override
-    public String toString() {
+    public String getLabel() {
         return name + " " + lastName + " (" + email + ")";
     }
+
 }

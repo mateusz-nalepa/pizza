@@ -2,135 +2,96 @@ package pl.tu.kielce.pizza;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 import pl.tu.kielce.pizza.common.dto.AddressDto;
 import pl.tu.kielce.pizza.department.dto.DepartmentDto;
-import pl.tu.kielce.pizza.department.repository.DepartmentExecutor;
-import pl.tu.kielce.pizza.ingredient.dto.IngredientDto;
-import pl.tu.kielce.pizza.ingredient.dto.ItemDto;
-import pl.tu.kielce.pizza.ingredient.executor.IngredientExecutor;
-import pl.tu.kielce.pizza.ingredient.executor.ItemExecutor;
-import pl.tu.kielce.pizza.ingredient.service.IngredientService;
+import pl.tu.kielce.pizza.department.service.DepartmentService;
 import pl.tu.kielce.pizza.security.dto.RoleDto;
 import pl.tu.kielce.pizza.security.dto.UserDto;
 import pl.tu.kielce.pizza.security.model.jpa.Role;
 import pl.tu.kielce.pizza.security.repository.role.RoleRepository;
-import pl.tu.kielce.pizza.security.service.UserServiceImpl;
+import pl.tu.kielce.pizza.security.service.UserService;
 
 import javax.annotation.PostConstruct;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
-@Component
+@Configuration
 @RequiredArgsConstructor
-public class RunAtStart
-//        implements CommandLineRunner
-{
+public class RunAtStart {
 
     @Autowired
-    private final UserServiceImpl userService;
-
-    @Autowired
-    private final DepartmentExecutor departmentExecutor;
+    private final DepartmentService departmentService;
 
     @Autowired
     private final RoleRepository roleRepository;
 
     @Autowired
-    private final ItemExecutor itemExecutor;
+    private final UserService userService;
 
-    @Autowired
-    private final IngredientExecutor ingredientExecutor;
-
-    @Autowired
-    private final IngredientService ingredientService;
-
-//
     @PostConstruct
-    public void run()  {
-        createRoles();
+    public void runAtStart() {
+        saveDefaultRoles();
         defaultUsers();
-        List<ItemDto> itemDtos = defaultItems();
-        defaultDepartment(itemDtos);
-        departmentExecutor.freeManagers();
-        addDefaultIngredientsToPantry();
-        fetchDepartment();
+        defaultDepartment();
+        findAllDepartment();
+        System.out.println("addDefaultDepartment");
     }
 
-    private void fetchDepartment() {
-        departmentExecutor.getById(1L);
+    private void saveDefaultRoles() {
+        Role role = Role.builder().role("MANAGER").build();
+        roleRepository.save(role);
+
+        role = Role.builder().role("USER").build();
+        roleRepository.save(role);
+
+        role = Role.builder().role("ADMIN").build();
+        roleRepository.save(role);
     }
 
-    private void addDefaultIngredientsToPantry() {
-        IngredientDto ingredientDto = IngredientDto
-                .builder()
-                .itemDto(ItemDto.builder().id(1L).build())
-                .pantryId(1L)
-                .quantity(20.0)
-                .pantryId(1L)
-                .build();
-        ingredientExecutor.add(ingredientDto);
-
-//        ingredientDto = IngredientDto
-//                .builder()
-//                .itemDto(ItemDto.builder().id(2L).build())
-//                .pantryId(1L)
-//                .quantity(10.0)
-//                .build();
-//        ingredientExecutor.add(ingredientDto);
+    private void findAllDepartment() {
+        departmentService.findAll();
     }
 
-    private List<ItemDto> defaultItems() {
-
-        List<ItemDto> items = new ArrayList<>();
-        ItemDto itemDto = ItemDto.builder().name("Mąka").description("Używana do pieczenia").build();
-        ItemDto add = itemExecutor.add(itemDto);
-
-        itemDto = ItemDto.builder().name("Ser").description("Pizza się dzięki niemu ciągnie").build();
-        ItemDto add1 = itemExecutor.add(itemDto);
-
-        itemDto = ItemDto.builder().name("Szynka").description("Nadaje unikalego smaku").build();
-        ItemDto add2 = itemExecutor.add(itemDto);
-
-        items.add(add);
-        items.add(add1);
-        items.add(add2);
-        return items;
+    private void defaultDepartment() {
+        UserDto manager = new UserDto();
+        manager.setId(1L);
+        DepartmentDto departmentDto = new DepartmentDto();
+        departmentDto.setAddressDto(defaultAddress());
+        departmentDto.setManager(manager);
+        departmentDto.setMultiplier(10.0D);
+        departmentDto.setActive(true);
+        departmentService.create(departmentDto);
     }
 
-    private void createRoles() {
-        List<Role> roles = Arrays.asList(
-                Role.builder().role("ADMIN").build(),
-                Role.builder().role("MANAGER").build(),
-                Role.builder().role("USER").build()
-        );
-        roleRepository.save(roles);
+    private AddressDto defaultAddress() {
+        AddressDto addressDto = new AddressDto();
+        addressDto.setCity("CITY");
+        addressDto.setStreet("STREET");
+        addressDto.setHouseNumber(1);
+        addressDto.setFlatNumber(1);
+        return addressDto;
     }
 
     private void defaultUsers() {
-        UserDto userDto = UserDto
-                .builder()
-                .name("HODOREK")
-                .email("admin@pizza.pl")
-                .name("Mateusz")
-                .lastName("Nalepa")
-                .password("asd123")
-                .active(true)
-                .roles(defaultRoles())
-                .build();
-
+        UserDto userDto = new UserDto();
+        userDto.setName("HODOREK");
+        userDto.setEmail("admin@pizza.pl");
+        userDto.setName("Mateusz");
+        userDto.setLastName("Nalepa");
+        userDto.setPassword("asd123");
+        userDto.setActive(true);
+        userDto.setRoles(defaultRoles());
         userService.saveUser(userDto);
 
-        userDto = UserDto
-                .builder()
-                .name("HODOREK2")
-                .email("admin2@pizza.pl")
-                .name("Mateusz2")
-                .lastName("Nalepa2")
-                .password("asd123")
-                .active(true)
-                .roles(defaultRoles())
-                .build();
-
+        userDto = new UserDto();
+        userDto.setName("DWA");
+        userDto.setEmail("dwa@pizza.pl");
+        userDto.setName("NAME DWA");
+        userDto.setLastName("NAZWISKO DWA");
+        userDto.setPassword("asd123");
+        userDto.setActive(true);
+        userDto.setRoles(defaultRoles());
         userService.saveUser(userDto);
     }
 
@@ -143,38 +104,6 @@ public class RunAtStart
         roleDtos.add(userRole);
         roleDtos.add(managerRole);
         return roleDtos;
-
     }
 
-    private void defaultDepartment(List<ItemDto> itemDtos) {
-
-        DepartmentDto departmentDto = DepartmentDto
-                .builder()
-                .multiplier(0.10)
-                .manager(UserDto.builder().id(1L).build())
-                .active(true)
-                .address(defaultAddress())
-                .build();
-
-        departmentDto = departmentExecutor.save(departmentDto);
-        System.out.println("--------------I'm saved department--------------");
-    }
-
-    private AddressDto defaultAddress() {
-        return AddressDto
-                .builder()
-                .city("Kielce")
-                .street("Wiosenna")
-                .houseNumber(5)
-                .flatNumber(28)
-                .build();
-    }
-
-
-    @PostConstruct
-    public void  asd() {
-//        List<FreeItemDto> freeItemDtos = ingredientService.itemsNotAssignedToDepartment(1L);
-//        ItemDto itemDto = ItemDto.builder().id(2L).build();
-//        ingredientService.addIngredientToDepartment(itemDto,1L);
-    }
 }

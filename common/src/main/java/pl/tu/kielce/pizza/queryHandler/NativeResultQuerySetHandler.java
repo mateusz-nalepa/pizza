@@ -1,4 +1,4 @@
-package pl.tu.kielce.pizza.common.queryHandler;
+package pl.tu.kielce.pizza.queryHandler;
 
 import lombok.SneakyThrows;
 import pl.tu.kielce.pizza.common.annotation.Column;

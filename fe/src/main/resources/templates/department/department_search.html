@@ -19,7 +19,7 @@
             <td>
                 <a th:href="@{/manager/department/} + ${department.id}" th:text="${department.id}"></a>
             </td>
-            <td th:text="${department.address.city}">
+            <td th:text="${department.addressDto.city}">
             </td>
         </tr>
         </tbody>

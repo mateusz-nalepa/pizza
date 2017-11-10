@@ -13,7 +13,6 @@ public class UserProfile extends User {
 
     private Long id;
     private String email;
-//    private String username;
     private boolean enabled;
 
     public UserProfile(

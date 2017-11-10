@@ -12,10 +12,10 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Data
-@Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 @Table(name = "ITEM")
 public class Item {
 

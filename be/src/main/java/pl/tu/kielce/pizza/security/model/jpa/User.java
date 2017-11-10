@@ -1,24 +1,28 @@
 package pl.tu.kielce.pizza.security.model.jpa;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.validator.constraints.Email;
 import pl.tu.kielce.pizza.common.model.jpa.Address;
+import pl.tu.kielce.pizza.common.model.jpa.AuditableEntity;
+import pl.tu.kielce.pizza.department.model.jpa.Department;
+import pl.tu.kielce.pizza.order.model.jpa.Order;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 
 @Data
 @Entity
-@Builder
+//@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "USER")
-public class User {
-
+@DynamicUpdate
+public class User extends AuditableEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -41,6 +45,12 @@ public class User {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Department department;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Order> orders;
+
 //    @ManyToOne
 //    private User user;
 //
@@ -50,15 +60,5 @@ public class User {
 
     @Embedded
     private Address address;
-
-    private boolean active;
-
-    public void activate() {
-        this.active = true;
-    }
-
-    public void deActivate() {
-        this.active = false;
-    }
 
 }

@@ -6,52 +6,34 @@ import org.springframework.stereotype.Component;
 import pl.tu.kielce.pizza.common.mapper.CommonMapper;
 import pl.tu.kielce.pizza.department.dto.DepartmentDto;
 import pl.tu.kielce.pizza.department.model.jpa.Department;
-import pl.tu.kielce.pizza.pantry.mapper.PantryMapper;
-import pl.tu.kielce.pizza.pantry.repository.PantryRepository;
-import pl.tu.kielce.pizza.security.mapper.UserMapper;
 
 @Component
 @RequiredArgsConstructor
 public class DepartmentMapper {
 
-
     @Autowired
     private final CommonMapper commonMapper;
 
-    @Autowired
-    private final UserMapper userMapper;
-
-    @Autowired
-    private final PantryRepository pantryRepository;
-
-    @Autowired
-    private final PantryMapper pantryMapper;
-
     public DepartmentDto entityToDto(Department entity) {
-
-//        Pantry pantryEntity = pantryRepository.findOne(entity.getPantry().getId());
-//
-//        PantryDto pantryDto = pantryMapper.entityToDto(pantryEntity);
-
-        return DepartmentDto
-                .builder()
-                .multiplier(entity.getMultiplier())
-                .id(entity.getId())
-                .active(entity.isActive())
-                .manager(userMapper.entityToDto(entity.getManager()))
-                .address(commonMapper.addressEntityToDto(entity.getAddress()))
-//                .pantry(pantryDto)
-                .build();
-
+        DepartmentDto departmentDto = new DepartmentDto();
+        departmentDto.setId(entity.getId());
+        departmentDto.setAddressDto(commonMapper.addressEntityToDto(entity.getAddress()));
+        departmentDto.setMultiplier(entity.getMultiplier());
+        commonMapper.baseEntityToDto(entity, departmentDto);
+        return departmentDto;
     }
 
     public Department dtoToEntity(DepartmentDto dto) {
 
-        return Department
-                .builder()
-                .active(dto.isActive())
-                .multiplier(dto.getMultiplier())
-                .address(commonMapper.addressDtoToEntity(dto.getAddress()))
-                .build();
+        Department department = new Department();
+        department.setAddress(commonMapper.addressDtoToEntity(dto.getAddressDto()));
+//        department.setEmployees(new ArrayList<User>());
+//        department.setIngredientDepartments(new ArrayList<IngredientDepartment>());
+//        department.setPizzas(new ArrayList<Pizza>());
+        department.setMultiplier(dto.getMultiplier());
+//        department.setManager(userMapper.dtoToEntity(dto.getManager()));
+        department.activate();
+
+        return department;
     }
 }

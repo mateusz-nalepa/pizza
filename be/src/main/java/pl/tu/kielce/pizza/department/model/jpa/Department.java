@@ -1,11 +1,9 @@
 package pl.tu.kielce.pizza.department.model.jpa;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import pl.tu.kielce.pizza.common.model.jpa.Address;
-import pl.tu.kielce.pizza.pantry.model.jpa.Pantry;
+import pl.tu.kielce.pizza.common.model.jpa.AuditableEntity;
+import pl.tu.kielce.pizza.ingredient.model.jpa.IngredientDepartment;
 import pl.tu.kielce.pizza.pizza.model.jpa.Pizza;
 import pl.tu.kielce.pizza.security.model.jpa.User;
 
@@ -16,10 +14,11 @@ import java.util.List;
 @Data
 @Entity
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "DEPARTMENT")
-public class Department {
+@EqualsAndHashCode(callSuper = true)
+public class Department extends AuditableEntity{
 
 
     @Id
@@ -29,27 +28,19 @@ public class Department {
     @Embedded
     private Address address;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Pantry pantry;
-
-    @OneToOne
-    private User manager;
-
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "department")
     private List<User> employees;
 
-    @OneToMany
+    @OneToOne(mappedBy = "department")
+    @JoinColumn(name = "manager_id")
+    private User manager;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "department")
+    private List<IngredientDepartment> ingredientDepartments;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "department")
     private List<Pizza> pizzas;
 
     private Double multiplier;
 
-    private boolean active;
-
-    public void activate() {
-        this.active = true;
-    }
-
-    public void deActivate() {
-        this.active = false;
-    }
 }

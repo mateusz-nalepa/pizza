@@ -9,9 +9,13 @@ import org.springframework.web.bind.annotation.*;
 import pl.tu.kielce.pizza.department.dto.DepartmentDto;
 import pl.tu.kielce.pizza.department.dto.FreeManagerDto;
 import pl.tu.kielce.pizza.department.service.DepartmentService;
+import pl.tu.kielce.pizza.security.service.UserService;
 
 import javax.validation.Valid;
 import java.util.List;
+
+import static pl.tu.kielce.pizza.common.util.FeFunctionsUtil.doSave;
+
 
 @Controller
 @RequestMapping("/manager/department")
@@ -21,12 +25,15 @@ public class DepartmentController {
     @Autowired
     private final DepartmentService departmentService;
 
+    @Autowired
+    private final UserService userService;
+
     @GetMapping("{departmentId}")
     public String getDepartment(
             Model model,
             @PathVariable("departmentId") Long departmentId) {
 
-        DepartmentDto departmentDto = departmentService.getById(departmentId);
+        DepartmentDto departmentDto = departmentService.findOne(departmentId);
 
         model.addAttribute("departmentDto", departmentDto);
         return "department/show_department";
@@ -42,14 +49,12 @@ public class DepartmentController {
 
     @PostMapping("/")
     public String addNewDepartment(@Valid DepartmentDto departmentDto, BindingResult bindingResult, Model model) {
-
         departmentDto.setMultiplier(departmentDto.getMultiplier() / 100);
-
-        departmentDto = departmentService.add(departmentDto);
-        System.out.println("hodoreczek");
-
-        return "redirect:/manager/department/" + departmentDto.getId();
+        Long departmentId = doSave(departmentDto, departmentService::create);
+        return "redirect:/manager/department/" + departmentId;
     }
+
+
 
     @GetMapping("/all")
     public String allDepartments(Model model) {
@@ -60,6 +65,8 @@ public class DepartmentController {
 
     @ModelAttribute("freeManagers")
     public List<FreeManagerDto> freeManagers() {
-        return departmentService.freeManagers();
+        return userService.freeManagers();
     }
+
+
 }

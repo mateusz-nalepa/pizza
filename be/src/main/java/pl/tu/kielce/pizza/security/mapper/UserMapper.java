@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import pl.tu.kielce.pizza.common.mapper.CommonMapper;
 import pl.tu.kielce.pizza.security.dto.RoleDto;
 import pl.tu.kielce.pizza.security.dto.UserDto;
 import pl.tu.kielce.pizza.security.model.jpa.Role;
@@ -18,10 +19,13 @@ import java.util.stream.Collectors;
 public class UserMapper {
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    private RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
+
+    @Autowired
+    private final CommonMapper commonMapper;
 
     public User dtoToEntity(UserDto dto) {
         User entity = new User();
@@ -30,10 +34,9 @@ public class UserMapper {
         entity.setName(dto.getName());
         entity.setLastName(dto.getLastName());
         entity.setRoles(extractRoles(dto));
-        entity.setActive(dto.isActive());
+        entity.activate();
         return entity;
     }
-
 
     private Set<Role> extractRoles(UserDto dto) {
         return dto
@@ -49,20 +52,20 @@ public class UserMapper {
     }
 
     public UserDto entityToDto(User user) {
-        return UserDto
-                .builder()
-                .id(user.getId())
-                .email(user.getEmail())
-                .password(user.getPassword())
-                .name(user.getName())
-                .lastName(user.getLastName())
-                .active(user.isActive())
-                .roles(extractRoles(user))
-                .build();
+
+        UserDto userDto = new UserDto();
+        userDto.setId(user.getId());
+        userDto.setEmail(user.getEmail());
+        userDto.setName(user.getName());
+        userDto.setPassword(user.getPassword());
+        userDto.setLastName(user.getLastName());
+        userDto.setRoles(extractRoles(user));
+
+        return commonMapper.baseEntityToDto(user, userDto);
     }
 
-    private Set<RoleDto> extractRoles(User dto) {
-        return dto
+    private Set<RoleDto> extractRoles(User user) {
+        return user
                 .getRoles()
                 .stream()
                 .map(Role::getRole)

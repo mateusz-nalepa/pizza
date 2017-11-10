@@ -1,29 +1,28 @@
 package pl.tu.kielce.pizza.department.dto;
 
+
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import pl.tu.kielce.pizza.common.dto.AddressDto;
-import pl.tu.kielce.pizza.pantry.dto.PantryDto;
+import pl.tu.kielce.pizza.common.dto.AuditableEntityDto;
 import pl.tu.kielce.pizza.security.dto.UserDto;
 
 @Data
-@Builder
-@AllArgsConstructor
+//@Builder
 @NoArgsConstructor
-public class DepartmentDto  {
+@AllArgsConstructor
+public class DepartmentDto extends AuditableEntityDto{
 
-    private Long id;
+    private AddressDto addressDto;
 
-    private AddressDto address;
-
-    private PantryDto pantry;
     private UserDto manager;
+
 //    private List<User> employees;
+//
+//    private List<IngredientDepartment> ingredientDepartments;
+//
 //    private List<Pizza> pizzas;
 
     private Double multiplier;
-//    private FreeManagerDto freeManager;
-    private boolean active;
 }

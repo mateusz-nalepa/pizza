@@ -2,28 +2,57 @@ package pl.tu.kielce.pizza.ingredient.model.jpa;
 
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Data
-@Entity
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "INGREDIENT")
+@AllArgsConstructor
+@MappedSuperclass
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Ingredient {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne
     private Item item;
 
     private Double quantity;
 
-    private Long pantryId;
+//    Ingredient(Item item, Double quantity) {
+//        this.item = item;
+//        this.quantity = quantity;
+//    }
+//
+//    public static IngredientBuilder builder() {
+//        return new IngredientBuilder();
+//    }
+//
+//    public static class IngredientBuilder {
+//        private Item item;
+//        private Double quantity;
+//
+//        IngredientBuilder() {
+//        }
+//
+//        public IngredientBuilder item(Item item) {
+//            this.item = item;
+//            return this;
+//        }
+//
+//        public IngredientBuilder quantity(Double quantity) {
+//            this.quantity = quantity;
+//            return this;
+//        }
+//
+//
+//
+//        public Ingredient build() {
+//            return new Ingredient(item, quantity);
+//        }
+//
+//    }
+
 }

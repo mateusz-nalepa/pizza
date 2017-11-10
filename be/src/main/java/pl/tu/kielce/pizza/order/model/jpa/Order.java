@@ -4,19 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.tu.kielce.pizza.department.model.jpa.Department;
-import pl.tu.kielce.pizza.order.enums.OrderStatus;
-import pl.tu.kielce.pizza.pizza.model.jpa.Pizza;
 import pl.tu.kielce.pizza.security.model.jpa.User;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
-@Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 @Table(name = "ORDER_TABLE")
 public class Order {
 
@@ -24,22 +21,16 @@ public class Order {
     @GeneratedValue
     private Long id;
 
-    @OneToOne
-    private Pizza pizza;
-
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne
-    private Department department;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
+    private List<BoughtIngredientDepartment> ingredientDepartments;
 
-    private Double multiplier;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
+    private List<BoughtPizza> pizzas;
 
-    private LocalDateTime dateOfOrder;
 
-    private LocalDateTime dateOfRelease;
-
-    @Enumerated(EnumType.ORDINAL)
-    private OrderStatus orderStatus;
 
 }

@@ -147,7 +147,7 @@
         <select class="form-control" th:field="*{__${inputName}__}">
             <option th:each="option : ${selectList}"
                     th:value="${option.id}"
-                    th:text="${option}">
+                    th:text="${option.getLabel()}">
             </option>
         </select>
     </div>
