@@ -20,7 +20,7 @@ public class UserUtils {
                 .map(Authentication::getPrincipal)
                 .map(UserProfile.class::cast)
                 .map(UserProfile::getMultiplier)
-                .orElse(1D);
+                .orElse(0D);
     }
 
     public static boolean isAdmin() {

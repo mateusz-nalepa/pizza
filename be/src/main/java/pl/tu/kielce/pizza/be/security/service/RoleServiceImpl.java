@@ -7,7 +7,7 @@ import pl.tu.kielce.pizza.be.security.repository.role.RoleExecutor;
 import pl.tu.kielce.pizza.common.security.dto.RoleDto;
 import pl.tu.kielce.pizza.common.security.service.RoleService;
 
-import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -17,7 +17,7 @@ public class RoleServiceImpl implements RoleService {
     private final RoleExecutor roleExecutor;
 
     @Override
-    public List<RoleDto> findAll() {
+    public Set<RoleDto> findAll() {
         return roleExecutor.findAll();
     }
 }

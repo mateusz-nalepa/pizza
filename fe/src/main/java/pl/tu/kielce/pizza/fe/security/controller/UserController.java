@@ -8,12 +8,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import pl.tu.kielce.pizza.common.security.dto.RoleDto;
 import pl.tu.kielce.pizza.common.security.dto.UserDto;
 import pl.tu.kielce.pizza.common.security.service.RoleService;
 import pl.tu.kielce.pizza.common.security.service.UserService;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Set;
 
 @Controller
 @RequiredArgsConstructor
@@ -38,7 +41,11 @@ public class UserController {
     @RequestMapping(value = REGISTRATION_URL, method = RequestMethod.GET)
     public String registration(Model model) {
         UserDto userDto = new UserDto();
-
+//        userDto.setRoles(roleService.findAll());
+        Set<RoleDto> all = roleService.findAll();
+        ArrayList<RoleDto> roleDtos = new ArrayList<>(all);
+//        userDto.setRoles(roleService.findAll());
+        userDto.setRoles(roleDtos);
         model.addAttribute("userDto", userDto);
         return USER_REGISTRATION_TEMPLATE_PATH;
     }

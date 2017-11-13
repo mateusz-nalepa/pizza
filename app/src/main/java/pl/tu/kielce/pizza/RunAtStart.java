@@ -24,9 +24,7 @@ import pl.tu.kielce.pizza.common.security.service.UserService;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Configuration
 @RequiredArgsConstructor
@@ -157,7 +155,7 @@ public class RunAtStart {
         userDto.setPassword("asd123");
         userDto.setActive(true);
 
-        Set<RoleDto> roleDtos = new HashSet<>();
+        List<RoleDto> roleDtos = new ArrayList<>();
         roleDtos.add(RoleDto.builder().id(1L).build());
         roleDtos.add(RoleDto.builder().id(2L).build());
         roleDtos.add(RoleDto.builder().id(3L).build());
@@ -173,7 +171,7 @@ public class RunAtStart {
         userDto.setPassword("asd123");
         userDto.setActive(true);
 
-        roleDtos = new HashSet<>();
+        roleDtos = roleDtos = new ArrayList<>();
         roleDtos.add(RoleDto.builder().id(2L).build());
         roleDtos.add(RoleDto.builder().id(3L).build());
         userDto.setRoles(roleDtos);

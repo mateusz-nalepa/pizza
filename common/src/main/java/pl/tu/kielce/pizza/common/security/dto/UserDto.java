@@ -5,8 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import pl.tu.kielce.pizza.common.common.dto.AuditableEntityDto;
 
-import java.util.Collections;
-import java.util.Set;
+import java.util.List;
 
 @Data
 //@Builder
@@ -20,6 +19,5 @@ public class UserDto extends AuditableEntityDto{
     private String password;
     private String lastName;
     private boolean active;
-//    private List<RoleDto> roles = Collections.emptyList();
-    private Set<RoleDto> roles = Collections.emptySet();
+    private List<RoleDto> roles;// = Collections.emptySet();
 }

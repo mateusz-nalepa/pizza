@@ -30,6 +30,44 @@
                 </div>
                 <div th:replace="fragments/components :: inputEmailField(inputName='email', label='email')"></div>
                 <div th:replace="fragments/components :: inputPasswordField(inputName='password', label='password')"></div>
+
+
+
+
+                <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th>Rola</th>
+                        <th>Active</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!--<tr th:each="role, stat : ${userDto.roles}">-->
+                        <!--<td th:text="${role.role}"></td>-->
+                        <!--<td>-->
+                            <!--<input type="checkbox" th:field="*{roles[__${stat.index}__].selected}" />-->
+                            <!--<input type="number" th:hidden="true" th:field="*{roles[__${stat.index}__].id}" />-->
+                        <!--</td>-->
+                        <td>
+                        </td>
+                    <!--</tr>-->
+                    <tr th:each="role, stat : ${userDto.roles}">
+                        <td th:text="${role.role}"></td>
+                        <td>
+                            <input type="checkbox" th:field="*{roles[__${stat.index}__].selected}" />
+                            <input type="number" th:hidden="true" th:field="*{roles[__${stat.index}__].id}" />
+                        </td>
+                        <!--<td>-->
+                        <!--</td>-->
+                    </tr>
+                    </tbody>
+                </table>
+
+
+
+
+
+
                 <div th:replace="fragments/components :: submitButton(label='register')"></div>
             </form>
         </div>

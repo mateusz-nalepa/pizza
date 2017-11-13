@@ -15,4 +15,5 @@ public class RoleDto {
 
     private String role;
 
+    private boolean selected;
 }

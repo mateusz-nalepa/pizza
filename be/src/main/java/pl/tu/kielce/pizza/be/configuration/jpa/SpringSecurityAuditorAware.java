@@ -17,11 +17,18 @@ public class SpringSecurityAuditorAware implements AuditorAware<String> {
                 .getContext()
                 .getAuthentication();
 
-        return Optional.ofNullable(authentication)
-                .map(Authentication::getPrincipal)
-                .map(UserProfile.class::cast)
-                .map(UserProfile::getEmail)
-                .orElse("SYSTEM");
+        Optional<Object> optionalPrincipal = Optional.ofNullable(authentication)
+                .map(Authentication::getPrincipal);
+
+
+        if (optionalPrincipal.isPresent()) {
+            Object o = optionalPrincipal.get();
+            if (o instanceof UserProfile) {
+                return ((UserProfile) o).getEmail();
+            }
+        }
+
+        return "SYSTEM";
     }
 }
 

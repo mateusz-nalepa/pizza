@@ -6,7 +6,7 @@ import pl.tu.kielce.pizza.be.security.model.jpa.Role;
 import pl.tu.kielce.pizza.be.security.model.jpa.User;
 import pl.tu.kielce.pizza.common.security.dto.RoleDto;
 
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
@@ -29,12 +29,12 @@ public class RoleMapper {
         return role;
     }
 
-    Set<RoleDto> extractRoles(User user) {
+    List<RoleDto> extractRoles(User user) {
         return user
                 .getRoles()
                 .stream()
                 .map(this::entityToDto)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
 
 }

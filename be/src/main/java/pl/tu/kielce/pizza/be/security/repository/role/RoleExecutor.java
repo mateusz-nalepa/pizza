@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import pl.tu.kielce.pizza.be.security.mapper.RoleMapper;
 import pl.tu.kielce.pizza.common.security.dto.RoleDto;
 
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Repository
@@ -18,11 +18,11 @@ public class RoleExecutor {
 
     private final RoleMapper roleMapper;
 
-    public List<RoleDto> findAll() {
+    public Set<RoleDto> findAll() {
         return roleRepository
                 .findAll()
                 .stream()
                 .map(roleMapper::entityToDto)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 }
