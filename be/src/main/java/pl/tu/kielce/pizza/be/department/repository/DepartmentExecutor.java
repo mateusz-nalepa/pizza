@@ -90,6 +90,9 @@ public class DepartmentExecutor {
     }
 
 
+    public Double multiplier(Long userId) {
 
-
+        return departmentRepository
+                .multiplierByUserId(userId);
+    }
 }

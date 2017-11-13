@@ -4,17 +4,28 @@ package pl.tu.kielce.pizza;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import pl.tu.kielce.pizza.be.order.model.jpa.Order;
+import pl.tu.kielce.pizza.be.order.model.jpa.enums.ordertype.OrderType;
+import pl.tu.kielce.pizza.be.order.repository.OrderRepository;
 import pl.tu.kielce.pizza.be.security.model.jpa.Role;
 import pl.tu.kielce.pizza.be.security.repository.role.RoleRepository;
 import pl.tu.kielce.pizza.common.common.dto.AddressDto;
 import pl.tu.kielce.pizza.common.department.dto.DepartmentDto;
 import pl.tu.kielce.pizza.common.department.service.DepartmentService;
+import pl.tu.kielce.pizza.common.ingredient.dto.IngredientDto;
+import pl.tu.kielce.pizza.common.ingredient.service.IngredientService;
+import pl.tu.kielce.pizza.common.item.dto.ItemDto;
+import pl.tu.kielce.pizza.common.item.service.ItemService;
+import pl.tu.kielce.pizza.common.pizza.dto.PizzaDto;
+import pl.tu.kielce.pizza.common.pizza.service.PizzaService;
 import pl.tu.kielce.pizza.common.security.dto.RoleDto;
 import pl.tu.kielce.pizza.common.security.dto.UserDto;
 import pl.tu.kielce.pizza.common.security.service.UserService;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Configuration
@@ -28,26 +39,89 @@ public class RunAtStart {
     private final RoleRepository roleRepository;
 
     @Autowired
+    private final OrderRepository orderRepository;
+
+    @Autowired
     private final UserService userService;
+
+    @Autowired
+    private final ItemService itemService;
+
+    @Autowired
+    private final IngredientService ingredientService;
+
+
+    @Autowired
+    private final PizzaService pizzaService;
 
     @PostConstruct
     public void runAtStart() {
-        saveDefaultRoles();
+        defaultRoles();
         defaultUsers();
         defaultDepartment();
         findAllDepartment();
-        System.out.println("addDefaultDepartment");
+        defaultItems();
+        List<IngredientDto> defaultingredients = defaultingredients();
+        saveDefaultPizza(defaultingredients);
+
+        defaultOrder();
+        System.out.println("ZAPISANO DANE");
     }
 
-    private void saveDefaultRoles() {
-        Role role = Role.builder().role("MANAGER").build();
-        roleRepository.save(role);
+    private void saveDefaultPizza(List<IngredientDto> defaultingredients) {
 
-        role = Role.builder().role("USER").build();
-        roleRepository.save(role);
+        PizzaDto pizzaDto = PizzaDto
+                .builder()
+                .name("Margharita")
+                .description("Margharita description")
+                .price(25.0D)
+                .ingredients(defaultingredients)
+                .build();
 
-        role = Role.builder().role("ADMIN").build();
-        roleRepository.save(role);
+        pizzaService.create(pizzaDto);
+    }
+
+    private void defaultOrder() {
+
+        Order order = new Order();
+        order.setTotalPrice(20D);
+        order.setOrderType(OrderType.DELIVERY);
+
+        orderRepository.save(order);
+    }
+
+    private void defaultItems() {
+        ItemDto itemDto = ItemDto.builder().name("NAME 1").price(10.0D).description("DESC 1").build();
+        itemService.create(itemDto);
+
+        itemDto = ItemDto.builder().name("NAME 2").description("DESC 2").price(20.0D).build();
+        itemService.create(itemDto);
+
+        itemDto = ItemDto.builder().name("NAME 3").description("DESC 3").price(30.0D).build();
+        itemService.create(itemDto);
+    }
+
+    private List<IngredientDto> defaultingredients() {
+
+        List<IngredientDto> ingredientDtoList = new ArrayList<>();
+
+        IngredientDto ingredientDto = IngredientDto.builder().name("NAME 1").selected(true).description("DESC 1").build();
+
+        ingredientService.create(ingredientDto);
+        ingredientDto.setId(1L);
+        ingredientDtoList.add(ingredientDto);
+
+        ingredientDto = IngredientDto.builder().name("NAME 2").description("DESC 2").selected(true).build();
+        ingredientService.create(ingredientDto);
+        ingredientDto.setId(2L);
+        ingredientDtoList.add(ingredientDto);
+
+        ingredientDto = IngredientDto.builder().name("NAME 3").description("DESC 3").build();
+        ingredientService.create(ingredientDto);
+
+        return ingredientDtoList;
+
+
     }
 
     private void findAllDepartment() {
@@ -56,11 +130,11 @@ public class RunAtStart {
 
     private void defaultDepartment() {
         UserDto manager = new UserDto();
-        manager.setId(1L);
+        manager.setId(2L);
         DepartmentDto departmentDto = new DepartmentDto();
         departmentDto.setAddressDto(defaultAddress());
         departmentDto.setManager(manager);
-        departmentDto.setMultiplier(10.0D);
+        departmentDto.setMultiplier(0.10D);
         departmentDto.setActive(true);
         departmentService.create(departmentDto);
     }
@@ -82,29 +156,42 @@ public class RunAtStart {
         userDto.setLastName("Nalepa");
         userDto.setPassword("asd123");
         userDto.setActive(true);
-        userDto.setRoles(defaultRoles());
+
+        Set<RoleDto> roleDtos = new HashSet<>();
+        roleDtos.add(RoleDto.builder().id(1L).build());
+        roleDtos.add(RoleDto.builder().id(2L).build());
+        roleDtos.add(RoleDto.builder().id(3L).build());
+
+        userDto.setRoles(roleDtos);
         userService.saveUser(userDto);
 
         userDto = new UserDto();
         userDto.setName("DWA");
-        userDto.setEmail("dwa@pizza.pl");
+        userDto.setEmail("manager@pizza.pl");
         userDto.setName("NAME DWA");
         userDto.setLastName("NAZWISKO DWA");
         userDto.setPassword("asd123");
         userDto.setActive(true);
-        userDto.setRoles(defaultRoles());
+
+        roleDtos = new HashSet<>();
+        roleDtos.add(RoleDto.builder().id(2L).build());
+        roleDtos.add(RoleDto.builder().id(3L).build());
+        userDto.setRoles(roleDtos);
+
         userService.saveUser(userDto);
     }
 
-    private Set<RoleDto> defaultRoles() {
-        RoleDto adminRole = RoleDto.builder().role("ADMIN").build();
-        RoleDto managerRole = RoleDto.builder().role("MANAGER").build();
-        RoleDto userRole = RoleDto.builder().role("USER").build();
-        Set<RoleDto> roleDtos = new HashSet<>();
-        roleDtos.add(adminRole);
-        roleDtos.add(userRole);
-        roleDtos.add(managerRole);
-        return roleDtos;
+    private void defaultRoles() {
+        Role adminRole = Role.builder().role("ADMIN").build();
+        roleRepository.save(adminRole);
+
+        Role managerRole = Role.builder().role("MANAGER").build();
+        roleRepository.save(managerRole);
+
+        Role userRole = Role.builder().role("USER").build();
+        roleRepository.save(userRole);
     }
+
+
 
 }

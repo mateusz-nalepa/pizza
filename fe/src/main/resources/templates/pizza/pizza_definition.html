@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/header :: header"></div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <form
+                    th:action="@{/manager/pizza/}"
+                    th:object="${pizzaDto}"
+                    method="post"
+                    class="form-horizontal"
+                    role="form">
+                <div th:replace="fragments/components :: inputTextField(inputName='name', label='pizza.name')"></div>
+                <div th:replace="fragments/components :: inputTextField(inputName='description', label='pizza.description')"></div>
+                <div th:replace="fragments/components :: inputNumberField(inputName='price', label='pizza.price')"></div>
+                <div th:replace="fragments/components :: submitButton(label='pizza.add')"></div>
+
+                <!--<div th:replace="fragments/components :: inputCheckboxField(inputName='ingredients.get(0).selected', label='pizza.price')"></div>-->
+
+                <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Dodać jako składnik?</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="ingredient, stat : ${pizzaDto.ingredients}">
+                        <td th:text="${ingredient.name}"></td>
+                        <td>
+                            <input type="checkbox" th:field="*{ingredients[__${stat.index}__].selected}" />
+                        </td>
+                        <td>
+                            <input type="number" th:hidden="true" th:field="*{ingredients[__${stat.index}__].id}" />
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+
+            <label th:text="${ingredients}"></label>
+            </form>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+    <div th:replace="fragments/footer :: footer"></div>
+</div>
+</body>
+</html>

@@ -5,14 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import pl.tu.kielce.pizza.be.common.mapper.CommonMapper;
-import pl.tu.kielce.pizza.be.security.model.jpa.Role;
 import pl.tu.kielce.pizza.be.security.model.jpa.User;
-import pl.tu.kielce.pizza.be.security.repository.role.RoleRepository;
-import pl.tu.kielce.pizza.common.security.dto.RoleDto;
 import pl.tu.kielce.pizza.common.security.dto.UserDto;
-
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -22,7 +16,7 @@ public class UserMapper {
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    private final RoleRepository roleRepository;
+    private final RoleMapper roleMapper;
 
     @Autowired
     private final CommonMapper commonMapper;
@@ -33,22 +27,8 @@ public class UserMapper {
         entity.setPassword(passwordEncoder.encode(dto.getPassword()));
         entity.setName(dto.getName());
         entity.setLastName(dto.getLastName());
-        entity.setRoles(extractRoles(dto));
         entity.activate();
         return entity;
-    }
-
-    private Set<Role> extractRoles(UserDto dto) {
-        return dto
-                .getRoles()
-                .stream()
-                .map(RoleDto::getRole)
-                .map(this::createRole)
-                .collect(Collectors.toSet());
-    }
-
-    private Role createRole(String role) {
-        return roleRepository.findByRole(role);
     }
 
     public UserDto entityToDto(User user) {
@@ -59,25 +39,9 @@ public class UserMapper {
         userDto.setName(user.getName());
         userDto.setPassword(user.getPassword());
         userDto.setLastName(user.getLastName());
-        userDto.setRoles(extractRoles(user));
+        userDto.setRoles(roleMapper.extractRoles(user));
 
         return commonMapper.baseEntityToDto(user, userDto);
     }
 
-    private Set<RoleDto> extractRoles(User user) {
-        return user
-                .getRoles()
-                .stream()
-                .map(Role::getRole)
-                .map(this::createRoleDto)
-                .collect(Collectors.toSet());
-    }
-
-    private RoleDto createRoleDto(String role) {
-        return
-                RoleDto
-                        .builder()
-                        .role(role)
-                        .build();
-    }
 }

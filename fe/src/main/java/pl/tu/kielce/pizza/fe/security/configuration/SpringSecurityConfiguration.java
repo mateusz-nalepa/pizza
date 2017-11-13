@@ -6,11 +6,13 @@ import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import pl.tu.kielce.pizza.common.department.service.DepartmentService;
 import pl.tu.kielce.pizza.common.security.dto.RoleDto;
 import pl.tu.kielce.pizza.common.security.dto.UserDto;
 import pl.tu.kielce.pizza.common.security.dto.UserProfile;
@@ -22,6 +24,7 @@ import java.util.stream.Collectors;
 @Configuration
 @RequiredArgsConstructor
 //@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
@@ -30,6 +33,9 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private final DepartmentService departmentService;
 
     @Override
     @SneakyThrows
@@ -48,7 +54,9 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .map(RoleDto::getRole)
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toSet());
-        return new UserProfile(email, userByEmail.getPassword(), authorities, true, email);
+
+        Double multiplier = departmentService.multiplier(userByEmail.getId());
+        return new UserProfile(email, userByEmail.getPassword(), authorities, true, email, multiplier);
     }
 
     @Override
@@ -97,5 +105,12 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private static final String PERMIT_USER_LIST[] = {
             "/user/**"
     };
+
+//    @Override
+//    public void configure(WebSecurity web) throws Exception {
+//        web
+//                .ignoring()
+//                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
+//    }
 
 }

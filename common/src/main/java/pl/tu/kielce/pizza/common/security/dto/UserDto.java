@@ -20,5 +20,6 @@ public class UserDto extends AuditableEntityDto{
     private String password;
     private String lastName;
     private boolean active;
+//    private List<RoleDto> roles = Collections.emptyList();
     private Set<RoleDto> roles = Collections.emptySet();
 }

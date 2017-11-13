@@ -28,7 +28,7 @@ public class DepartmentMapper {
         Department department = new Department();
         department.setAddress(commonMapper.addressDtoToEntity(dto.getAddressDto()));
 //        department.setEmployees(new ArrayList<User>());
-//        department.setIngredientDepartments(new ArrayList<IngredientDepartment>());
+//        department.setIngredientDepartments(new ArrayList<Ingredient>());
 //        department.setPizzas(new ArrayList<Pizza>());
         department.setMultiplier(dto.getMultiplier());
 //        department.setManager(userMapper.dtoToEntity(dto.getManager()));

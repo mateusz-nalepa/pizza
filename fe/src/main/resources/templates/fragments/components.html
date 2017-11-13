@@ -50,6 +50,20 @@
     </div>
 </div>
 
+<div th:fragment="inputCheckboxField(inputName, label)">
+    <div class="form-group">
+        <div th:replace="fragments/components :: headerH4forInput(inputName=${inputName}, label=${label})"></div>
+        <input
+                type="checkbox"
+                class="form-control input-lg"
+                th:name="${inputName}"
+                th:placeholder="#{${label}}"
+                required="required"
+                th:field="*{__${inputName}__}"/>
+        <div th:replace="fragments/components :: fieldError(inputName=${inputName})"></div>
+    </div>
+</div>
+
 <div th:fragment="inputNormalEmailField(inputName, label)">
     <div class="form-group">
         <input
@@ -146,7 +160,7 @@
     <div class="form-group">
         <select class="form-control" th:field="*{__${inputName}__}">
             <option th:each="option : ${selectList}"
-                    th:value="${option.id}"
+                    th:value="${option}"
                     th:text="${option.getLabel()}">
             </option>
         </select>

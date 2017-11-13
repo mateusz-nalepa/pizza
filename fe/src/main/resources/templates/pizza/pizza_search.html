@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/header :: header"></div>
+    <table class="table table-bordered table-hover table-striped">
+        <thead>
+        <tr>
+            <th th:text="#{pizza.id}">ID</th>
+            <th th:text="#{pizza.name}"></th>
+            <th th:text="#{pizza.description}"></th>
+            <th th:text="#{pizza.price}"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pizza : ${pizzas}">
+            <td>
+                <a th:href="@{/user/pizza/} + ${pizza.id}" th:text="${pizza.id}"></a>
+            </td>
+            <td th:text="${pizza.name}"></td>
+            <td th:text="${pizza.description}"></td>
+            <td th:text="${pizza.price}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:replace="fragments/footer :: footer"></div>
+</div>
+</body>
+</html>

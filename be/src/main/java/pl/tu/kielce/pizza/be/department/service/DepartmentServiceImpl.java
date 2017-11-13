@@ -33,6 +33,11 @@ public class DepartmentServiceImpl implements DepartmentService {
         return departmentExecutor.findOne(departmentId);
     }
 
+    @Override
+    public Double multiplier(Long userId) {
+        return departmentExecutor.multiplier(userId);
+    }
+
 //    @Override
 //    public DepartmentDto getById(Long departmentId) {
 //        return departmentExecutor.getById(departmentId);
@@ -44,7 +49,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 //    }
 //
 //    @Override
-//    public DepartmentDto add(DepartmentDto departmentDto) {
+//    public DepartmentDto create(DepartmentDto departmentDto) {
 //        return departmentExecutor.save(departmentDto);
 //    }
 //

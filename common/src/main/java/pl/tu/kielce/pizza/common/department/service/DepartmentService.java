@@ -12,4 +12,8 @@ public interface DepartmentService {
     List<DepartmentDto> findAll();
 
     DepartmentDto findOne(Long departmentId);
+
+    Double multiplier(Long userId);
 }
+
+

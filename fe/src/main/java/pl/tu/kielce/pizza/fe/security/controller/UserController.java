@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.tu.kielce.pizza.common.security.dto.UserDto;
+import pl.tu.kielce.pizza.common.security.service.RoleService;
 import pl.tu.kielce.pizza.common.security.service.UserService;
 
 import javax.validation.Valid;
@@ -26,6 +27,9 @@ public class UserController {
     @Autowired
     private final UserService userService;
 
+    @Autowired
+    private final RoleService roleService;
+
     @GetMapping(LOGIN_URL)
     public String login() {
         return USER_LOGIN_TEMPLATE_PATH;
@@ -33,7 +37,9 @@ public class UserController {
 
     @RequestMapping(value = REGISTRATION_URL, method = RequestMethod.GET)
     public String registration(Model model) {
-        model.addAttribute("userDto", new UserDto());
+        UserDto userDto = new UserDto();
+
+        model.addAttribute("userDto", userDto);
         return USER_REGISTRATION_TEMPLATE_PATH;
     }
 

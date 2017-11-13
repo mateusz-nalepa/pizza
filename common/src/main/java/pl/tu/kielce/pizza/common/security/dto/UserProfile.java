@@ -14,26 +14,29 @@ public class UserProfile extends User {
     private Long id;
     private String email;
     private boolean enabled;
+    private Double multiplier;
 
     public UserProfile(
             String username,
             String password,
             Collection<? extends GrantedAuthority> authorities,
             boolean enabled,
-            String email) {
+            String email,
+            Double multiplier) {
         super(username, password, authorities);
         this.enabled = enabled;
         this.email = email;
+        this.multiplier = multiplier;
     }
 
-    public UserProfile(
-            Long id,
-            String username,
-            String password,
-            Collection<? extends GrantedAuthority> authorities,
-            boolean enabled,
-            String email) {
-        this(username, password, authorities, enabled, email);
-        this.id = id;
-    }
+//    public UserProfile(
+//            Long id,
+//            String username,
+//            String password,
+//            Collection<? extends GrantedAuthority> authorities,
+//            boolean enabled,
+//            String email) {
+//        this(username, password, authorities, enabled, email);
+//        this.id = id;
+//    }
 }

@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.Email;
 import pl.tu.kielce.pizza.be.common.jpa.Address;
 import pl.tu.kielce.pizza.be.common.jpa.AuditableEntity;
 import pl.tu.kielce.pizza.be.department.model.jpa.Department;
-import pl.tu.kielce.pizza.be.jpa.Order;
+import pl.tu.kielce.pizza.be.order.model.jpa.Order;
 
 import javax.persistence.*;
 import java.util.List;
@@ -20,8 +20,9 @@ import java.util.Set;
 //@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "USER")
 @DynamicUpdate
+@Table
+
 public class User extends AuditableEntity{
 
     @Id
