@@ -11,6 +11,8 @@ import java.util.Collection;
 @ToString
 public class UserProfile extends User {
 
+
+    private AccountStatus accountStatus;
     private Long id;
     private String email;
     private boolean enabled;
@@ -22,11 +24,12 @@ public class UserProfile extends User {
             Collection<? extends GrantedAuthority> authorities,
             boolean enabled,
             String email,
-            Double multiplier) {
+            Double multiplier, AccountStatus accountStatus) {
         super(username, password, authorities);
         this.enabled = enabled;
         this.email = email;
         this.multiplier = multiplier;
+        this.accountStatus = accountStatus;
     }
 
 //    public UserProfile(

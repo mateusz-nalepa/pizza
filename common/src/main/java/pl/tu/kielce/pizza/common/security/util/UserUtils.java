@@ -11,6 +11,66 @@ import java.util.stream.Collectors;
 
 public class UserUtils {
 
+    public static boolean isAnonymouse() {
+        Authentication authentication = SecurityContextHolder
+                .getContext()
+                .getAuthentication();
+
+        if (authentication != null) {
+            if (authentication.getPrincipal() instanceof String) {
+                String role = (String) authentication.getPrincipal();
+                if (role.equals("anonymousUser")) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static Optional<UserProfile> getUserProfile() {
+        Authentication authentication = SecurityContextHolder
+                .getContext()
+                .getAuthentication();
+
+        return Optional.ofNullable(authentication)
+                .map(Authentication::getPrincipal)
+                .map(o -> (UserProfile) o);
+    }
+
+    public static String getUserEmail() {
+        return getUserProfile()
+                .map(UserProfile::getEmail)
+                .orElse("");
+    }
+
+    public static boolean isLogged() {
+        Authentication auth = SecurityContextHolder
+                .getContext()
+                .getAuthentication();
+
+        if (auth != null) {
+            Object principal = auth.getPrincipal();
+
+            if (principal instanceof UserProfile) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static boolean isNotLogged() {
+        return !isLogged();
+    }
+
+    public static boolean isAuthEmpty() {
+        Authentication authentication = SecurityContextHolder
+                .getContext()
+                .getAuthentication();
+
+        return authentication == null;
+    }
+
     public static Double getMultiplier() {
         Authentication authentication = SecurityContextHolder
                 .getContext()
@@ -39,6 +99,23 @@ public class UserUtils {
                 .collect(Collectors.toList());
 
         return admin.size() == 1;
+    }
+
+    public static boolean isClient() {
+        Authentication authentication = SecurityContextHolder
+                .getContext()
+                .getAuthentication();
+
+        if (authentication == null) {
+            return false;
+        }
+        List<String> admin = authentication
+                .getAuthorities()
+                .stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
+
+        return admin.contains("CLIENT");
     }
 
     public static boolean isNotAdmin() {

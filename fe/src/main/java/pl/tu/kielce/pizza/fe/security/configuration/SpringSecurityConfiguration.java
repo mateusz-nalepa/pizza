@@ -8,9 +8,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import pl.tu.kielce.pizza.common.department.service.DepartmentService;
 import pl.tu.kielce.pizza.common.security.dto.RoleDto;
@@ -21,12 +23,16 @@ import pl.tu.kielce.pizza.common.security.service.UserService;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+//import pl.tu.kielce.pizza.fe.security.controller.CustomFilter;
+
 @Configuration
 @RequiredArgsConstructor
 //@EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+//    @Autowired
+//    private CustomAuthenticationSuccessHandler successHandler;
 
     @Autowired
     private final UserService userService;
@@ -42,10 +48,12 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) {
 
         auth
+//                .authenticationProvider(authProvider)
                 .userDetailsService(this::userDetailsService)
                 .passwordEncoder(passwordEncoder);
     }
 
+    @SneakyThrows
     private UserProfile userDetailsService(String email) {
         UserDto userByEmail = userService.findByEmail(email);
         Set<SimpleGrantedAuthority> authorities = userByEmail
@@ -56,16 +64,21 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .collect(Collectors.toSet());
 
         Double multiplier = departmentService.multiplier(userByEmail.getId());
-        return new UserProfile(email, userByEmail.getPassword(), authorities, true, email, multiplier);
+        return new UserProfile(email, userByEmail.getPassword(), authorities, true, email, multiplier, userByEmail.getAccountStatus());
     }
 
     @Override
     @SneakyThrows
     protected void configure(HttpSecurity http) {
 
-        http.
-                authorizeRequests()
+        http
+//                .addFilterAfter(new CustomFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterAfter(new CustomFilter(), UsernamePasswordAuthenticationFilter.class)
+//                .addFilterBefore(new CustomFilter(), UsernamePasswordAuthenticationFilter.class)
+//                .addFilterBefore(new CustomFilter(), FilterSecurityInterceptor.class)
+                .authorizeRequests()
                 .antMatchers(PERMIT_ALL_LIST).permitAll()
+//                .antMatchers("/css/**", "/js/**").permitAll()
                 .antMatchers(PERMIT_USER_LIST).hasAuthority("USER")
                 .antMatchers(PERMIT_MANAGER_LIST).hasAuthority("MANAGER")
                 .antMatchers(PERMIT_ADMIN_LIST).hasAuthority("ADMIN")
@@ -74,7 +87,8 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .failureUrl("/login?error=true")
-                .defaultSuccessUrl("/admin/home")
+//                .defaultSuccessUrl("/")
+//                .successHandler(successHandler)
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .and().logout()
@@ -106,11 +120,11 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/user/**"
     };
 
-//    @Override
-//    public void configure(WebSecurity web) throws Exception {
-//        web
-//                .ignoring()
-//                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
-//    }
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web
+                .ignoring()
+                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
+    }
 
 }

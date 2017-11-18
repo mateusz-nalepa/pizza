@@ -27,6 +27,7 @@ public class UserMapper {
         entity.setPassword(passwordEncoder.encode(dto.getPassword()));
         entity.setName(dto.getName());
         entity.setLastName(dto.getLastName());
+        entity.setAccountStatus(dto.getAccountStatus());
         entity.activate();
         return entity;
     }
@@ -35,6 +36,7 @@ public class UserMapper {
 
         UserDto userDto = new UserDto();
         userDto.setId(user.getId());
+        userDto.setAccountStatus(user.getAccountStatus());
         userDto.setEmail(user.getEmail());
         userDto.setName(user.getName());
         userDto.setPassword(user.getPassword());

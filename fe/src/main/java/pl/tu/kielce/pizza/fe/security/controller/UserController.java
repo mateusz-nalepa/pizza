@@ -41,10 +41,8 @@ public class UserController {
     @RequestMapping(value = REGISTRATION_URL, method = RequestMethod.GET)
     public String registration(Model model) {
         UserDto userDto = new UserDto();
-//        userDto.setRoles(roleService.findAll());
         Set<RoleDto> all = roleService.findAll();
         ArrayList<RoleDto> roleDtos = new ArrayList<>(all);
-//        userDto.setRoles(roleService.findAll());
         userDto.setRoles(roleDtos);
         model.addAttribute("userDto", userDto);
         return USER_REGISTRATION_TEMPLATE_PATH;

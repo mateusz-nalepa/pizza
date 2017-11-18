@@ -18,6 +18,7 @@ import pl.tu.kielce.pizza.common.item.dto.ItemDto;
 import pl.tu.kielce.pizza.common.item.service.ItemService;
 import pl.tu.kielce.pizza.common.pizza.dto.PizzaDto;
 import pl.tu.kielce.pizza.common.pizza.service.PizzaService;
+import pl.tu.kielce.pizza.common.security.dto.AccountStatus;
 import pl.tu.kielce.pizza.common.security.dto.RoleDto;
 import pl.tu.kielce.pizza.common.security.dto.UserDto;
 import pl.tu.kielce.pizza.common.security.service.UserService;
@@ -154,11 +155,13 @@ public class RunAtStart {
         userDto.setLastName("Nalepa");
         userDto.setPassword("asd123");
         userDto.setActive(true);
+//        userDto.setAccountStatus(AccountStatus.ACTIVE);
+        userDto.setAccountStatus(AccountStatus.INITIAL);
 
         List<RoleDto> roleDtos = new ArrayList<>();
-        roleDtos.add(RoleDto.builder().id(1L).build());
-        roleDtos.add(RoleDto.builder().id(2L).build());
-        roleDtos.add(RoleDto.builder().id(3L).build());
+        roleDtos.add(RoleDto.builder().id(1L).selected(true).build());
+        roleDtos.add(RoleDto.builder().id(2L).selected(true).build());
+        roleDtos.add(RoleDto.builder().id(3L).selected(true).build());
 
         userDto.setRoles(roleDtos);
         userService.saveUser(userDto);
@@ -171,9 +174,8 @@ public class RunAtStart {
         userDto.setPassword("asd123");
         userDto.setActive(true);
 
-        roleDtos = roleDtos = new ArrayList<>();
-        roleDtos.add(RoleDto.builder().id(2L).build());
-        roleDtos.add(RoleDto.builder().id(3L).build());
+        roleDtos.add(RoleDto.builder().id(2L).selected(true).build());
+        roleDtos.add(RoleDto.builder().id(3L).selected(true).build());
         userDto.setRoles(roleDtos);
 
         userService.saveUser(userDto);
@@ -188,6 +190,9 @@ public class RunAtStart {
 
         Role userRole = Role.builder().role("USER").build();
         roleRepository.save(userRole);
+
+        Role clientRole = Role.builder().role("CLIENT").build();
+        roleRepository.save(clientRole);
     }
 
 

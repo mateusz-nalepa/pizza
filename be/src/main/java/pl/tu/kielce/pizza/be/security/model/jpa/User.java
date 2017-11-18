@@ -9,6 +9,7 @@ import pl.tu.kielce.pizza.be.common.jpa.Address;
 import pl.tu.kielce.pizza.be.common.jpa.AuditableEntity;
 import pl.tu.kielce.pizza.be.department.model.jpa.Department;
 import pl.tu.kielce.pizza.be.order.model.jpa.Order;
+import pl.tu.kielce.pizza.common.security.dto.AccountStatus;
 
 import javax.persistence.*;
 import java.util.List;
@@ -17,7 +18,6 @@ import java.util.Set;
 
 @Data
 @Entity
-//@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @DynamicUpdate
@@ -52,12 +52,8 @@ public class User extends AuditableEntity{
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Order> orders;
 
-//    @ManyToOne
-//    private User user;
-//
-//    @OneToMany(mappedBy="user")
-//    @Builder.Default
-//    private Set<User> users = new HashSet<>();
+    @Enumerated(EnumType.ORDINAL)
+    private AccountStatus accountStatus;
 
     @Embedded
     private Address address;

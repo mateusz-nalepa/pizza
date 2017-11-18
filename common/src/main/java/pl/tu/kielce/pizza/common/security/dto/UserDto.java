@@ -8,7 +8,6 @@ import pl.tu.kielce.pizza.common.common.dto.AuditableEntityDto;
 import java.util.List;
 
 @Data
-//@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDto extends AuditableEntityDto{
@@ -20,4 +19,5 @@ public class UserDto extends AuditableEntityDto{
     private String lastName;
     private boolean active;
     private List<RoleDto> roles;// = Collections.emptySet();
+    private AccountStatus accountStatus;
 }
