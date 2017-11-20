@@ -1,4 +1,4 @@
-package pl.tu.kielce.pizza.fe.pizza;
+package pl.tu.kielce.pizza.fe.pizza.controller;
 
 
 import lombok.RequiredArgsConstructor;

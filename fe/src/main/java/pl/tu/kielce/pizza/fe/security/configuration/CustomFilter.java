@@ -24,6 +24,9 @@ public class CustomFilter extends GenericFilterBean {
             ServletResponse response,
             FilterChain chain) {
 
+        HttpServletRequest servletRequest = (HttpServletRequest) request;
+        String requestURI = servletRequest.getRequestURI();
+
         if (isNotChangePasswordUri(request) && userHasToChangePassword()) {
             HttpServletResponse httpServletResponse = (HttpServletResponse) response;
             httpServletResponse.sendRedirect(CHANGE_PASSWORD);
@@ -43,10 +46,13 @@ public class CustomFilter extends GenericFilterBean {
 
     private boolean userHasToChangePassword() {
 
+        boolean notLogged = UserUtils.isNotLogged();
+
         if (UserUtils.isNotLogged()) {
             return false;
         }
 
+        boolean client = UserUtils.isClient();
         if (UserUtils.isClient()) {
             return false;
         }

@@ -33,16 +33,4 @@ public class BoughtItem {//extends Ingredient {
     @OneToOne
     private Item item;
 
-//    @Builder
-//    public BoughtItem(Item item, Double quantity, Department department, Order order) {
-//        super(item, quantity);
-//        this.department = department;
-//        this.order = order;
-//    }
-//
-//    public static class BoughtIngredientDepartmentBuilder extends IngredientBuilder {
-//        BoughtIngredientDepartmentBuilder() {
-//            super();
-//        }
-//    }
 }

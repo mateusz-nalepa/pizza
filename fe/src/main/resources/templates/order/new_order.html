@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/header :: header"></div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div th:replace="order/order_pizza_list :: pizzaList"></div>
+            <div th:replace="order/order_item_list :: itemList"></div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+    <br/>
+    <strong>NEW ORDER</strong>
+    <div th:replace="fragments/footer :: footer"></div>
+</div>
+</body>
+</html>

@@ -23,7 +23,6 @@ public class AdminController {
     @Autowired
     private final UserService userService;
 
-//    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = HOME_URL, method = RequestMethod.GET)
     public String home(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

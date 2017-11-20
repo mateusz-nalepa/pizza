@@ -79,6 +79,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(PERMIT_ALL_LIST).permitAll()
 //                .antMatchers("/css/**", "/js/**").permitAll()
+                .antMatchers(PERMIT_CLIENT_LIST).hasAuthority("CLIENT")
                 .antMatchers(PERMIT_USER_LIST).hasAuthority("USER")
                 .antMatchers(PERMIT_MANAGER_LIST).hasAuthority("MANAGER")
                 .antMatchers(PERMIT_ADMIN_LIST).hasAuthority("ADMIN")
@@ -118,6 +119,10 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private static final String PERMIT_USER_LIST[] = {
             "/user/**"
+    };
+
+    private static final String PERMIT_CLIENT_LIST[] = {
+            "/client/**"
     };
 
     @Override

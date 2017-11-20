@@ -4,9 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.tu.kielce.pizza.be.order.model.jpa.enums.orderstatus.OrderStatus;
-import pl.tu.kielce.pizza.be.order.model.jpa.enums.ordertype.OrderType;
 import pl.tu.kielce.pizza.be.security.model.jpa.User;
+import pl.tu.kielce.pizza.common.common.enums.OrderStatus;
+import pl.tu.kielce.pizza.common.common.enums.OrderType;
 
 import javax.persistence.*;
 import java.util.List;
@@ -45,7 +45,6 @@ public class Order {
 
     @Enumerated
     private OrderStatus orderStatus;
-
 
     private Double totalPrice;
 }

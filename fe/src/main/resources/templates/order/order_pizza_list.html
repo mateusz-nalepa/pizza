@@ -1,0 +1,49 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+</head>
+<body>
+<div th:fragment="pizzaList">
+
+    <table class="table table-bordered table-hover table-striped">
+        <thead>
+        <tr>
+            <th th:text="#{pizza.name}"></th>
+            <th th:text="#{pizza.description}"></th>
+            <th th:text="#{pizza.small}"></th>
+            <th th:text="#{pizza.medium}"></th>
+            <th th:text="#{pizza.large}"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pizza : ${pizzas}">
+            <td th:text="${pizza.name}"></td>
+            <td th:text="${pizza.description}"></td>
+            <td>
+                <a class="dodajPizze"
+                   th:attrappend="pizza-id=${pizza.id}, pizza-type=${T(pl.tu.kielce.pizza.common.common.enums.PizzaType).SMALL.ordinal()}">
+                    <button th:text="${pizza.price}" class="btn btn-info"></button>
+                </a>
+            </td>
+
+            <td>
+                <a class="dodajPizze"
+                   th:attrappend="pizza-id=${pizza.id}, pizza-type=${T(pl.tu.kielce.pizza.common.common.enums.PizzaType).MEDIUM.ordinal()}">
+                    <button th:text="${T(pl.tu.kielce.pizza.common.common.util.PriceUtils).mediumPrice(pizza.price)}"
+                            class="btn btn-info"></button>
+                </a>
+            </td>
+            <td>
+                <a class="dodajPizze"
+                   th:attrappend="pizza-id=${pizza.id}, pizza-type=${T(pl.tu.kielce.pizza.common.common.enums.PizzaType).LARGE.ordinal()}">
+                    <button th:text="${T(pl.tu.kielce.pizza.common.common.util.PriceUtils).largePrice(pizza.price)}"
+                            class="btn btn-info"></button>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>

@@ -12,4 +12,7 @@ public interface PizzaService {
     PizzaDto create(PizzaDto pizzaDto);
 
     List<PizzaDto> findAll();
+
+    List<PizzaDto> findAllWithMultiplier();
+
 }

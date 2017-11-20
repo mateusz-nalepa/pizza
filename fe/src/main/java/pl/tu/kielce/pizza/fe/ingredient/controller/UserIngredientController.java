@@ -32,7 +32,6 @@ public class UserIngredientController {
         return "ingredient/ingredient_show";
     }
 
-    //    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/all")
     public String allIngredients(Model model) {
         List<IngredientDto> ingredients = ingredientService.findAll();

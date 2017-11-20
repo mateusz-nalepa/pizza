@@ -102,20 +102,20 @@ public class UserUtils {
     }
 
     public static boolean isClient() {
-        Authentication authentication = SecurityContextHolder
+        Authentication auth = SecurityContextHolder
                 .getContext()
                 .getAuthentication();
 
-        if (authentication == null) {
+        if (auth == null) {
             return false;
         }
-        List<String> admin = authentication
-                .getAuthorities()
+
+        List<String> roles = auth.getAuthorities()
                 .stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
-        return admin.contains("CLIENT");
+        return roles.size() == 1 && roles.contains("CLIENT");
     }
 
     public static boolean isNotAdmin() {

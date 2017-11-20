@@ -5,11 +5,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import pl.tu.kielce.pizza.be.order.model.jpa.Order;
-import pl.tu.kielce.pizza.be.order.model.jpa.enums.ordertype.OrderType;
 import pl.tu.kielce.pizza.be.order.repository.OrderRepository;
 import pl.tu.kielce.pizza.be.security.model.jpa.Role;
 import pl.tu.kielce.pizza.be.security.repository.role.RoleRepository;
 import pl.tu.kielce.pizza.common.common.dto.AddressDto;
+import pl.tu.kielce.pizza.common.common.enums.OrderType;
 import pl.tu.kielce.pizza.common.department.dto.DepartmentDto;
 import pl.tu.kielce.pizza.common.department.service.DepartmentService;
 import pl.tu.kielce.pizza.common.ingredient.dto.IngredientDto;
@@ -129,7 +129,7 @@ public class RunAtStart {
 
     private void defaultDepartment() {
         UserDto manager = new UserDto();
-        manager.setId(2L);
+        manager.setId(1L);
         DepartmentDto departmentDto = new DepartmentDto();
         departmentDto.setAddressDto(defaultAddress());
         departmentDto.setManager(manager);
@@ -155,13 +155,14 @@ public class RunAtStart {
         userDto.setLastName("Nalepa");
         userDto.setPassword("asd123");
         userDto.setActive(true);
-//        userDto.setAccountStatus(AccountStatus.ACTIVE);
-        userDto.setAccountStatus(AccountStatus.INITIAL);
+        userDto.setAccountStatus(AccountStatus.ACTIVE);
+//        userDto.setAccountStatus(AccountStatus.INITIAL);
 
         List<RoleDto> roleDtos = new ArrayList<>();
         roleDtos.add(RoleDto.builder().id(1L).selected(true).build());
         roleDtos.add(RoleDto.builder().id(2L).selected(true).build());
         roleDtos.add(RoleDto.builder().id(3L).selected(true).build());
+        roleDtos.add(RoleDto.builder().id(4L).selected(true).build());
 
         userDto.setRoles(roleDtos);
         userService.saveUser(userDto);

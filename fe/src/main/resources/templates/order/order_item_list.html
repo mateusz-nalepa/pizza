@@ -1,0 +1,32 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+</head>
+<body>
+<div th:fragment="itemList">
+
+    <table class="table table-bordered table-hover table-striped">
+        <thead>
+        <tr>
+            <th th:text="#{item.name}"></th>
+            <th th:text="#{item.description}"></th>
+            <th th:text="#{item.price}"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${items}">
+            <td th:text="${item.name}"></td>
+            <td th:text="${item.description}"></td>
+            <td>
+                <a class="addItem"
+                   th:attrappend="item-id=${item.id}">
+                    <button th:text="${item.price}" class="btn btn-info"></button>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>

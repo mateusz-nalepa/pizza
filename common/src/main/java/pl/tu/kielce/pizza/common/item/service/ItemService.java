@@ -12,4 +12,6 @@ public interface ItemService {
     ItemDto create(ItemDto itemDto);
 
     List<ItemDto> findAll();
+
+    List<ItemDto> findAllWithMultiplier();
 }
