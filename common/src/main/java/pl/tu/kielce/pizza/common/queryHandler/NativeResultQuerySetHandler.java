@@ -24,22 +24,26 @@ public class NativeResultQuerySetHandler {
         Field[] declaredFields = t1.getClass().getDeclaredFields();
 
         for (Field field : declaredFields) {
-            field.setAccessible(true);
-            int annotation = field.getAnnotation(Column.class).index();
 
-            Object o = objects[annotation];
+            if (field.isAnnotationPresent(Column.class)) {
+                field.setAccessible(true);
+                int annotation = field.getAnnotation(Column.class).index();
 
-            if (o instanceof BigInteger) {
-                BigInteger bigInteger = (BigInteger) o;
-                field.set(t1, bigInteger.longValue());
+                Object o = objects[annotation];
+
+                if (o instanceof BigInteger) {
+                    BigInteger bigInteger = (BigInteger) o;
+                    field.set(t1, bigInteger.longValue());
+                }
+
+                if (o instanceof Long) {
+                    field.set(t1, (Long) o);
+                }
+                if (o instanceof String) {
+                    field.set(t1, (String) o);
+                }
             }
 
-            if (o instanceof Long) {
-                field.set(t1, (Long) o);
-            }
-            if (o instanceof String) {
-                field.set(t1, (String) o);
-            }
 
         }
         return t1;

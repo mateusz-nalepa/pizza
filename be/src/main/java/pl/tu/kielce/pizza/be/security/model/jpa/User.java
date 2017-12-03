@@ -2,6 +2,7 @@ package pl.tu.kielce.pizza.be.security.model.jpa;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.validator.constraints.Email;
@@ -10,12 +11,15 @@ import pl.tu.kielce.pizza.be.common.jpa.AuditableEntity;
 import pl.tu.kielce.pizza.be.department.model.jpa.Department;
 import pl.tu.kielce.pizza.be.order.model.jpa.Order;
 import pl.tu.kielce.pizza.common.security.dto.AccountStatus;
+import pl.tu.kielce.pizza.common.security.enums.MainRoleType;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
 
+
+@EqualsAndHashCode(exclude = {"roles", "department", "orders"})
 @Data
 @Entity
 @AllArgsConstructor
@@ -31,14 +35,18 @@ public class User extends AuditableEntity{
     private Long id;
 
     @Email(message = "*Please provide a valid Email")
+//    @Column(name = "user_email")
     private String email;
+
+    @Column(unique = true)
+    private String phoneNumber;
 
     private String password;
 
-    @Column(name = "name")
+//    @Column(name = "user_name")
     private String name;
 
-    @Column(name = "last_name")
+//    @Column(name = "user_last_name")
     private String lastName;
 
 
@@ -52,10 +60,13 @@ public class User extends AuditableEntity{
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Order> orders;
 
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private AccountStatus accountStatus;
 
     @Embedded
     private Address address;
+
+    @Enumerated(EnumType.STRING)
+    private MainRoleType mainRoleType;
 
 }

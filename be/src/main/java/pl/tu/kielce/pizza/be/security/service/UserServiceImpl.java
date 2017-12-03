@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.tu.kielce.pizza.be.security.repository.user.UserExecutor;
 import pl.tu.kielce.pizza.common.department.dto.FreeManagerDto;
+import pl.tu.kielce.pizza.common.department.dto.FreeUserDto;
 import pl.tu.kielce.pizza.common.security.dto.ChangePasswordDto;
 import pl.tu.kielce.pizza.common.security.dto.UserDto;
 import pl.tu.kielce.pizza.common.security.service.UserService;
@@ -38,6 +39,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<FreeManagerDto> freeManagers() {
         return userExecutor.freeManagers();
+    }
+
+    @Override
+    public List<FreeUserDto> findAllFreeUsers() {
+        return userExecutor.freeUsers();
     }
 
     @Override

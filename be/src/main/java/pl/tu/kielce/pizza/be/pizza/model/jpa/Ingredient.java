@@ -15,8 +15,8 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table
-@ToString(exclude = "pizzas")
-@EqualsAndHashCode(exclude = "pizzas")
+@ToString(exclude = "boughtPizzas")
+@EqualsAndHashCode(exclude = "boughtPizzas")
 public class Ingredient {
 
     @ManyToMany(mappedBy = "ingredients", fetch = FetchType.LAZY)

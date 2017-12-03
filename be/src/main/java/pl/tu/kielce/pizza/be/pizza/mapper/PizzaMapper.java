@@ -7,7 +7,6 @@ import pl.tu.kielce.pizza.be.ingredient.mapper.IngredientMapper;
 import pl.tu.kielce.pizza.be.pizza.model.jpa.Pizza;
 import pl.tu.kielce.pizza.common.ingredient.dto.IngredientDto;
 import pl.tu.kielce.pizza.common.pizza.dto.PizzaDto;
-import pl.tu.kielce.pizza.common.security.util.UserUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -45,15 +44,7 @@ public class PizzaMapper {
                 .collect(Collectors.toList());
 
         pizzaDto.setIngredients(ingredientDtos);
-        setPriceWithMultiplier(pizzaDto);
         return pizzaDto;
     }
 
-    private void setPriceWithMultiplier(PizzaDto pizzaDto) {
-        Double multiplier = UserUtils.getMultiplier();
-        Double price = pizzaDto.getPrice();
-
-        Double priceWithMultiplier = (multiplier * price) + price;
-        pizzaDto.setPrice(priceWithMultiplier);
-    }
 }

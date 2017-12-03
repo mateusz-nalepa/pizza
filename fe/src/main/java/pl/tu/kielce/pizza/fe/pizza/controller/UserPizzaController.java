@@ -36,7 +36,7 @@ public class UserPizzaController {
     @GetMapping("/all")
     public String allPizzas(Model model) {
         List<PizzaDto> pizzas = pizzaService.findAll();
-        model.addAttribute("pizzas", pizzas);
+        model.addAttribute("boughtPizzas", pizzas);
         return "pizza/pizza_search";
     }
 

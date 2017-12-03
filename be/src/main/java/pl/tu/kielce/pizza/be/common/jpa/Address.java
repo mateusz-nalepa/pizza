@@ -14,6 +14,11 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Address {
 
+//    private String name;
+//    private String lastName;
+//    private String phoneNumber;
+//    private String email;
+
     private String city;
     private String street;
     private Integer flatNumber;

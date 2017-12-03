@@ -6,6 +6,7 @@ import pl.tu.kielce.pizza.be.common.jpa.AuditableEntity;
 import pl.tu.kielce.pizza.be.security.model.jpa.User;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -26,7 +27,7 @@ public class Department extends AuditableEntity{
     private Address address;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "department")
-    private List<User> employees;
+    private List<User> employees = new ArrayList<>();
 
     @OneToOne(mappedBy = "department")
     @JoinColumn(name = "manager_id")
@@ -36,7 +37,7 @@ public class Department extends AuditableEntity{
 //    private List<Ingredient> ingredientDepartments;
 //
 //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "department")
-//    private List<Pizza> pizzas;
+//    private List<Pizza> boughtPizzas;
 
     private Double multiplier;
 

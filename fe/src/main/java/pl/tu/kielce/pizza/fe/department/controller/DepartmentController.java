@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import pl.tu.kielce.pizza.common.department.dto.DepartmentDto;
 import pl.tu.kielce.pizza.common.department.dto.FreeManagerDto;
 import pl.tu.kielce.pizza.common.department.service.DepartmentService;
+import pl.tu.kielce.pizza.common.security.dto.UserDto;
 import pl.tu.kielce.pizza.common.security.service.UserService;
+import pl.tu.kielce.pizza.common.security.util.UserUtils;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -35,7 +37,11 @@ public class DepartmentController {
 
         DepartmentDto departmentDto = departmentService.findOne(departmentId);
 
+        List<UserDto> usersInGivenDepartment = departmentService.findWorkersByDepartmentId(departmentId);
+
         model.addAttribute("departmentDto", departmentDto);
+        model.addAttribute("usersInGivenDepartment", usersInGivenDepartment);
+
         return "department/show_department";
     }
 
@@ -73,5 +79,20 @@ public class DepartmentController {
         return userService.freeManagers();
     }
 
+    @GetMapping("addEmployeesToDepartment")
+    public String addEmployeesToDepartment(Model model) {
+
+        AddUsersToDepartmentDto addUsersToDepartmentDto = new AddUsersToDepartmentDto();
+        addUsersToDepartmentDto.setFreeUsers(userService.findAllFreeUsers());
+        model.addAttribute("addUsersToDepartmentDto", addUsersToDepartmentDto);
+        return "department/add_employee_to_department";
+    }
+
+    @PostMapping("addEmployeesToDepartment")
+    public String addEmployeesToDepartmentPost(AddUsersToDepartmentDto addUsersToDepartmentDto) {
+        departmentService.addEmployeesToDepartmentPost(addUsersToDepartmentDto.getFreeUsers());
+        Long departmentId = UserUtils.departmentId();
+        return "redirect:/manager/department/" + departmentId;
+    }
 
 }

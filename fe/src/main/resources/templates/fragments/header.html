@@ -1,4 +1,4 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <div th:fragment="header-css">
         <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
@@ -21,28 +21,39 @@
                 <a class="navbar-brand" th:href="@{/}">Pizza</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav" sec:authorize="isAnonymous()">
                     <li><a th:href="@{/registration}" th:text="#{registration}"></a></li>
                     <li><a th:href="@{/login}" th:text="#{login}"></a></li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right" th:if="${#httpServletRequest.remoteUser} != null">
-                    <li>
+                <ul class="nav navbar-nav navbar-right" >
+                    <!--th:if="${#httpServletRequest.remoteUser} != null">-->
+                    <li th:if="${#httpServletRequest.remoteUser} != null">
                         <a th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]</a>
                     </li>
-                    <li class="dropdown">
+
+
+                    <li class="dropdown" >
                         <a href="#"
                            class="dropdown-toggle"
                            data-toggle="dropdown"
                            role="button"
                            aria-haspopup="true"
                            aria-expanded="false"
-                           th:inline="text">[[#{departments}]]<span class="caret"></span></a>
+                           th:inline="text">[[#{menuDepartment}]]<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a th:href="@{/manager/department/all}" th:text="#{department.list}"></a></li>
-                            <li><a th:href="@{/manager/department/}" th:text="#{department.add}"></a></li>
+
+                            <li><a th:href="@{/client/department/}" th:text="#{department.change}"></a></li>
+                            <li sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/manager/department/all}" th:text="#{department.list}"></a></li>
+                            <li sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/manager/department/}" th:text="#{department.add}"></a></li>
+                            <li sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/manager/department/addEmployeesToDepartment}"
+                                   th:text="#{department.addEmployeesToDepartment}"></a></li>
                         </ul>
                     </li>
-                    <li class="dropdown">
+
+
+
+
+                    <li class="dropdown" sec:authorize="hasAuthority('MANAGER')">
                         <a href="#"
                            class="dropdown-toggle"
                            data-toggle="dropdown"
@@ -55,7 +66,9 @@
                             <li><a th:href="@{/manager/item/}" th:text="#{item.add}"></a></li>
                         </ul>
                     </li>
-                    <li class="dropdown">
+
+
+                    <li class="dropdown" sec:authorize="hasAuthority('MANAGER')">
                         <a href="#"
                            class="dropdown-toggle"
                            data-toggle="dropdown"
@@ -68,7 +81,8 @@
                             <li><a th:href="@{/manager/ingredient/}" th:text="#{ingredient.add}"></a></li>
                         </ul>
                     </li>
-                    <li class="dropdown">
+
+                    <li class="dropdown" sec:authorize="hasAuthority('USER')">
                         <a href="#"
                            class="dropdown-toggle"
                            data-toggle="dropdown"
@@ -81,19 +95,36 @@
                             <li><a th:href="@{/manager/pizza/}" th:text="#{pizza.add}"></a></li>
                         </ul>
                     </li>
-                    <li class="dropdown">
+
+                    <!--<li class="dropdown" sec:authorize="hasAuthority('MANAGER')">-->
+                        <!--<a href="#"-->
+                           <!--class="dropdown-toggle"-->
+                           <!--data-toggle="dropdown"-->
+                           <!--role="button"-->
+                           <!--aria-haspopup="true"-->
+                           <!--aria-expanded="false"-->
+                           <!--th:inline="text">[[#{users}]]<span class="caret"></span></a>-->
+                        <!--<ul class="dropdown-menu">-->
+                            <!--<li><a href="#" th:text="#{users.list}"></a></li>-->
+                        <!--</ul>-->
+                    <!--</li>-->
+                    <li class="dropdown" sec:authorize="isAnonymous() || hasAuthority('CLIENT')">
                         <a href="#"
                            class="dropdown-toggle"
                            data-toggle="dropdown"
                            role="button"
                            aria-haspopup="true"
                            aria-expanded="false"
-                            th:inline="text">[[#{users}]]<span class="caret"></span></a>
+                           th:inline="text">[[#{orders}]]<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#" th:text="#{users.list}"></a></li>
+                            <li><a th:href="@{/client/order}" th:text="#{client.order.makeOrder}"></a></li>
+                            <li><a th:href="@{/client/order/summary}" th:text="#{client.order.summary}"></a></li>
+                            <li sec:authorize="hasAuthority('USER')"><a th:href="@{/user/order/waitingForApproval}" th:text="#{client.order.waitingForApproval}"></a></li>
+                            <li sec:authorize="hasAuthority('USER')"><a th:href="@{/user/order/inProgress}" th:text="#{client.order.inProgress}"></a></li>
+                            <li sec:authorize="hasAuthority('USER')"><a th:href="@{/user/order/duringDelivery}" th:text="#{client.order.inPrduringDeliveryogress}"></a></li>
                         </ul>
                     </li>
-                    <li>
+                    <li th:if="${#httpServletRequest.remoteUser} != null">
                         <a>
                             <form th:action="@{/logout}" method="post">
                                 <div th:replace="fragments/components :: submitButtonSmall(label='signout')"></div>
@@ -104,6 +135,7 @@
             </div>
         </div>
     </nav>
+
 </div>
 </body>
 </html>

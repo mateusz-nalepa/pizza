@@ -19,9 +19,6 @@
                 <div th:replace="fragments/components :: inputTextField(inputName='name', label='pizza.name')"></div>
                 <div th:replace="fragments/components :: inputTextField(inputName='description', label='pizza.description')"></div>
                 <div th:replace="fragments/components :: inputNumberField(inputName='price', label='pizza.price')"></div>
-                <div th:replace="fragments/components :: submitButton(label='pizza.add')"></div>
-
-                <!--<div th:replace="fragments/components :: inputCheckboxField(inputName='ingredients.get(0).selected', label='pizza.price')"></div>-->
 
                 <table class="table table-bordered table-hover table-striped">
                     <thead>
@@ -35,16 +32,19 @@
                         <td th:text="${ingredient.name}"></td>
                         <td>
                             <input type="checkbox" th:field="*{ingredients[__${stat.index}__].selected}" />
-                        </td>
-                        <td>
                             <input type="number" th:hidden="true" th:field="*{ingredients[__${stat.index}__].id}" />
                         </td>
+                        <!--<td>-->
+                        <!--</td>-->
                     </tr>
                     </tbody>
                 </table>
 
+                <div th:replace="fragments/components :: submitButton(label='pizza.add')"></div>
 
-            <label th:text="${ingredients}"></label>
+
+
+                <label th:text="${ingredients}"></label>
             </form>
         </div>
         <div class="col-md-1"></div>

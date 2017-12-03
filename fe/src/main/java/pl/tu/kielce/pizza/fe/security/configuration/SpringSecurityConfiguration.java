@@ -14,7 +14,10 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import pl.tu.kielce.pizza.common.department.dto.DepartmentDto;
 import pl.tu.kielce.pizza.common.department.service.DepartmentService;
+import pl.tu.kielce.pizza.common.order.dto.UserOrderDto;
+import pl.tu.kielce.pizza.common.order.session.UserContext;
 import pl.tu.kielce.pizza.common.security.dto.RoleDto;
 import pl.tu.kielce.pizza.common.security.dto.UserDto;
 import pl.tu.kielce.pizza.common.security.dto.UserProfile;
@@ -38,10 +41,15 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final UserService userService;
 
     @Autowired
+    private final UserContext userContext;
+
+    @Autowired
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
     private final DepartmentService departmentService;
+
+
 
     @Override
     @SneakyThrows
@@ -55,16 +63,30 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @SneakyThrows
     private UserProfile userDetailsService(String email) {
-        UserDto userByEmail = userService.findByEmail(email);
-        Set<SimpleGrantedAuthority> authorities = userByEmail
+
+        userContext.setUserOrderDto(new UserOrderDto());
+        UserDto userDto = userService.findByEmail(email);
+        Set<SimpleGrantedAuthority> authorities = userDto
                 .getRoles()
                 .stream()
                 .map(RoleDto::getRole)
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toSet());
 
-        Double multiplier = departmentService.multiplier(userByEmail.getId());
-        return new UserProfile(email, userByEmail.getPassword(), authorities, true, email, multiplier, userByEmail.getAccountStatus());
+
+        Double multiplier = departmentService.multiplier(userDto.getId());
+        DepartmentDto departmentDto = departmentService.departmentByUser(userDto.getId());
+
+        userContext.setDepartmentDto(departmentDto);
+        userContext.setMultiplier(multiplier);
+
+        if (userDto.getRoles().contains("MANAGER") || userDto.getRoles().contains("USER")) {
+            if (departmentDto == null) {
+                throw new RuntimeException("ODDZIAL NIE JEST USTAWIONY!!");
+            }
+        }
+
+        return new UserProfile(departmentDto, userDto, email, userDto.getPassword(), authorities, true, email, multiplier, userDto.getAccountStatus());
     }
 
     @Override
@@ -79,7 +101,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(PERMIT_ALL_LIST).permitAll()
 //                .antMatchers("/css/**", "/js/**").permitAll()
-                .antMatchers(PERMIT_CLIENT_LIST).hasAuthority("CLIENT")
+//                .antMatchers(PERMIT_CLIENT_LIST).hasAuthority("CLIENT")
                 .antMatchers(PERMIT_USER_LIST).hasAuthority("USER")
                 .antMatchers(PERMIT_MANAGER_LIST).hasAuthority("MANAGER")
                 .antMatchers(PERMIT_ADMIN_LIST).hasAuthority("ADMIN")
@@ -102,6 +124,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
     private static final String PERMIT_ALL_LIST[] = {
+            "/client/**",
             "/",
             "/login/**",
             "/registration/**",
@@ -122,7 +145,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     };
 
     private static final String PERMIT_CLIENT_LIST[] = {
-            "/client/**"
+//            "/client/**"
     };
 
     @Override

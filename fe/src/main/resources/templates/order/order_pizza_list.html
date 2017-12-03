@@ -16,7 +16,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="pizza : ${pizzas}">
+        <tr th:each="pizza : ${boughtPizzas}">
             <td th:text="${pizza.name}"></td>
             <td th:text="${pizza.description}"></td>
             <td>
@@ -29,14 +29,14 @@
             <td>
                 <a class="dodajPizze"
                    th:attrappend="pizza-id=${pizza.id}, pizza-type=${T(pl.tu.kielce.pizza.common.common.enums.PizzaType).MEDIUM.ordinal()}">
-                    <button th:text="${T(pl.tu.kielce.pizza.common.common.util.PriceUtils).mediumPrice(pizza.price)}"
+                    <button th:text="${T(pl.tu.kielce.pizza.common.common.util.NewPriceContextUtils).mediumPrice(pizza.price)}"
                             class="btn btn-info"></button>
                 </a>
             </td>
             <td>
                 <a class="dodajPizze"
                    th:attrappend="pizza-id=${pizza.id}, pizza-type=${T(pl.tu.kielce.pizza.common.common.enums.PizzaType).LARGE.ordinal()}">
-                    <button th:text="${T(pl.tu.kielce.pizza.common.common.util.PriceUtils).largePrice(pizza.price)}"
+                    <button th:text="${T(pl.tu.kielce.pizza.common.common.util.NewPriceContextUtils).largePrice(pizza.price)}"
                             class="btn btn-info"></button>
                 </a>
             </td>

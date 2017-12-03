@@ -22,6 +22,28 @@
             <div th:replace="fragments/components :: h4LabelCentered(label='common.address.flatNumber', value=${departmentDto.addressDto.flatNumber})"></div>
         </div>
     </div>
+
+    <table class="table table-bordered table-hover table-striped">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>LastName</th>
+            <th>Email</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${usersInGivenDepartment}">
+            <!--<td>-->
+            <!--<a th:href="@{/manager/department/} + ${department.id}" th:text="${department.id}"></a>-->
+            <!--</td>-->
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td th:text="${user.email}"></td>
+        </tr>
+        </tbody>
+    </table>
     <!--<div th:replace="fragments/components :: accordianButton(dataTargetId='#ingredientsState',label='pantry.state')"></div>-->
     <!--<div id="ingredientsState" class="collapse">-->
         <!--<table class="table table-striped">-->

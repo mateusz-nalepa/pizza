@@ -1,4 +1,4 @@
-package pl.tu.kielce.pizza.fe.order.controller;
+package pl.tu.kielce.pizza.fe.order.controller.client;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import pl.tu.kielce.pizza.common.order.service.OrderService;
 @RestController
 @RequestMapping("/client/order")
 @RequiredArgsConstructor
-public class OrderRestController {
+public class ClientRestController {
 
 
     @Autowired

@@ -5,7 +5,8 @@
 <body>
 <div th:fragment="footer">
     <footer class="footer-basic-centered" style="background-color: #F8F8F8;">
-        <p class="footer-company-motto main-label">Potrawy</p>
+        <h3 th:text="#{department.actualChoosen} + ' ' + ${msg}"></h3>
+        <p class="footer-company-motto main-label" th:text="#{footer.pizza}"></p>
         <p class="footer-company-name main-label" th:text="#{footer.copyright}"></p>
         <p class="footer-company-name main-label"><a href="mailto:mateuszcholyn@gmail.com" th:text="#{footer.sendMail}"></a></p>
     </footer>

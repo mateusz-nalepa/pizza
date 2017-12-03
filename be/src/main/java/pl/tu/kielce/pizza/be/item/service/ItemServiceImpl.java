@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.tu.kielce.pizza.be.item.repository.ItemExecutor;
-import pl.tu.kielce.pizza.common.common.util.PriceUtils;
+import pl.tu.kielce.pizza.common.common.util.NewPriceContextUtils;
 import pl.tu.kielce.pizza.common.item.dto.ItemDto;
 import pl.tu.kielce.pizza.common.item.service.ItemService;
 
@@ -18,10 +18,14 @@ public class ItemServiceImpl implements ItemService {
     @Autowired
     private final ItemExecutor itemExecutor;
 
+    @Autowired
+    private final NewPriceContextUtils newPriceContextUtils;
+
     @Override
     public ItemDto findOne(Long itemId) {
         ItemDto itemDto = itemExecutor.findOne(itemId);
-        return setPrice(itemDto);
+        itemDto.setPrice(newPriceContextUtils.priceWithMultiplier(itemDto.getPrice()));
+        return itemDto;
     }
 
     @Override
@@ -39,13 +43,8 @@ public class ItemServiceImpl implements ItemService {
 
         return findAll()
                 .stream()
-                .map(this::setPrice)
+                .peek(itemDto -> itemDto.setPrice(newPriceContextUtils.priceWithMultiplier(itemDto.getPrice())))
                 .collect(Collectors.toList());
     }
 
-    private ItemDto setPrice(ItemDto itemDto) {
-        Double newPrice = PriceUtils.priceWithMultiplier(itemDto.getPrice());
-        itemDto.setPrice(newPrice);
-        return itemDto;
-    }
 }

@@ -3,6 +3,7 @@ package pl.tu.kielce.pizza.common.messages;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.context.NoSuchMessageException;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,11 @@ public class MessageSourceAccessor {
 
     public String getMessage(String messageCode, Object... parameters) {
         Locale locale = LocaleContextHolder.getLocale();
-        return messageSource.getMessage(messageCode, parameters,  locale);
+        try {
+            return messageSource.getMessage(messageCode, parameters,  locale);
+        } catch (NoSuchMessageException ex) {
+            return messageCode;
+        }
     }
 
 }

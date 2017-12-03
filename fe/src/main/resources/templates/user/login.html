@@ -14,7 +14,7 @@
             th:action="@{/login}"
             method="POST"
             class="form-signin">
-        <div align="center" th:if="${param.error}">
+        <div align="center" th:if="${param.address}">
             <div th:replace="fragments/components :: submitButton(label='loginError')"></div>
         </div>
         <div th:replace="fragments/components :: inputNormalEmailField(inputName='email', label='email')"></div>

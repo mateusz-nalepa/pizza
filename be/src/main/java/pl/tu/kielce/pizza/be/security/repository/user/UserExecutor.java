@@ -8,6 +8,7 @@ import pl.tu.kielce.pizza.be.security.model.jpa.Role;
 import pl.tu.kielce.pizza.be.security.model.jpa.User;
 import pl.tu.kielce.pizza.be.security.repository.role.RoleRepository;
 import pl.tu.kielce.pizza.common.department.dto.FreeManagerDto;
+import pl.tu.kielce.pizza.common.department.dto.FreeUserDto;
 import pl.tu.kielce.pizza.common.queryHandler.NativeResultQuerySetHandler;
 import pl.tu.kielce.pizza.common.security.dto.AccountStatus;
 import pl.tu.kielce.pizza.common.security.dto.ChangePasswordDto;
@@ -96,5 +97,9 @@ public class UserExecutor {
         user.setAccountStatus(AccountStatus.ACTIVE);
         user.setPassword(changePasswordDto.getNewPassword());
         userRepository.save(user);
+    }
+
+    public List<FreeUserDto> freeUsers() {
+        return NativeResultQuerySetHandler.resultList(userRepository.findFreeUsers(), FreeUserDto.class);
     }
 }

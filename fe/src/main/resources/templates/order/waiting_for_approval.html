@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/header :: header"></div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+
+            <div th:if="${userOrderDtos.size()} == 0">
+                <h1>Brak aktualnie jakichkolwiek zamowien czekajacych na akceptacje!</h1>
+            </div>
+
+            <div th:if="${userOrderDtos.size()} != 0">
+
+                <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Total Price</th>
+                        <th>Zatwierdź</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="userOrderDto : ${userOrderDtos}">
+                        <!--<td>-->
+                        <!--<a th:href="@{/manager/department/} + ${department.id}" th:text="${department.id}"></a>-->
+                        <!--</td>-->
+                        <td th:text="${userOrderDto.id}"></td>
+                        <td th:text="${userOrderDto.totalPrice}"></td>
+                        <td th:if="${userOrderDto.orderStatus} == ${T(pl.tu.kielce.pizza.common.common.enums.OrderStatus).WAITING_FOR_APPROVAL}">
+                            <a class="orderWaitForAccept"
+                               th:attrappend="order-id=${userOrderDto.id}">
+                                <button th:text="${userOrderDto.orderStatus}" class="btn btn-info"></button>
+                            </a>
+                        </td>
+                        <td th:if="${userOrderDto.orderStatus} == ${T(pl.tu.kielce.pizza.common.common.enums.OrderStatus).IN_PROGRESS}">
+                            <a class="orderIsInProgress"
+                               th:attrappend="order-id=${userOrderDto.id}">
+                                <button th:text="${userOrderDto.orderStatus}" class="btn btn-info"></button>
+                            </a>
+                        </td>
+                        <td th:if="${userOrderDto.orderStatus} == ${T(pl.tu.kielce.pizza.common.common.enums.OrderStatus).DURING_DELIVERY}">
+                            <a class="orderIsDuringDelivery"
+                               th:attrappend="order-id=${userOrderDto.id}">
+                                <button th:text="${userOrderDto.orderStatus}" class="btn btn-info"></button>
+                            </a>
+                        </td>
+                        <td th:if="${userOrderDto.orderStatus} == ${T(pl.tu.kielce.pizza.common.common.enums.OrderStatus).DONE}">
+                            <a class="orderDone"
+                               th:attrappend="order-id=${userOrderDto.id}">
+                                <button th:text="${userOrderDto.orderStatus}" class="btn btn-info"></button>
+                            </a>
+                        </td>
+
+                        <!--orderIsDuringDelivery-->
+                        <!--orderAccepted-->
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+    <div th:replace="fragments/footer :: footer"></div>
+</div>
+</body>
+</html>

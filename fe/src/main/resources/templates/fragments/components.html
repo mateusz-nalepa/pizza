@@ -160,7 +160,7 @@
     <div class="form-group">
         <select class="form-control" th:field="*{__${inputName}__}">
             <option th:each="option : ${selectList}"
-                    th:value="${option}"
+                    th:value="${option.id}"
                     th:text="${option.getLabel()}">
             </option>
         </select>

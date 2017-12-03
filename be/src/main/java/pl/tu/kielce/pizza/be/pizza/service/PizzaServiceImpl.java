@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.tu.kielce.pizza.be.pizza.repository.PizzaExecutor;
-import pl.tu.kielce.pizza.common.common.util.PriceUtils;
+import pl.tu.kielce.pizza.common.common.util.NewPriceContextUtils;
 import pl.tu.kielce.pizza.common.pizza.dto.PizzaDto;
 import pl.tu.kielce.pizza.common.pizza.service.PizzaService;
 
@@ -19,10 +19,13 @@ public class PizzaServiceImpl implements PizzaService {
     @Autowired
     private final PizzaExecutor pizzaExecutor;
 
+    private final NewPriceContextUtils newPriceContextUtils;
+
     @Override
     public PizzaDto findOne(Long pizzaId) {
         PizzaDto pizzaDto = pizzaExecutor.findOne(pizzaId);
-        PriceUtils.setPriceWithMultiplier(pizzaDto.getPrice());
+        pizzaDto.setPrice(newPriceContextUtils.priceWithMultiplier(pizzaDto.getPrice()));
+//        priceContextUtils.setPriceWithMultiplier(userContext.getMultiplier(), pizzaDto.getPrice());
         return pizzaDto;
     }
 
@@ -44,7 +47,7 @@ public class PizzaServiceImpl implements PizzaService {
 
         return findAll()
                 .stream()
-                .peek(pizzaDto -> PriceUtils.setPriceWithMultiplier(pizzaDto.getPrice()))
+                .peek(pizzaDto -> pizzaDto.setPrice(newPriceContextUtils.priceWithMultiplier(pizzaDto.getPrice())))
                 .collect(Collectors.toList());
     }
 

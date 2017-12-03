@@ -2,6 +2,6 @@ package pl.tu.kielce.pizza.common.common.enums;
 
 public enum OrderStatus {
 
-    NEW, IN_PROGRESS;
+    WAITING_FOR_APPROVAL, IN_PROGRESS, DURING_DELIVERY, DONE;
 
 }

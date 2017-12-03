@@ -16,4 +16,10 @@ public class AddressDto {
     private Integer houseNumber;
     private Integer flatNumber;
 
+//    private String name;
+//    private String lastName;
+//    private String phoneNumber;
+//    private String email;
+//
+//    private String note;
 }

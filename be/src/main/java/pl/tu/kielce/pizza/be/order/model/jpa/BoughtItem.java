@@ -26,7 +26,7 @@ public class BoughtItem {//extends Ingredient {
     @GeneratedValue
     private Long id;
 
-    private Double quantity;
+    private Integer quantity;
 
     private Double purchasePrice;
 

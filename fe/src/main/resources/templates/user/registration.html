@@ -31,6 +31,11 @@
                 <div th:replace="fragments/components :: inputEmailField(inputName='email', label='email')"></div>
                 <div th:replace="fragments/components :: inputPasswordField(inputName='password', label='password')"></div>
 
+                <div th:replace="fragments/components :: inputTextField(inputName='addressDto.city', label='common.address.city')"></div>
+                <div th:replace="fragments/components :: inputTextField(inputName='addressDto.street', label='common.address.street')"></div>
+                <div th:replace="fragments/components :: inputNumberField(inputName='addressDto.houseNumber', label='common.address.houseNumber')"></div>
+                <div th:replace="fragments/components :: inputNumberField(inputName='addressDto.flatNumber', label='common.address.flatNumber')"></div>
+
                 <div id="roles" sec:authorize="!isAnonymous()">
 
                 <table class="table table-bordered table-hover table-striped">

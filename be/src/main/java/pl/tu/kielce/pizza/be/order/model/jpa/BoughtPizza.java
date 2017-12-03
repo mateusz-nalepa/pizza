@@ -26,14 +26,14 @@ public class BoughtPizza {
     private Order order;
     private Double purchasePrice;
 
-    private Double quantity;
+    private Integer quantity;
 
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private PizzaType pizzaType;
 
     @ManyToOne
     private Department department;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Pizza pizza;
 }

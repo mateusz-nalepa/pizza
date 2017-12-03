@@ -13,6 +13,7 @@
             <th th:text="#{common.id}">ID</th>
             <th th:text="#{item.name}"></th>
             <th th:text="#{item.description}"></th>
+            <th th:text="#{item.price}"></th>
         </tr>
         </thead>
         <tbody>
@@ -22,6 +23,7 @@
             </td>
             <td th:text="${item.name}"></td>
             <td th:text="${item.description}"></td>
+            <td th:text="${item.price}"></td>
         </tr>
         </tbody>
     </table>

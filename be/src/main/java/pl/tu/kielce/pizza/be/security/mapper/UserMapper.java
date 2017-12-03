@@ -29,12 +29,17 @@ public class UserMapper {
         entity.setLastName(dto.getLastName());
         entity.setAccountStatus(dto.getAccountStatus());
         entity.activate();
+        entity.setAddress(commonMapper.addressDtoToEntity(dto.getAddressDto()));
+        entity.setMainRoleType(dto.getMainRoleType());
+        entity.setPhoneNumber(dto.getPhoneNumber());
         return entity;
     }
 
     public UserDto entityToDto(User user) {
 
         UserDto userDto = new UserDto();
+        userDto.setMainRoleType(user.getMainRoleType());
+        userDto.setPhoneNumber(user.getPhoneNumber());
         userDto.setId(user.getId());
         userDto.setAccountStatus(user.getAccountStatus());
         userDto.setEmail(user.getEmail());
@@ -42,6 +47,7 @@ public class UserMapper {
         userDto.setPassword(user.getPassword());
         userDto.setLastName(user.getLastName());
         userDto.setRoles(roleMapper.extractRoles(user));
+        userDto.setAddressDto(commonMapper.addressEntityToDto(user.getAddress()));
 
         return commonMapper.baseEntityToDto(user, userDto);
     }

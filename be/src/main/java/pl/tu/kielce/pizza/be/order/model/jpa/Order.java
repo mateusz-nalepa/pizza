@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.tu.kielce.pizza.be.department.model.jpa.Department;
 import pl.tu.kielce.pizza.be.security.model.jpa.User;
 import pl.tu.kielce.pizza.common.common.enums.OrderStatus;
 import pl.tu.kielce.pizza.common.common.enums.OrderType;
@@ -32,19 +33,25 @@ public class Order {
     private User buyer;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
-    private List<BoughtItem> ingredientDepartments;
+    private List<BoughtItem> boughtItems;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
-    private List<BoughtPizza> pizzas;
+    private List<BoughtPizza> boughtPizzas;
 
-    @OneToOne(mappedBy = "order")
-    private DeliveryAddress deliveryAddress;
+    @OneToOne//(mappedBy = "order", cascade = CascadeType.ALL)
+    private Department department;
 
-    @Enumerated
+//    private Address address;
+
+    @Enumerated(EnumType.STRING)
     private OrderType orderType;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
     private Double totalPrice;
+
+    @Embedded
+    private DeliveryInfo deliveryInfo;
+//    private String note;
 }

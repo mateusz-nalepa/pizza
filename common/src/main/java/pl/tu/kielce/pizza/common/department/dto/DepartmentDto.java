@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 //@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DepartmentDto extends AuditableEntityDto{
+public class DepartmentDto extends AuditableEntityDto implements SelectItem{
 
     private AddressDto addressDto;
 
@@ -24,8 +24,13 @@ public class DepartmentDto extends AuditableEntityDto{
 //
 //    private List<IngredientDepartment> ingredientDepartments;
 //
-//    private List<Pizza> pizzas;
+//    private List<Pizza> boughtPizzas;
 
     @NotNull(message = "{missingOrWrongValue}")
     private Double multiplier;
+
+    @Override
+    public String getLabel() {
+        return addressDto.getCity() + " " + addressDto.getStreet() + " " + addressDto.getHouseNumber() + " " + addressDto.getFlatNumber();
+    }
 }

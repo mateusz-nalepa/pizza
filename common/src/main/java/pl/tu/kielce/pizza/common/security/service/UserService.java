@@ -1,6 +1,7 @@
 package pl.tu.kielce.pizza.common.security.service;
 
 import pl.tu.kielce.pizza.common.department.dto.FreeManagerDto;
+import pl.tu.kielce.pizza.common.department.dto.FreeUserDto;
 import pl.tu.kielce.pizza.common.security.dto.ChangePasswordDto;
 import pl.tu.kielce.pizza.common.security.dto.UserDto;
 
@@ -15,4 +16,6 @@ public interface UserService {
     List<FreeManagerDto> freeManagers();
 
     void changePassword(ChangePasswordDto changePasswordDto);
+
+    List<FreeUserDto> findAllFreeUsers();
 }

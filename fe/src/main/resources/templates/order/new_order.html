@@ -12,11 +12,88 @@
         <div class="col-md-10">
             <div th:replace="order/order_pizza_list :: pizzaList"></div>
             <div th:replace="order/order_item_list :: itemList"></div>
+
+            <form
+                    th:action="@{/client/order/addAddress}"
+                    th:object="${deliveryInfoDto}"
+                    method="post"
+                    class="form-horizontal"
+                    role="form">
+                <!--//inputy tutaj-->
+
+                <div align="center" th:if="${param.error}">
+                    <div th:replace="fragments/components :: submitButton(label='loginError')"></div>
+                </div>
+
+                <div th:replace="fragments/components :: inputTextField(inputName='note', label='deliveryUserDataDto.note')"></div>
+
+                <div class="row">
+
+                    <div class="col-md-5">
+                        <div th:replace="fragments/components :: inputTextField(inputName='deliveryUserDataDto.name', label='deliveryUserDataDto.name')"></div>
+
+                    </div>
+                    <div class="col-md-2"></div>
+
+                    <div class="col-md-5">
+                        <div th:replace="fragments/components :: inputTextField(inputName='deliveryUserDataDto.lastName', label='deliveryUserDataDto.lastName')"></div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-5">
+                        <div th:replace="fragments/components :: inputTextField(inputName='deliveryUserDataDto.email', label='deliveryUserDataDto.email')"></div>
+
+                    </div>
+                    <div class="col-md-2"></div>
+
+                    <div class="col-md-5">
+                        <div th:replace="fragments/components :: inputTextField(inputName='deliveryUserDataDto.phoneNumber', label='deliveryUserDataDto.phoneNumber')"></div>
+                    </div>
+                </div>
+
+
+                <!--<div th:replace="fragments/components :: inputTextField(inputName='note', label='order.note')"></div>-->
+
+                <h1> Adres dostawy</h1>
+
+                <div class="row">
+
+                    <div class="col-md-5">
+                        <div th:replace="fragments/components :: inputTextField(inputName='addressDto.city', label='common.address.city')"></div>
+
+                    </div>
+                    <div class="col-md-2"></div>
+
+                    <div class="col-md-5">
+                        <div th:replace="fragments/components :: inputTextField(inputName='addressDto.street', label='common.address.street')"></div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-5">
+                        <div th:replace="fragments/components :: inputNumberField(inputName='addressDto.houseNumber', label='common.address.houseNumber')"></div>
+
+                    </div>
+                    <div class="col-md-2"></div>
+
+                    <div class="col-md-5">
+                        <div th:replace="fragments/components :: inputNumberField(inputName='addressDto.flatNumber', label='common.address.flatNumber')"></div>
+                    </div>
+                </div>
+
+                <!--<div th:replace="fragments/components :: inputTextField(inputName='phoneNumber', label='common.address.phoneNumber')"></div>-->
+                <!--<div th:replace="fragments/components :: inputEmailField(inputName='email', label='common.address.email')"></div>-->
+
+                <!--//koniec inputow-->
+                <div th:replace="fragments/components :: submitButton(label='order.address.useThisAddress')"></div>
+            </form>
+
         </div>
         <div class="col-md-1"></div>
     </div>
     <br/>
-    <strong>NEW ORDER</strong>
     <div th:replace="fragments/footer :: footer"></div>
 </div>
 </body>

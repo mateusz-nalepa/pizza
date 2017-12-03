@@ -15,4 +15,7 @@ public interface DepartmentRepository extends JpaRepository<Department, Long> {
     @Query("select u.department.multiplier from User u where u.id = :userId")
     Double multiplierByUserId(@Param("userId") Long userId);
 
+    @Query("select u.department from User u where u.id = :userId")
+    Department departmentByUserId(@Param("userId") Long userId);
+
 }

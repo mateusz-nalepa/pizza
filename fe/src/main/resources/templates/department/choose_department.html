@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/header :: header"></div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <form
+                    th:action="@{/client/department/}"
+                    th:object="${chooseDepartmentDto}"
+                    method="post"
+                    class="form-horizontal"
+                    role="form">
+                <!--//inputy tutaj-->
+
+
+
+                <div th:replace="fragments/components :: inputSelectList(inputName='departmentId', label='department.chooseDepartmentInSession', selectList=${departments})"></div>
+
+                <!--//koniec inputow-->
+                <div th:replace="fragments/components :: submitButton(label='department.setAsActiveInOrderSession')"></div>
+            </form>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+    <div th:replace="fragments/footer :: footer"></div>
+</div>
+</body>
+</html>

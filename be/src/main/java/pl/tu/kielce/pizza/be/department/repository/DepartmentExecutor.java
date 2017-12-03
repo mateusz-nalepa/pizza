@@ -5,10 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import pl.tu.kielce.pizza.be.department.mapper.DepartmentMapper;
 import pl.tu.kielce.pizza.be.department.model.jpa.Department;
+import pl.tu.kielce.pizza.be.security.mapper.UserMapper;
 import pl.tu.kielce.pizza.be.security.model.jpa.User;
 import pl.tu.kielce.pizza.be.security.repository.user.UserRepository;
 import pl.tu.kielce.pizza.common.department.dto.DepartmentDto;
-import pl.tu.kielce.pizza.common.department.dto.FreeManagerDto;
+import pl.tu.kielce.pizza.common.department.dto.FreeUserDto;
+import pl.tu.kielce.pizza.common.security.dto.UserDto;
+import pl.tu.kielce.pizza.common.security.util.UserUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -24,6 +27,9 @@ public class DepartmentExecutor {
 
     @PersistenceContext
     private EntityManager em;
+
+    @Autowired
+    private final UserMapper userMapper;
 
     @Autowired
     private final DepartmentRepository departmentRepository;
@@ -75,11 +81,11 @@ public class DepartmentExecutor {
         return departmentMapper.entityToDto(user.getDepartment());
     }
 
-    public List<FreeManagerDto> freeManagers() {
-        userRepository.findFreeManagers();
-
-        return null;
-    }
+//    public List<FreeManagerDto> freeManagers() {
+//        userRepository.findFreeManagers();
+//
+//        return null;
+//    }
 
     public DepartmentDto findOne(Long departmentId) {
         return doRead(
@@ -94,5 +100,43 @@ public class DepartmentExecutor {
 
         return departmentRepository
                 .multiplierByUserId(userId);
+    }
+
+    public void addEmployeesToDepartmentPost(List<FreeUserDto> freeUsers) {
+        Long userId = UserUtils.getUserId();
+        Department department = departmentRepository.departmentByUserId(userId);
+        List<User> users = fetchUsers(freeUsers);
+        users.forEach(user -> user.setDepartment(department));
+        department.getEmployees().addAll(users);
+        departmentRepository.save(department);
+    }
+
+    private List<User> fetchUsers(List<FreeUserDto> freeUserDtos) {
+
+        List<Long> rolesIds = freeUserDtos
+                .stream()
+                .filter(FreeUserDto::isSelected)
+                .map(FreeUserDto::getId)
+                .collect(Collectors.toList());
+
+        return userRepository.findByUsersIds(rolesIds);
+    }
+
+    public List<UserDto> findWorkersByDepartmentId(Long departmentId) {
+        User manager = userRepository.findManagerByDepartmentId(departmentId);
+        return userRepository
+                .findByDepartmentId(departmentId)
+                .stream()
+                .filter(user -> !user.getId().equals(manager.getId())) //usunięcie managera z listy
+                .map(userMapper::entityToDto)
+                .collect(Collectors.toList());
+    }
+
+    public DepartmentDto departmentByUser(Long userId) {
+        Department department = departmentRepository.departmentByUserId(userId);
+        if (department == null) {
+            return null;
+        }
+        return departmentMapper.entityToDto(department);
     }
 }

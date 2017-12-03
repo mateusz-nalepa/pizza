@@ -26,6 +26,7 @@ public class CustomFilter extends GenericFilterBean {
 
         HttpServletRequest servletRequest = (HttpServletRequest) request;
         String requestURI = servletRequest.getRequestURI();
+        System.out.println(request);
 
         if (isNotChangePasswordUri(request) && userHasToChangePassword()) {
             HttpServletResponse httpServletResponse = (HttpServletResponse) response;
