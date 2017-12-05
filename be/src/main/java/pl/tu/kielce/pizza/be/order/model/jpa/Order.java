@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.tu.kielce.pizza.be.common.jpa.AuditableEntity;
 import pl.tu.kielce.pizza.be.department.model.jpa.Department;
 import pl.tu.kielce.pizza.be.security.model.jpa.User;
 import pl.tu.kielce.pizza.common.common.enums.OrderStatus;
@@ -18,7 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "ORDER_TABLE")
 @Entity
-public class Order {
+public class Order extends AuditableEntity {
 
     @Id
     @GeneratedValue

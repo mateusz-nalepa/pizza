@@ -46,7 +46,7 @@ $( document ).ready(function() {
             contentType:"application/json; charset=utf-8",
             // data: JSON.stringify({"pizzaId": pizzaId, "pizzaType": pizzaType}),
             success: function () {
-                alert("Order was accepted!");
+                alert("Zamówienie jest w trakcie przygotowywania!");
             }
         });
     }
@@ -59,7 +59,7 @@ $( document ).ready(function() {
             contentType:"application/json; charset=utf-8",
             // data: JSON.stringify({"pizzaId": pizzaId, "pizzaType": pizzaType}),
             success: function () {
-                alert("Order was accepted!");
+                alert("Zamówienie jest właśnie dostarczane do klienta!");
             }
         });
     }
@@ -72,7 +72,7 @@ $( document ).ready(function() {
             contentType:"application/json; charset=utf-8",
             // data: JSON.stringify({"pizzaId": pizzaId, "pizzaType": pizzaType}),
             success: function () {
-                alert("Order was accepted!");
+                alert("Realizacja zamówienia została zakończona!");
             }
         });
     }

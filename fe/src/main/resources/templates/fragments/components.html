@@ -113,6 +113,20 @@
     </div>
 </div>
 
+<div th:fragment="inputFileField(inputName, label)">
+    <div class="form-group">
+        <div th:replace="fragments/components :: headerH4forInput(inputName=${inputName}, label=${label})"></div>
+        <input
+                type="file"
+                class="form-control input-lg"
+                th:name="${inputName}"
+                th:placeholder="#{${label}}"
+                required="required"
+                th:field="*{__${inputName}__}"/>
+        <div th:replace="fragments/components :: fieldError(inputName=${inputName})"></div>
+    </div>
+</div>
+
 <div th:fragment="inputPasswordField(inputName, label)">
     <div class="form-group">
         <div th:replace="fragments/components :: headerH4forInput(inputName=${inputName}, label=${label})"></div>
@@ -132,6 +146,15 @@
         <button
                 type="submit"
                 class="btn btn-primary btn-lg btn-block"
+                th:text="#{${label}}">
+        </button>
+    </div>
+</div>
+<div th:fragment="submitButtonMedium(label)">
+    <div class="form-group">
+        <button
+                type="submit"
+                class="btn btn-primary btn-md btn-block"
                 th:text="#{${label}}">
         </button>
     </div>

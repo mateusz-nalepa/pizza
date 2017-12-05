@@ -181,6 +181,7 @@ public class RunAtStart {
         userDto.setAccountStatus(AccountStatus.ACTIVE);
         userDto.setAddressDto(defaultAddress());
         userDto.setPhoneNumber("111111111");
+        userDto.setAvatarLocation("/images/default_avatar.png");
 //        userDto.setAccountStatus(AccountStatus.INITIAL);
 
         List<RoleDto> roleDtos = new ArrayList<>();
@@ -194,6 +195,8 @@ public class RunAtStart {
 //////////////////////////////////////////////////////////////////////////////////////
         userDto = new UserDto();
         userDto.setMainRoleType(MainRoleType.MANAGER);
+        userDto.setAvatarLocation("/images/default_avatar.png");
+
         userDto.setPhoneNumber("222222222");
         userDto.setName("DWA");
         userDto.setEmail("manager@pizza.pl");
@@ -217,13 +220,13 @@ public class RunAtStart {
         userDto.setMainRoleType(MainRoleType.USER);
         userDto.setPhoneNumber("333333333");
         userDto.setName("TRZY");
+        userDto.setAvatarLocation("/images/default_avatar.png");
         userDto.setEmail("user1@pizza.pl");
         userDto.setName("NAME TRZY");
         userDto.setLastName("NAZWISKO TRZY");
         userDto.setPassword("asd123");
         userDto.setActive(true);
         userDto.setAddressDto(defaultAddress());
-
         roleDtos = new ArrayList<>();
         roleDtos.add(RoleDto.builder().id(3L).selected(true).build());
         roleDtos.add(RoleDto.builder().id(4L).selected(true).build());
@@ -240,6 +243,7 @@ public class RunAtStart {
         userDto.setMainRoleType(MainRoleType.CLIENT);
         userDto.setEmail("client@pizza.pl");
         userDto.setName("NAME CZTERY");
+        userDto.setAvatarLocation("/images/default_avatar.png");
         userDto.setLastName("NAZWISKO CZTERY");
         userDto.setPassword("asd123");
         userDto.setActive(true);

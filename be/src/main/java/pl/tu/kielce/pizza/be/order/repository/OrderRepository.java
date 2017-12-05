@@ -36,4 +36,7 @@ public interface OrderRepository extends JpaRepository<Order, Long>{
 
     @Query("select o from Order o where o.orderStatus = pl.tu.kielce.pizza.common.common.enums.OrderStatus.DURING_DELIVERY and o.department.id = :departmentId ")// or o.user.department.id = :departmentId)")
     List<Order> findAllDuringDelivery(@Param("departmentId") Long departmentId);
+
+    @Query("select o from Order o where o.buyer.id = :userId")// or o.user.department.id = :departmentId)")
+    List<Order> findAllOrdersForActualLogedUser(@Param("userId") Long userId);
 }

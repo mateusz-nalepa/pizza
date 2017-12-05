@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import pl.tu.kielce.pizza.common.department.dto.DepartmentDto;
 import pl.tu.kielce.pizza.common.order.session.UserContext;
+import pl.tu.kielce.pizza.common.security.service.UserService;
 
 @ControllerAdvice
 @RequiredArgsConstructor
@@ -15,33 +16,26 @@ public class HomePageControllerAdvice {
     @Autowired
     private final UserContext userContext;
 
+    @Autowired
+    private final UserService userService;
+
     @ModelAttribute
     public void globalAttributes(Model model) {
 
         String departmentName;
-
         DepartmentDto departmentDto = userContext.fetchDepartment();
         if (departmentDto == null) {
             departmentName = "Department is empty! Ask";
         } else {
             departmentName = departmentDto.getLabel();
         }
-
-//        DepartmentDto departmentDto = userContext.getDepartmentDto();
-//        if (departmentDto == null) {
-//
-//            departmentDto = UserUtils.getDepartment();
-//
-//
-//            if (departmentDto != null) {
-//                departmentName = departmentDto.getLabel();
-//            } else {
-//            }
-//        } else {
-//            departmentName = departmentDto.getLabel();
-//        }
-
         model.addAttribute("msg", departmentName);
+    }
+
+    @ModelAttribute
+    public void avatarLocation(Model model) {
+        String avatarLocation = userService.fetchAvatarLocation();
+        model.addAttribute("avatarLocation", avatarLocation);
     }
 
 }

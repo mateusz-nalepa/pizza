@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pl.tu.kielce.pizza.common.common.dto.AuditableEntityDto;
 import pl.tu.kielce.pizza.common.common.enums.OrderStatus;
 import pl.tu.kielce.pizza.common.common.enums.OrderType;
 
@@ -15,9 +16,11 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-public class UserOrderDto {
+public class UserOrderDto extends AuditableEntityDto{
 
     private Long id;
+
+
 //    private User buyer;
 //
     private List<BoughtItemDto> boughtItems = new ArrayList<>();

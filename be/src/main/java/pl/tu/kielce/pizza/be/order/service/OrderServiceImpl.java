@@ -149,7 +149,11 @@ public class OrderServiceImpl implements OrderService {
     public void submitOrder() {
 //        String note = userContext.getUserOrderDto().getAddressDto().getNote();
 //        userContext.getUserOrderDto().setNote(note);
-        orderExecutor.submitOrder(userContext.getUserOrderDto());
+        UserOrderDto userOrderDto = orderExecutor.submitOrder(userContext.getUserOrderDto());
+        UserOrderDto newUserOrderDto = new UserOrderDto();
+        newUserOrderDto.setId(userOrderDto.getId());
+        userContext.setUserOrderDto(newUserOrderDto);
+
     }
 
     @Override
@@ -184,6 +188,18 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<UserOrderDto> findAllDuringDelivery() {
         return orderExecutor.findAllDuringDelivery();
+    }
+
+    @Override
+    public List<UserOrderDto> findAllOrdersForActualLogedUser() {
+        return orderExecutor.findAllOrdersForActualLogedUser();
+
+    }
+
+    @Override
+    public UserOrderDto findOne() {
+        Long orderId = userContext.getUserOrderDto().getId();
+        return orderExecutor.findOne(orderId);
     }
 
     private void setPizzaPrice(BoughtPizzaDto boughtPizzaDto) {

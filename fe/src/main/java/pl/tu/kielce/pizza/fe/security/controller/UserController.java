@@ -68,4 +68,5 @@ public class UserController {
         model.addAttribute("user", new UserDto());
         return USER_REGISTRATION_TEMPLATE_PATH;
     }
+
 }

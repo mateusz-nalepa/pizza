@@ -23,6 +23,7 @@ public class UserMapper {
 
     public User dtoToEntity(UserDto dto) {
         User entity = new User();
+        entity.setAvatarLocation(dto.getAvatarLocation());
         entity.setEmail(dto.getEmail());
         entity.setPassword(passwordEncoder.encode(dto.getPassword()));
         entity.setName(dto.getName());
@@ -38,6 +39,7 @@ public class UserMapper {
     public UserDto entityToDto(User user) {
 
         UserDto userDto = new UserDto();
+        userDto.setAvatarLocation(user.getAvatarLocation());
         userDto.setMainRoleType(user.getMainRoleType());
         userDto.setPhoneNumber(user.getPhoneNumber());
         userDto.setId(user.getId());

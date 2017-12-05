@@ -52,6 +52,7 @@ public class OrderMapper {
         userOrderDto.setOrderStatus(order.getOrderStatus());
         userOrderDto.setTotalPrice(order.getTotalPrice());
         userOrderDto.setDeliveryInfoDto(mapEntityToDto(order.getDeliveryInfo()));
+        userOrderDto = commonMapper.baseEntityToDto(order, userOrderDto);
         return userOrderDto;
     }
 

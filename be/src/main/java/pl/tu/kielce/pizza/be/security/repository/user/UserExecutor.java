@@ -102,4 +102,14 @@ public class UserExecutor {
     public List<FreeUserDto> freeUsers() {
         return NativeResultQuerySetHandler.resultList(userRepository.findFreeUsers(), FreeUserDto.class);
     }
+
+    public void updateUserAvatar(Long userId, String fileAbsolutePath) {
+
+        userRepository.updateUserAvatar(userId, fileAbsolutePath);
+    }
+
+    public String fetchAvatarLocation() {
+        Long userId = UserUtils.getUserId();
+        return userRepository.fetchAvatarLocation(userId);
+    }
 }

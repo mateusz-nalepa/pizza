@@ -110,6 +110,8 @@ public class ClientOrderController {
         orderService.setDeliveryData(deliveryInfoDto);
         String message = messageSourceAccessor.getMessage("order.address.added");
 
+
+
         return "redirect:/client/order/summary?address=" + message;
     }
 
@@ -120,6 +122,13 @@ public class ClientOrderController {
         return "redirect:/client/order/submitted";
     }
 
+    @GetMapping("purchasedOrderInfo")
+    public String purchasedOrderInfo(Model model) {
+        UserOrderDto userOrderDto = orderService.findOne();
+        model.addAttribute("userOrderDto", userOrderDto);
+        return "order/purchased_order_info";
+    }
+
     @GetMapping("/submitted")
     public String orderSubmitted(Model model) {
 
@@ -127,7 +136,13 @@ public class ClientOrderController {
         UserOrderDto userOrderDto = orderService.getUserContext();
         model.addAttribute("userOrderDto", userOrderDto);
         return "order/order_info";
+    }
 
+    @GetMapping("all")
+    public String allOrdersByGivenClient(Model model) {
+        List<UserOrderDto> userOrderDtos = orderService.findAllOrdersForActualLogedUser();
+        model.addAttribute("userOrderDtos", userOrderDtos);
+        return "order/all_client_orders";
     }
 
     private DeliveryUserDataDto fetchUserData(UserDto userDto) {

@@ -19,6 +19,7 @@ import pl.tu.kielce.pizza.common.common.enums.OrderType;
 import pl.tu.kielce.pizza.common.order.dto.BoughtItemDto;
 import pl.tu.kielce.pizza.common.order.dto.BoughtPizzaDto;
 import pl.tu.kielce.pizza.common.order.dto.UserOrderDto;
+import pl.tu.kielce.pizza.common.order.session.UserContext;
 import pl.tu.kielce.pizza.common.security.dto.UserDto;
 import pl.tu.kielce.pizza.common.security.util.UserUtils;
 
@@ -51,14 +52,22 @@ public class OrderExecutor {
     @Autowired
     private final OrderMapper orderMapper;
 
-    public void submitOrder(UserOrderDto userOrderDto) {
+    @Autowired
+    private final UserContext userContext;
+
+    public UserOrderDto submitOrder(UserOrderDto userOrderDto) {
 
 
         Order order = new Order();
 
         Double totalPrice = userOrderDto.getTotalPrice();
 
-        order.setDepartment(departmentRepository.departmentByUserId(UserUtils.getUserId()));
+        //TODO weź department z kontekstu jak jest anonymouseUser!
+
+        Long departmentId = userContext.fetchDepartment().getId();
+
+        order.setDepartment(departmentRepository.findOne(departmentId));
+
         order.setBoughtPizzas(fetchPizzas(userOrderDto.getBoughtPizzas(), order));
         order.setBoughtItems(fetchItems(userOrderDto.getBoughtItems(), order));
         order.setDeliveryInfo(orderMapper.mapDtoToEntity(userOrderDto.getDeliveryInfoDto()));
@@ -67,7 +76,9 @@ public class OrderExecutor {
 
         order.setOrderType(OrderType.DELIVERY);
         fetchBuyer(order);
-        orderRepository.save(order);
+        Order savedOrder = orderRepository.save(order);
+
+        return orderMapper.entityToDto(savedOrder);
 
 
     }
@@ -181,5 +192,20 @@ public class OrderExecutor {
                 .map(orderMapper::entityToDto)
                 .collect(Collectors.toList());
 
+    }
+
+    public List<UserOrderDto> findAllOrdersForActualLogedUser() {
+        Long userId = UserUtils.getUserId();
+        return orderRepository
+//                .findAllByOrderStatus(OrderStatus.WAITING_FOR_APPROVAL)
+                .findAllOrdersForActualLogedUser(userId)
+                .stream()
+                .map(orderMapper::entityToDto)
+                .collect(Collectors.toList());
+    }
+
+    public UserOrderDto findOne(Long orderId) {
+        Order one = orderRepository.findOne(orderId);
+        return orderMapper.entityToDto(one);
     }
 }

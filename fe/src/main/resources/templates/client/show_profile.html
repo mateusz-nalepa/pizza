@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/header :: header"></div>
+    <h5 class="text-center"><strong>pokaz info profilowe</strong></h5>
+    <hr/>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="row">
+                <h1 class="text-center" th:text="#{user.address.basic}"></h1>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div th:replace="fragments/components :: h4LabelCentered(label='name', value=${userDto.name})"></div>
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-4">
+                    <div th:replace="fragments/components :: h4LabelCentered(label='lastName', value=${userDto.lastName})"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div th:replace="fragments/components :: h4LabelCentered(label='email', value=${userDto.email})"></div>
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-4">
+                    <div th:replace="fragments/components :: h4LabelCentered(label='phoneNumber', value=${userDto.phoneNumber})"></div>
+                </div>
+            </div>
+            <div class="row">
+                <h1 class="text-center" th:text="#{user.address.profile}"></h1>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div th:replace="fragments/components :: h4LabelCentered(label='common.address.city', value=${userDto.addressDto.city})"></div>
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-4">
+                    <div th:replace="fragments/components :: h4LabelCentered(label='common.address.street', value=${userDto.addressDto.street})"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div th:replace="fragments/components :: h4LabelCentered(label='common.address.houseNumber', value=${userDto.addressDto.houseNumber})"></div>
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-4">
+                    <div th:replace="fragments/components :: h4LabelCentered(label='common.address.flatNumber', value=${userDto.addressDto.flatNumber})"></div>
+                </div>
+            </div>
+            <div class="row">
+                <h1 class="text-center" th:text="#{image.changeAvatar}"></h1>
+            </div>
+            <div>
+                <form class="form-horizontal"
+                      role="form"
+                      method="POST"
+                      enctype="multipart/form-data"
+                      th:action="@{/client/storeAvatar}">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <input
+                                        type="file"
+                                        class="file"
+                                        th:name="file"
+                                        th:placeholder="#{file.choose}"
+                                        required="required"/>
+                            </div>
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-4">
+                            <div th:replace="fragments/components :: submitButtonMedium(label='avatar.submit.changeAvatar')"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+    <div th:replace="fragments/footer :: footer"></div>
+</div>
+</body>
+</html>

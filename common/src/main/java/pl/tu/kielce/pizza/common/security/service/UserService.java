@@ -1,5 +1,7 @@
 package pl.tu.kielce.pizza.common.security.service;
 
+import lombok.SneakyThrows;
+import org.springframework.web.multipart.MultipartFile;
 import pl.tu.kielce.pizza.common.department.dto.FreeManagerDto;
 import pl.tu.kielce.pizza.common.department.dto.FreeUserDto;
 import pl.tu.kielce.pizza.common.security.dto.ChangePasswordDto;
@@ -18,4 +20,10 @@ public interface UserService {
     void changePassword(ChangePasswordDto changePasswordDto);
 
     List<FreeUserDto> findAllFreeUsers();
+
+    @SneakyThrows
+    void storeAvatar(MultipartFile file);
+
+    String fetchAvatarLocation();
+
 }

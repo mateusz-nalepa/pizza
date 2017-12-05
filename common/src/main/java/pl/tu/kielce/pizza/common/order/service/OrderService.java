@@ -30,4 +30,9 @@ public interface OrderService {
     List<UserOrderDto> findAllInProgress();
 
     List<UserOrderDto> findAllDuringDelivery();
+
+    List<UserOrderDto> findAllOrdersForActualLogedUser();
+
+    UserOrderDto findOne();
+
 }

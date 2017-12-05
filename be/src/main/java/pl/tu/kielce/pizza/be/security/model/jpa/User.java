@@ -69,4 +69,5 @@ public class User extends AuditableEntity{
     @Enumerated(EnumType.STRING)
     private MainRoleType mainRoleType;
 
+    private String avatarLocation;
 }

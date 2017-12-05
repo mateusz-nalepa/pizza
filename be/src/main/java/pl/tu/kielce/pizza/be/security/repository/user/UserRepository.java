@@ -1,6 +1,7 @@
 package pl.tu.kielce.pizza.be.security.repository.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import pl.tu.kielce.pizza.be.security.model.jpa.User;
@@ -42,6 +43,14 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("select d.manager from Department d where d.id = :departmentId and d.manager.mainRoleType = pl.tu.kielce.pizza.common.security.enums.MainRoleType.MANAGER")
     User findManagerByDepartmentId(@Param("departmentId") Long departmentId);
+
+
+    @Modifying
+    @Query("update User set avatarLocation = :fileAbsolutePath where id = :userId")
+    void updateUserAvatar(@Param("userId") Long userId, @Param("fileAbsolutePath") String fileAbsolutePath);
+
+    @Query("select u.avatarLocation from User  u where u.id = :userId")
+    String fetchAvatarLocation(@Param("userId") Long userId);
 }
 
 
