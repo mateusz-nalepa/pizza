@@ -37,12 +37,14 @@ public class OrderServiceImpl implements OrderService {
     public void addPizzaToOrder(AddPizzaDto addPizzaDto) {
 
         PizzaType pizzaType = PizzaType.fromId(addPizzaDto.getPizzaType());
+
+
         PizzaDto pizzaDto = pizzaService.findOne(addPizzaDto.getPizzaId());
 
-        if (pizzaExistInOrder(pizzaDto)) {
+        if (pizzaExistInOrder(pizzaDto, pizzaType)) {
             System.out.println("istnieje na liscie");
             for (BoughtPizzaDto boughtPizzaDto : userContext.getUserOrderDto().getBoughtPizzas()) {
-                if (isPizzaOnList(boughtPizzaDto, pizzaDto)) {
+                if (isPizzaOnListv2(boughtPizzaDto, pizzaDto, pizzaType)) {
                     userContext.addPizzaTotalPrice(boughtPizzaDto);
                     break;
 
@@ -61,28 +63,49 @@ public class OrderServiceImpl implements OrderService {
 
     }
 
-    private boolean pizzaExistInOrder(PizzaDto pizzaDto) {
+    private boolean pizzaExistInOrder(PizzaDto pizzaDto, PizzaType pizzaType) {
         long count = userContext
                 .getUserOrderDto()
                 .getBoughtPizzas()
                 .stream()
-                .filter(boughtPizzaDto -> isPizzaOnList(boughtPizzaDto, pizzaDto))
+                .filter(boughtPizzaDto -> isPizzaOnList(boughtPizzaDto, pizzaDto, pizzaType))
                 .count();
 
         return count >= 1;
     }
 
-    private boolean isPizzaOnList(BoughtPizzaDto boughtPizzaDto, PizzaDto pizzaDto) {
+    private boolean isPizzaOnList(BoughtPizzaDto boughtPizzaDto, PizzaDto pizzaDto,  PizzaType pizzaType) {
         PizzaDto boughtPizza = boughtPizzaDto.getPizza();
 
-        if (boughtPizzaDto.getPizzaType().equals(PizzaType.MEDIUM)) {
+//        if (boughtPizzaDto.getPizzaType().equals(PizzaType.MEDIUM)) {
+        if (pizzaType.equals(PizzaType.MEDIUM)) {
             pizzaDto.setPrice(NewPriceContextUtils.mediumPrice(pizzaDto.getPrice()));
-        } else if (boughtPizzaDto.getPizzaType().equals(PizzaType.LARGE)) {
+//        } else if (boughtPizzaDto.getPizzaType().equals(PizzaType.LARGE)) {
+        } else if (pizzaType.equals(PizzaType.LARGE)) {
             pizzaDto.setPrice(NewPriceContextUtils.largePrice(pizzaDto.getPrice()));
         }
 
         if (boughtPizza.getId().equals(pizzaDto.getId())) {
-            if (boughtPizzaDto.getPizza().getPrice().equals(pizzaDto.getPrice())) {
+            if (boughtPizzaDto.getPurchasePrice().equals(pizzaDto.getPrice())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isPizzaOnListv2(BoughtPizzaDto boughtPizzaDto, PizzaDto pizzaDto,  PizzaType pizzaType) {
+        PizzaDto boughtPizza = boughtPizzaDto.getPizza();
+
+////        if (boughtPizzaDto.getPizzaType().equals(PizzaType.MEDIUM)) {
+//        if (pizzaType.equals(PizzaType.MEDIUM)) {
+//            pizzaDto.setPrice(NewPriceContextUtils.mediumPrice(pizzaDto.getPrice()));
+////        } else if (boughtPizzaDto.getPizzaType().equals(PizzaType.LARGE)) {
+//        } else if (pizzaType.equals(PizzaType.LARGE)) {
+//            pizzaDto.setPrice(NewPriceContextUtils.largePrice(pizzaDto.getPrice()));
+//        }
+
+        if (boughtPizza.getId().equals(pizzaDto.getId())) {
+            if (boughtPizzaDto.getPurchasePrice().equals(pizzaDto.getPrice())) {
                 return true;
             }
         }
