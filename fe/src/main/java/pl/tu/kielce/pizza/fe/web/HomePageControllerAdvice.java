@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import pl.tu.kielce.pizza.common.department.dto.DepartmentDto;
+import pl.tu.kielce.pizza.common.messages.MessageSourceAccessor;
 import pl.tu.kielce.pizza.common.order.session.UserContext;
 import pl.tu.kielce.pizza.common.security.service.UserService;
 
@@ -19,13 +20,16 @@ public class HomePageControllerAdvice {
     @Autowired
     private final UserService userService;
 
+    @Autowired
+    private final MessageSourceAccessor messageSourceAccessor;
+
     @ModelAttribute
     public void globalAttributes(Model model) {
 
         String departmentName;
         DepartmentDto departmentDto = userContext.fetchDepartment();
         if (departmentDto == null) {
-            departmentName = "Department is empty! Ask";
+            departmentName = messageSourceAccessor.getMessage("department.actualChoosen");
         } else {
             departmentName = departmentDto.getLabel();
         }

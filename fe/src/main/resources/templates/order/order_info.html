@@ -12,7 +12,8 @@
         <div class="col-md-10">
 
             <div th:if="${userOrderDto.totalPrice} ==0">
-                <h1>Basket is empty!</h1>
+                <div th:replace="fragments/components :: h2LabelCentered(label='basket.empty', value='')"></div>
+
             </div>
             <div th:if="${userOrderDto.totalPrice} !=0">
 
@@ -21,7 +22,7 @@
                     <div th:replace="fragments/components :: h2LabelCentered(label='order.submitted', value='')"></div>
                 </div>
                 <div th:replace="fragments/components :: h4LabelCentered(label='order.totalPrice', value=${userOrderDto.totalPrice})"></div>
-                <table class="table table-bordered table-hover table-striped">
+                <table th:if="${userOrderDto.boughtItems.size() != 0}" class="table table-bordered table-hover table-striped">
                     <thead>
                     <tr>
                         <th th:text="#{item.name}"></th>
@@ -36,10 +37,17 @@
                         <td th:text="${boughtItem.quantity}"></td>
                         <td th:text="${boughtItem.purchasePrice}"></td>
                         <td th:text="${boughtItem.purchasePrice} * ${boughtItem.quantity}"></td>
+                        <td>
+                            <a class="usunItem"
+                               th:attrappend="item-id=${boughtItem.item.id}, item-price=${boughtItem.purchasePrice}"
+                               th:text="usun_item_v2">
+
+                            </a>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
-                <table class="table table-bordered table-hover table-striped">
+                <table th:if="${userOrderDto.boughtPizzas.size() != 0}" class="table table-bordered table-hover table-striped">
                     <thead>
                     <tr>
                         <th th:text="#{pizza.name}"></th>
@@ -54,6 +62,13 @@
                         <td th:text="${boughtPizza.quantity}"></td>
                         <td th:text="${boughtPizza.purchasePrice}"></td>
                         <td th:text="${boughtPizza.purchasePrice} * ${boughtPizza.quantity}"></td>
+                        <td>
+                            <a class="usunPizze"
+                               th:attrappend="pizza-id=${boughtPizza.pizza.id}, pizza-price=${boughtPizza.purchasePrice}"
+                               th:text="usun_Piiza_v2">
+
+                            </a>
+                        </td>
                     </tr>
                     </tbody>
                 </table>

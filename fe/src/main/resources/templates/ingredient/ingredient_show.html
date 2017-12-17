@@ -9,12 +9,12 @@
     <div th:replace="fragments/header :: header"></div>
     <div th:replace="fragments/components :: h2LabelCentered(label='ingredient', value=${ingredientDto.id})"></div>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div th:replace="fragments/components :: h4LabelCentered(label='ingredient.name', value=${ingredientDto.name})"></div>
         </div>
-        <div class="col-md-6">
-            <div th:replace="fragments/components :: h4LabelCentered(label='ingredient.description', value=${ingredientDto.description})"></div>
-        </div>
+        <!--<div class="col-md-6">-->
+            <!--<div th:replace="fragments/components :: h4LabelCentered(label='ingredient.description', value=${ingredientDto.description})"></div>-->
+        <!--</div>-->
     </div>
     <div th:replace="fragments/footer :: footer"></div>
 </div>

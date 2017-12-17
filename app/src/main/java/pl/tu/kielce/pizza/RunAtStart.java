@@ -4,12 +4,10 @@ package pl.tu.kielce.pizza;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import pl.tu.kielce.pizza.be.order.model.jpa.Order;
 import pl.tu.kielce.pizza.be.order.repository.OrderRepository;
 import pl.tu.kielce.pizza.be.security.model.jpa.Role;
 import pl.tu.kielce.pizza.be.security.repository.role.RoleRepository;
 import pl.tu.kielce.pizza.common.common.dto.AddressDto;
-import pl.tu.kielce.pizza.common.common.enums.OrderType;
 import pl.tu.kielce.pizza.common.department.dto.DepartmentDto;
 import pl.tu.kielce.pizza.common.department.service.DepartmentService;
 import pl.tu.kielce.pizza.common.ingredient.dto.IngredientDto;
@@ -26,7 +24,9 @@ import pl.tu.kielce.pizza.common.security.service.UserService;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Configuration
 @RequiredArgsConstructor
@@ -61,45 +61,52 @@ public class RunAtStart {
         defaultRoles();
         defaultUsers();
         defaultDepartment();
-        findAllDepartment();
         defaultItems();
-        List<IngredientDto> defaultingredients = defaultingredients();
-        saveDefaultPizza(defaultingredients);
+        defaultingredients();
+        defaultPizzas();
 
-//        defaultOrder();
         System.out.println("ZAPISANO DANE");
     }
 
-    private void saveDefaultPizza(List<IngredientDto> defaultingredients) {
+    private void defaultPizzas() {
 
-        PizzaDto pizzaDto = PizzaDto
-                .builder()
-                .name("Margharita")
-                .description("Margharita description")
-                .price(25.0D)
-                .ingredients(defaultingredients)
-                .build();
 
-        pizzaService.create(pizzaDto);
-    }
-
-    private void defaultOrder() {
-
-        Order order = new Order();
-        order.setTotalPrice(20D);
-        order.setOrderType(OrderType.DELIVERY);
-
-        orderRepository.save(order);
+        makePizza("Margherita", 22.10D, 3, 4, 5);
+        makePizza("Funghi", 22.95D, 3, 4, 5, 6);
+        makePizza("Salami", 23.80D, 3, 4, 5, 7);
+        makePizza("Rustica", 23.80D, 3, 4, 5, 8);
+        makePizza("Wegetariana", 23.80D, 3, 4, 5, 6, 9, 10);
+        makePizza("Hawajska", 23.80D, 3, 4, 5, 1, 14);
+        makePizza("Wiejska", 23.80D, 3, 4, 5, 11, 12, 13);
+        makePizza("Capricciosa", 23.80D, 3, 4, 1, 5, 6, 9);
+        makePizza("Studencka", 23.80D, 3, 4, 6, 5, 1, 18);
+        makePizza("Fantazja", 23.80D, 3, 4, 1, 5, 18, 9);
+        makePizza("Rafaello", 23.80D, 3, 4, 5, 6, 1, 12);
     }
 
     private void defaultItems() {
-        ItemDto itemDto = ItemDto.builder().name("Cola").price(10.0D).description("Z colą każda pizza smakuje lepiej!").build();
-        itemService.create(itemDto);
 
-        itemDto = ItemDto.builder().name("Sok multiwitaminowy").description("Z sokiem wszystko jest lepsze!").price(20.0D).build();
-        itemService.create(itemDto);
+        addItem("Coca-Cola", 3.30D);
+        addItem("Fanta", 3.30D);
+        addItem("Kawa rozpuszczalna", 7D);
+        addItem("Capuccino", 5.5D);
+        addItem("Latte", 10D);
+        addItem("Latte blue", 11D);
+        addItem("Czekolada na gorąco", 5D);
+        addItem("Herbata Owocowa", 5D);
+        addItem("Herbata Zielona", 5D);
+        addItem("Herbata Miętowa", 5D);
+        addItem("Frytki", 4D);
 
-        itemDto = ItemDto.builder().name("Gorąca czekolada").description("Na chłodne dni").price(30.0D).build();
+    }
+
+    private void addItem(String name, double price) {
+        ItemDto itemDto = ItemDto
+                .builder()
+                .name(name)
+                .price(price)
+                .build();
+
         itemService.create(itemDto);
     }
 
@@ -107,27 +114,69 @@ public class RunAtStart {
 
         List<IngredientDto> ingredientDtoList = new ArrayList<>();
 
-        IngredientDto ingredientDto = IngredientDto.builder().name("Szynka").selected(true).description("Szynkowy składnik").build();
-
+        IngredientDto ingredientDto = IngredientDto.builder().name("Szynka").selected(true).build();
         ingredientService.create(ingredientDto);
         ingredientDto.setId(1L);
         ingredientDtoList.add(ingredientDto);
 
-        ingredientDto = IngredientDto.builder().name("Ser").description("Dzięki niemu pizza jest się ciągnie").selected(true).build();
+        ingredientDto = IngredientDto.builder().name("Ser").selected(true).build();
         ingredientService.create(ingredientDto);
         ingredientDto.setId(2L);
         ingredientDtoList.add(ingredientDto);
 
-        ingredientDto = IngredientDto.builder().name("Sos pomidorowy").description("Podstawowy składnik każdej pizzy").build();
+        ingredientDto = IngredientDto.builder().name("Sos pomidorowy").build();
         ingredientService.create(ingredientDto);
 
+        ingredientDto = IngredientDto.builder().name(" Ser mozzarella").build();
+        ingredientService.create(ingredientDto);
+
+        addIngredient("Szynka");
+        addIngredient("Ser");
+        addIngredient("Sos pomidorowy");
+        addIngredient("Ser mozzarella");
+
+
+        addIngredient("Oregano");
+        addIngredient("Pieczarki");
+        addIngredient("Salami");
+        addIngredient("Boczek");
+        addIngredient("Papryka");
+        addIngredient("Kukurydza");
+
+        addIngredient("Cebula");
+        addIngredient("Kiełbasa");
+        addIngredient("Ogórek kiszony");
+        addIngredient("Ananas");
+        addIngredient("Wołowina");
+
+        addIngredient("Kurczak");
+        addIngredient("Tymianek");
+        addIngredient("Oliwki zielone");
         return ingredientDtoList;
-
-
     }
 
-    private void findAllDepartment() {
-        departmentService.findAll();
+
+    private void makePizza(String pizzaName, Double pizzaPrice, Integer... idsOfIngredients) {
+        List<IngredientDto> ingredientDtos = Arrays
+                .stream(idsOfIngredients)
+                .map(Integer::longValue)
+                .map(aLong -> IngredientDto.builder().id(aLong).selected(true).build())
+                .collect(Collectors.toList());
+
+
+        PizzaDto pizzaDto = PizzaDto
+                .builder()
+                .name(pizzaName)
+                .price(pizzaPrice)
+                .ingredients(ingredientDtos)
+                .build();
+
+        pizzaService.create(pizzaDto);
+    }
+
+    private void addIngredient(String name) {
+        IngredientDto ingredientDto = IngredientDto.builder().name(name).build();
+        ingredientService.create(ingredientDto);
     }
 
     private void defaultDepartment() {
@@ -140,7 +189,6 @@ public class RunAtStart {
         departmentDto.setActive(true);
         departmentService.create(departmentDto);
 
-        ///////////////////////////////////////////////////////////////////
 
         manager = new UserDto();
         manager.setId(2L);
@@ -164,8 +212,6 @@ public class RunAtStart {
         addressDto.setStreet("Tysiąclecia P.P");
         addressDto.setHouseNumber(1);
         addressDto.setFlatNumber(1);
-//        addressDto.setEmail("order@email.pl");
-//        addressDto.setPhoneNumber("123123123");
         return addressDto;
     }
 
@@ -182,7 +228,6 @@ public class RunAtStart {
         userDto.setAddressDto(defaultAddress());
         userDto.setPhoneNumber("111111111");
         userDto.setAvatarLocation("/images/default_avatar.png");
-//        userDto.setAccountStatus(AccountStatus.INITIAL);
 
         List<RoleDto> roleDtos = new ArrayList<>();
         roleDtos.add(RoleDto.builder().id(1L).selected(true).build());
@@ -192,7 +237,6 @@ public class RunAtStart {
 
         userDto.setRoles(roleDtos);
         userService.saveUser(userDto);
-//////////////////////////////////////////////////////////////////////////////////////
         userDto = new UserDto();
         userDto.setMainRoleType(MainRoleType.MANAGER);
         userDto.setAvatarLocation("/images/default_avatar.png");
@@ -214,7 +258,6 @@ public class RunAtStart {
         userDto.setAccountStatus(AccountStatus.ACTIVE);
 
         userService.saveUser(userDto);
-//////////////////////////////////////////////////////////////////////////////////////
 
         userDto = new UserDto();
         userDto.setMainRoleType(MainRoleType.USER);
@@ -235,7 +278,6 @@ public class RunAtStart {
 
         userService.saveUser(userDto);
 
-        //////////////////////////////////////////////////////////////////////////////////////
 
         userDto = new UserDto();
         userDto.setName("CZTERY");
@@ -250,7 +292,6 @@ public class RunAtStart {
         userDto.setAddressDto(defaultAddress());
 
         roleDtos = new ArrayList<>();
-//        roleDtos.add(RoleDto.builder().id(3L).selected(true).build());
         roleDtos.add(RoleDto.builder().id(4L).selected(true).build());
         userDto.setRoles(roleDtos);
         userDto.setAccountStatus(AccountStatus.ACTIVE);
@@ -271,7 +312,6 @@ public class RunAtStart {
         Role clientRole = Role.builder().role("CLIENT").build();
         roleRepository.save(clientRole);
     }
-
 
 
 }

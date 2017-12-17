@@ -29,4 +29,8 @@ public class BoughtPizzaDto {
     public Integer increaseQuantity() {
         return ++this.quantity;
     }
+
+    public Integer decreaseQuantity() {
+        return --this.quantity;
+    }
 }

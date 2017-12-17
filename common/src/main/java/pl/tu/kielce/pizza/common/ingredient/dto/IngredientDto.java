@@ -14,7 +14,7 @@ public class IngredientDto {
 
     private Long id;
     private String name;
-    private String description;
+//    private String description;
 
 
     private boolean selected;

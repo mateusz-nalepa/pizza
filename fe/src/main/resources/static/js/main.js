@@ -14,6 +14,34 @@ $( document ).ready(function() {
         });
     }
 
+    function deletePizza(pizzaId, pizzaPrice) {
+        $.ajax
+        ({
+            type: "POST",
+            url: '/client/order/deletePizza',
+            contentType:"application/json; charset=utf-8",
+            data: JSON.stringify({"pizzaId": pizzaId, "pizzaPrice": pizzaPrice}),
+            success: function () {
+                location.reload(true);
+                // window.location.reload();
+            }
+        });
+    }
+
+    function deleteItem(itemId, itemPrice) {
+        $.ajax
+        ({
+            type: "POST",
+            url: '/client/order/deleteItem',
+            contentType:"application/json; charset=utf-8",
+            data: JSON.stringify({"itemId": itemId, "itemPrice": itemPrice}),
+            success: function () {
+                location.reload(true);
+                // window.location.reload();
+            }
+        });
+    }
+
     $(".dodajPizze").click(function () {
         var pizzaId = $(this).attr("pizza-id");
         var pizzaType = $(this).attr("pizza-type");
@@ -100,6 +128,24 @@ $( document ).ready(function() {
         $(this).removeClass("orderIsDuringDelivery").addClass("orderDone").change();
         $(this).children(":first").text("DONE");
     });
+
+
+    $(".usunPizze").click(function () {
+        var pizzaId = $(this).attr("pizza-id");
+        var pizzaPrice = $(this).attr("pizza-price");
+        deletePizza(pizzaId, pizzaPrice);
+        // location.reload();
+    });
+
+    $(".usunItem").click(function () {
+        var itemId = $(this).attr("item-id");
+        var itemPrice = $(this).attr("item-price");
+        deleteItem(itemId, itemPrice);
+        // location.reload();
+    });
+
+
+
 
     console.log( "end" );
 });

@@ -1,47 +1,54 @@
 package pl.tu.kielce.pizza.fe.web.controller;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.tu.kielce.pizza.common.messages.MessageSourceAccessor;
 
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class ErrorController implements org.springframework.boot.autoconfigure.web.ErrorController{
+@RequiredArgsConstructor
+public class CustomErrorController implements ErrorController {
 
     private static final String PATH = "/error";
+
+    @Autowired
+    private final MessageSourceAccessor messageSourceAccessor;
 
     @RequestMapping(PATH)
     public String renderErrorPage(HttpServletRequest httpRequest, Model model) {
 
-        String errorMsg = "";
+        String errorMsg;
         int httpErrorCode = getErrorCode(httpRequest);
 
         switch (httpErrorCode) {
-            case 400: {
-                errorMsg = "Http Error Code: 400. Bad Request";
-                break;
-            }
             case 401: {
-                errorMsg = "Http Error Code: 401. Unauthorized";
+                errorMsg = "error.unauthorized";
                 break;
             }
             case 404: {
-                errorMsg = "Http Error Code: 404. Resource not found";
+                errorMsg = "error.pageNotFound";
                 break;
             }
             case 500: {
-                errorMsg = "Http Error Code: 500. Internal Server Error";
+                errorMsg = "error.internalServerError";
+                break;
+            }
+            default: {
+                errorMsg = "error.unknownError";
                 break;
             }
         }
-        model.addAttribute("errorMsg", "ERRORCONTROLLER: " + errorMsg);
+        model.addAttribute("errorMsg", errorMsg);
         return "error/error-page";
     }
 
     private int getErrorCode(HttpServletRequest httpRequest) {
-        return (Integer) httpRequest
-                .getAttribute("javax.servlet.error.status_code");
+        return (Integer) httpRequest.getAttribute("javax.servlet.error.status_code");
     }
 
     @Override

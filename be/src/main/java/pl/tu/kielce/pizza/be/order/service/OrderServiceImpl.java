@@ -221,8 +221,53 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public UserOrderDto findOne() {
+
         Long orderId = userContext.getUserOrderDto().getId();
+
+        if (orderId == null) {
+            return null;
+        }
+
         return orderExecutor.findOne(orderId);
+    }
+
+    @Override
+    public void deletePizza(Long pizzaId, Double pizzaPrice) {
+
+        for (BoughtPizzaDto boughtPizzaDto: userContext.getUserOrderDto().getBoughtPizzas()) {
+
+            if ( (boughtPizzaDto.getPizza().getId().equals(pizzaId)) && boughtPizzaDto.getPurchasePrice().equals(pizzaPrice)) {
+                boughtPizzaDto.decreaseQuantity();
+                Double oldTotalPrice = userContext.getUserOrderDto().getTotalPrice();
+                Double newTotalPrice = oldTotalPrice - pizzaPrice;
+                userContext.getUserOrderDto().setTotalPrice(newTotalPrice);
+
+            }
+
+        }
+
+        userContext
+                .getUserOrderDto()
+                .getBoughtPizzas()
+                .removeIf(boughtPizzaDto -> boughtPizzaDto.getQuantity().equals(0));
+
+    }
+
+    @Override
+    public void deleteItem(Long itemId, Double itemPrice) {
+        for (BoughtItemDto boughtItemDto: userContext.getUserOrderDto().getBoughtItems()) {
+            if ( (boughtItemDto.getItem().getId().equals(itemId)) ) {//&& boughtPizzaDto.getPurchasePrice().equals(pizzaPrice)) {
+                boughtItemDto.decreaseQuantity();
+                Double oldTotalPrice = userContext.getUserOrderDto().getTotalPrice();
+                Double newTotalPrice = oldTotalPrice - itemPrice;
+                userContext.getUserOrderDto().setTotalPrice(newTotalPrice);
+            }
+        }
+
+        userContext
+                .getUserOrderDto()
+                .getBoughtItems()
+                .removeIf(boughtItemDto -> boughtItemDto.getQuantity().equals(0));
     }
 
     private void setPizzaPrice(BoughtPizzaDto boughtPizzaDto) {

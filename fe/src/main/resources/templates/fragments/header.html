@@ -23,26 +23,8 @@
             <div id="navbar" class="navbar-collapse collapse">
 
                 <ul class="nav navbar-nav navbar-right" >
-                    <!--th:if="${#httpServletRequest.remoteUser} != null">-->
-                    <!--<li th:if="${#httpServletRequest.remoteUser} != null">-->
-                        <!--<a th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]</a>-->
-
-                    <!--</li>-->
-                    <!--<li> <a  th:text="${avatarLocation}"></a></li>-->
-                    <!--<li>-->
-                        <!--<a>-->
-                            <!--<label th:text="${avatarLocation}"></label>-->
-                            <!--<img th:width="35px" th:height="35px" th:src="@{${avatarLocation}}"/>-->
-                            <!--<img width="35px" height="35px" th:src="@{/dyskd/asd.png}"/>-->
-
-                            <!--<img width="35px" height="35px" th:src="@{${avatarLocation}}"/>-->
-                        <!--</a>-->
-                    <!--</li>-->
                     <li th:if="${#httpServletRequest.remoteUser} != null">
                         <a>
-                            <!--<label th:text="${avatarLocation}"></label>-->
-                            <!--<img th:width="35px" th:height="35px" th:src="@{${avatarLocation}}"/>-->
-                            <!--<img width="35px" height="35px" src="dyskd/konradek.png"/>-->
                             <img width="35px" height="35px" th:src="@{${avatarLocation}}"/>
 
                         </a>
@@ -150,6 +132,7 @@
 
                             <li sec:authorize="hasAuthority('CLIENT') || isAnonymous() "><a th:href="@{/client/order/purchasedOrderInfo}" th:text="#{client.order.purchasedOrderInfo}"></a></li>
                             <li sec:authorize="hasAuthority('CLIENT')"><a th:href="@{/client/order/all}" th:text="#{client.order.allOrders}"></a></li>
+                            <li><a th:href="@{/client/department/}" th:text="#{department.change}"></a></li>
 
 
 
@@ -190,6 +173,20 @@
                         <li><a th:href="@{/registration}" th:text="#{registration}"></a></li>
                         <li><a th:href="@{/login}" th:text="#{login}"></a></li>
                     </ul>
+                    <li class="dropdown">
+                        <a href="#"
+                           class="dropdown-toggle"
+                           data-toggle="dropdown"
+                           role="button"
+                           aria-haspopup="true"
+                           aria-expanded="false"
+                           th:inline="text">[[#{language}]]<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{''(lang=)}" th:text="#{polish}"></a></li>
+                            <li><a th:href="@{''(lang=en)}" th:text="#{english}"></a></li>
+                            <!--<li sec:authorize="hasAuthority('MANAGER')"><a th:href="@{/manager/user/duringDelivery}" th:text="#{users.list}"></a></li>-->
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>

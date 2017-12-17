@@ -23,4 +23,10 @@ public class BoughtItemDto {
     public Integer increaseQuantity() {
         return ++this.quantity;
     }
+
+
+    public Integer decreaseQuantity() {
+        return --this.quantity;
+    }
+
 }

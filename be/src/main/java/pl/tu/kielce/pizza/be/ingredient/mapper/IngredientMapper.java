@@ -14,7 +14,7 @@ public class IngredientMapper {
         IngredientDto ingredientDto = new IngredientDto();
         ingredientDto.setId(ingredient.getId());
         ingredientDto.setName(ingredient.getName());
-        ingredientDto.setDescription(ingredient.getDescription());
+//        ingredientDto.setDescription(ingredient.getDescription());
 
         return ingredientDto;
     }
@@ -22,7 +22,7 @@ public class IngredientMapper {
     public Ingredient dtoToEntity(IngredientDto ingredientDto) {
         Ingredient ingredient = new Ingredient();
         ingredient.setName(ingredientDto.getName());
-        ingredient.setDescription(ingredientDto.getDescription());
+//        ingredient.setDescription(ingredientDto.getDescription());
 
         return ingredient;
     }

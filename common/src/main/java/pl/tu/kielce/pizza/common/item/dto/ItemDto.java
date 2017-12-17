@@ -14,7 +14,7 @@ public class ItemDto {
 
     private Long id;
     private String name;
-    private String description;
+//    private String description;
     private Double price;
 
 }

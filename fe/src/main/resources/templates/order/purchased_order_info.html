@@ -11,120 +11,122 @@
         <div class="col-md-1"></div>
         <div class="col-md-10">
 
-            <div th:if="${userOrderDto.totalPrice} ==0">
-                <h1>Basket is empty!</h1>
+            <div th:if="${userOrderDto} == null">
+                <div th:replace="fragments/components :: h2LabelCentered(label='order.status.noOrderFound', value='')"></div>
             </div>
-            <div th:if="${userOrderDto.totalPrice} !=0">
+
+            <div th:if="${userOrderDto} != null">
+                <div th:if="${userOrderDto.totalPrice} !=0">
 
 
-                <div th:if="${submitted == true}">
-                    <div th:replace="fragments/components :: h2LabelCentered(label='order.submitted', value='')"></div>
-                </div>
-                <div th:replace="fragments/components :: h4LabelCentered(label='order.totalPrice', value=${userOrderDto.totalPrice})"></div>
-                <div th:replace="fragments/components :: h4LabelCentered(label='order.status', value=${userOrderDto.orderStatus})"></div>
-                <table class="table table-bordered table-hover table-striped">
-                    <thead>
-                    <tr>
-                        <th th:text="#{item.name}"></th>
-                        <th th:text="#{item.quantity}"></th>
-                        <th th:text="#{item.purchasePrice}"></th>
-                        <th th:text="#{item.totalPriceItems}"></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="boughtItem : ${userOrderDto.boughtItems}">
-                        <td th:text="${boughtItem.item.name}"></td>
-                        <td th:text="${boughtItem.quantity}"></td>
-                        <td th:text="${boughtItem.purchasePrice}"></td>
-                        <td th:text="${boughtItem.purchasePrice} * ${boughtItem.quantity}"></td>
-                    </tr>
-                    </tbody>
-                </table>
-                <table class="table table-bordered table-hover table-striped">
-                    <thead>
-                    <tr>
-                        <th th:text="#{pizza.name}"></th>
-                        <th th:text="#{pizza.quantity}"></th>
-                        <th th:text="#{pizza.purchasePrice}"></th>
-                        <th th:text="#{pizza.totalPriceItems}"></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="boughtPizza : ${userOrderDto.boughtPizzas}">
-                        <td th:text="${boughtPizza.pizza.name}"></td>
-                        <td th:text="${boughtPizza.quantity}"></td>
-                        <td th:text="${boughtPizza.purchasePrice}"></td>
-                        <td th:text="${boughtPizza.purchasePrice} * ${boughtPizza.quantity}"></td>
-                    </tr>
-                    </tbody>
-                </table>
-                <div th:if="${userOrderDto.deliveryInfoDto == null}">
-                    <strong>Delivery Data are not selected!</strong>
-                </div>
-                <div th:if="${userOrderDto.deliveryInfoDto != null}">
-                    <h1>Informacja o dostawie</h1>
-                    <div th:replace="fragments/components :: h4LabelCentered(label='order.note', value=${userOrderDto.deliveryInfoDto.note})"></div>
-
-                    <h1>Adres dostawy</h1>
-
-                    <div class="row">
-
-                        <div class="col-md-5">
-                            <div th:replace="fragments/components :: h4LabelCentered(label='common.address.city', value=${userOrderDto.deliveryInfoDto.addressDto.city})"></div>
-
-                        </div>
-                        <div class="col-md-2"></div>
-
-                        <div class="col-md-5">
-                            <div th:replace="fragments/components :: h4LabelCentered(label='common.address.street', value=${userOrderDto.deliveryInfoDto.addressDto.street})"></div>
-                        </div>
+                    <div th:if="${submitted == true}">
+                        <div th:replace="fragments/components :: h2LabelCentered(label='order.submitted', value='')"></div>
                     </div>
-
-                    <div class="row">
-
-                        <div class="col-md-5">
-                            <div th:replace="fragments/components :: h4LabelCentered(label='common.address.houseNumber', value=${userOrderDto.deliveryInfoDto.addressDto.houseNumber})"></div>
-
-                        </div>
-                        <div class="col-md-2"></div>
-
-                        <div class="col-md-5">
-                            <div th:replace="fragments/components :: h4LabelCentered(label='common.address.flatNumber', value=${userOrderDto.deliveryInfoDto.addressDto.flatNumber})"></div>
-                        </div>
+                    <div th:replace="fragments/components :: h4LabelCentered(label='order.totalPrice', value=${userOrderDto.totalPrice})"></div>
+                    <div th:replace="fragments/components :: h4LabelCentered(label='order.status', value=${userOrderDto.orderStatus})"></div>
+                    <table class="table table-bordered table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th th:text="#{item.name}"></th>
+                            <th th:text="#{item.quantity}"></th>
+                            <th th:text="#{item.purchasePrice}"></th>
+                            <th th:text="#{item.totalPriceItems}"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="boughtItem : ${userOrderDto.boughtItems}">
+                            <td th:text="${boughtItem.item.name}"></td>
+                            <td th:text="${boughtItem.quantity}"></td>
+                            <td th:text="${boughtItem.purchasePrice}"></td>
+                            <td th:text="${boughtItem.purchasePrice} * ${boughtItem.quantity}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th th:text="#{pizza.name}"></th>
+                            <th th:text="#{pizza.quantity}"></th>
+                            <th th:text="#{pizza.purchasePrice}"></th>
+                            <th th:text="#{pizza.totalPriceItems}"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="boughtPizza : ${userOrderDto.boughtPizzas}">
+                            <td th:text="${boughtPizza.pizza.name}"></td>
+                            <td th:text="${boughtPizza.quantity}"></td>
+                            <td th:text="${boughtPizza.purchasePrice}"></td>
+                            <td th:text="${boughtPizza.purchasePrice} * ${boughtPizza.quantity}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div th:if="${userOrderDto.deliveryInfoDto == null}">
+                        <strong>Delivery Data are not selected!</strong>
                     </div>
+                    <div th:if="${userOrderDto.deliveryInfoDto != null}">
+                        <h1>Informacja o dostawie</h1>
+                        <div th:replace="fragments/components :: h4LabelCentered(label='order.note', value=${userOrderDto.deliveryInfoDto.note})"></div>
 
-<!---->
-                    <h1>Dane odbiorcy</h1>
+                        <h1>Adres dostawy</h1>
 
-                    <div class="row">
+                        <div class="row">
 
-                        <div class="col-md-5">
-                            <div th:replace="fragments/components :: h4LabelCentered(label='order.user.name', value=${userOrderDto.deliveryInfoDto.deliveryUserDataDto.name})"></div>
+                            <div class="col-md-5">
+                                <div th:replace="fragments/components :: h4LabelCentered(label='common.address.city', value=${userOrderDto.deliveryInfoDto.addressDto.city})"></div>
 
+                            </div>
+                            <div class="col-md-2"></div>
+
+                            <div class="col-md-5">
+                                <div th:replace="fragments/components :: h4LabelCentered(label='common.address.street', value=${userOrderDto.deliveryInfoDto.addressDto.street})"></div>
+                            </div>
                         </div>
-                        <div class="col-md-2"></div>
 
-                        <div class="col-md-5">
-                            <div th:replace="fragments/components :: h4LabelCentered(label='order.user.lastName', value=${userOrderDto.deliveryInfoDto.deliveryUserDataDto.lastName})"></div>
+                        <div class="row">
+
+                            <div class="col-md-5">
+                                <div th:replace="fragments/components :: h4LabelCentered(label='common.address.houseNumber', value=${userOrderDto.deliveryInfoDto.addressDto.houseNumber})"></div>
+
+                            </div>
+                            <div class="col-md-2"></div>
+
+                            <div class="col-md-5">
+                                <div th:replace="fragments/components :: h4LabelCentered(label='common.address.flatNumber', value=${userOrderDto.deliveryInfoDto.addressDto.flatNumber})"></div>
+                            </div>
                         </div>
+
+                        <!---->
+                        <h1>Dane odbiorcy</h1>
+
+                        <div class="row">
+
+                            <div class="col-md-5">
+                                <div th:replace="fragments/components :: h4LabelCentered(label='order.user.name', value=${userOrderDto.deliveryInfoDto.deliveryUserDataDto.name})"></div>
+
+                            </div>
+                            <div class="col-md-2"></div>
+
+                            <div class="col-md-5">
+                                <div th:replace="fragments/components :: h4LabelCentered(label='order.user.lastName', value=${userOrderDto.deliveryInfoDto.deliveryUserDataDto.lastName})"></div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-5">
+                                <div th:replace="fragments/components :: h4LabelCentered(label='order.user.email', value=${userOrderDto.deliveryInfoDto.deliveryUserDataDto.email})"></div>
+
+                            </div>
+                            <div class="col-md-2"></div>
+
+                            <div class="col-md-5">
+                                <div th:replace="fragments/components :: h4LabelCentered(label='order.user.phoneNumber', value=${userOrderDto.deliveryInfoDto.deliveryUserDataDto.phoneNumber})"></div>
+                            </div>
+                        </div>
+
+
+                        <!--<div th:replace="fragments/components :: submitButton(label='order.makeOrder')"></div>-->
                     </div>
-
-                    <div class="row">
-
-                        <div class="col-md-5">
-                            <div th:replace="fragments/components :: h4LabelCentered(label='order.user.email', value=${userOrderDto.deliveryInfoDto.deliveryUserDataDto.email})"></div>
-
-                        </div>
-                        <div class="col-md-2"></div>
-
-                        <div class="col-md-5">
-                            <div th:replace="fragments/components :: h4LabelCentered(label='order.user.phoneNumber', value=${userOrderDto.deliveryInfoDto.deliveryUserDataDto.phoneNumber})"></div>
-                        </div>
-                    </div>
-
-
-
-                    <!--<div th:replace="fragments/components :: submitButton(label='order.makeOrder')"></div>-->
                 </div>
             </div>
         </div>

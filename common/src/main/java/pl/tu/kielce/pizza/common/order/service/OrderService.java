@@ -35,4 +35,7 @@ public interface OrderService {
 
     UserOrderDto findOne();
 
+    void deletePizza(Long pizzaId, Double pizzaPrice);
+
+    void deleteItem(Long itemId, Double itemPrice);
 }

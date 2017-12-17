@@ -13,7 +13,7 @@ public class ItemMapper {
         ItemDto itemDto = new ItemDto();
         itemDto.setId(item.getId());
         itemDto.setName(item.getName());
-        itemDto.setDescription(item.getDescription());
+//        itemDto.setDescription(item.getDescription());
         itemDto.setPrice(item.getPrice());
 
         return itemDto;
@@ -22,7 +22,7 @@ public class ItemMapper {
     public Item dtoToEntity(ItemDto itemDto) {
         Item item = new Item();
         item.setName(itemDto.getName());
-        item.setDescription(itemDto.getDescription());
+//        item.setDescription(itemDto.getDescription());
         item.setPrice(itemDto.getPrice());
 
         return item;

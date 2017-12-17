@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.tu.kielce.pizza.common.department.dto.DepartmentDto;
 import pl.tu.kielce.pizza.common.item.dto.ItemDto;
@@ -99,6 +100,34 @@ public class ClientOrderController {
         model.addAttribute("userOrderDto", userOrderDto);
         return "order/order_info";
     }
+
+//    @GetMapping("deletePizza/{pizzaId}/{pizzaPrice}")
+//    public String deletePizza(@PathVariable("pizzaId") Long pizzaId, @PathVariable("pizzaPrice") Double pizzaPrice ) {
+//
+//        orderService.deletePizza(pizzaId, pizzaPrice);
+//        return "redirect:/client/order/summary";
+//    }
+
+    @PostMapping("deletePizza")
+    public String deletePizza(@RequestBody DeletePizzaDto deletePizzaDto) {
+
+        orderService.deletePizza(deletePizzaDto.getPizzaId(), deletePizzaDto.getPizzaPrice());
+        return "redirect:/client/order/summary";
+    }
+
+    @PostMapping("deleteItem")
+    public String deleteItem(@RequestBody DeleteItemDto deleteItemDto) {
+
+        orderService.deleteItem(deleteItemDto.getItemId(), deleteItemDto.getItemPrice());
+        return "redirect:/client/order/summary";
+    }
+
+//    @GetMapping("deleteItem/{itemId}/{itemPrice}")
+//    public String deleteItem(@PathVariable("itemId") Long itemId, @PathVariable("itemPrice") Double itemPrice ) {
+//
+//        orderService.deleteItem(itemId, itemPrice);
+//        return "redirect:/client/order/summary";
+//    }
 
     @PostMapping("/addAddress")
     public String addAddress(@Valid DeliveryInfoDto deliveryInfoDto, BindingResult bindingResult, Model model) {

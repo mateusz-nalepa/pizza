@@ -23,7 +23,7 @@ public class Pizza {
     private Long id;
 
     private String name;
-    private String description;
+//    private String description;
     private Double price;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)

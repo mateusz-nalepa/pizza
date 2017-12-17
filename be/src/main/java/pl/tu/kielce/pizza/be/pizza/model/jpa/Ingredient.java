@@ -28,7 +28,7 @@ public class Ingredient {
 
     private String name;
 
-    private String description;
+//    private String description;
 
 //    @Override
 //    public String toString() {
