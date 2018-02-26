@@ -17,6 +17,8 @@ import java.util.List;
 public class UserDto extends AuditableEntityDto{
 
     private String password;
+    private String passwordv2;
+
 
     private Long id;
     private String name;
@@ -31,4 +33,8 @@ public class UserDto extends AuditableEntityDto{
     private MainRoleType mainRoleType;
 
     private String avatarLocation;
+
+    public String getLabel() {
+        return name + " " + lastName + " (" + email + " )";
+    }
 }

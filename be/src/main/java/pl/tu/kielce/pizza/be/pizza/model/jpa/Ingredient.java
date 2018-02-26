@@ -28,6 +28,8 @@ public class Ingredient {
 
     private String name;
 
+    private boolean active;
+
 //    private String description;
 
 //    @Override

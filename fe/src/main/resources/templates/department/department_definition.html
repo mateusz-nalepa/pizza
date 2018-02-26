@@ -7,6 +7,9 @@
 <body>
 <div class="container">
     <div th:replace="fragments/header :: header"></div>
+    <div th:replace="fragments/components :: headerH4Reed(text='Dodawanie nowego oddziału')"></div>
+
+
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-10">
@@ -18,16 +21,66 @@
                     role="form">
                 <!--//inputy tutaj-->
 
+                <div class="row">
+
+                    <div class="col-md-5">
+                        <div th:replace="fragments/components :: inputTextField(inputName='addressDto.city', label='common.address.city')"></div>
+
+                    </div>
+                    <div class="col-md-2"></div>
+
+                    <div class="col-md-5">
+                        <div th:replace="fragments/components :: inputTextField(inputName='addressDto.street', label='common.address.street')"></div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-5">
+                        <div th:replace="fragments/components :: inputNumberField(inputName='addressDto.houseNumber', label='common.address.houseNumber')"></div>
+
+                    </div>
+                    <div class="col-md-2"></div>
+
+                    <div class="col-md-5">
+                        <div th:replace="fragments/components :: inputNumberField(inputName='addressDto.flatNumber', label='common.address.flatNumber')"></div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-5">
+                        <div th:replace="fragments/components :: inputNumberField(inputName='multiplier', label='department.multiplier')"></div>
+
+                    </div>
+                    <div class="col-md-2"></div>
+
+                    <div class="col-md-5">
+                        <div th:replace="fragments/components :: inputTextField(inputName='phoneNumber', label='department.phoneNumber')"></div>
+                    </div>
+                </div>
 
 
-                <div th:replace="fragments/components :: inputTextField(inputName='addressDto.city', label='common.address.city')"></div>
-                <div th:replace="fragments/components :: inputTextField(inputName='addressDto.street', label='common.address.street')"></div>
-                <div th:replace="fragments/components :: inputNumberField(inputName='addressDto.houseNumber', label='common.address.houseNumber')"></div>
-                <div th:replace="fragments/components :: inputNumberField(inputName='addressDto.flatNumber', label='common.address.flatNumber')"></div>
-                <div th:replace="fragments/components :: inputNumberField(inputName='multiplier', label='department.multiplier')"></div>
+
                 <div th:replace="fragments/components :: inputHiddenField(inputName='active')"></div>
 
-                <div th:replace="fragments/components :: inputSelectList(inputName='manager.id', label='department.add', selectList=${freeManagers})"></div>
+
+
+                <div class="row">
+
+                    <div class="col-md-5">
+                        <div th:replace="fragments/components :: inputTimeField(inputName='openHour', label='department.openHour')"></div>
+
+                    </div>
+                    <div class="col-md-2"></div>
+
+                    <div class="col-md-5">
+                        <div th:replace="fragments/components :: inputTimeField(inputName='closeHour', label='department.closeHour')"></div>
+                    </div>
+                </div>
+
+
+                <div th:replace="fragments/components :: inputSelectList(inputName='manager.id', label='department.chooseManager', selectList=${freeManagers})"></div>
 
                 <!--//koniec inputow-->
                 <div th:replace="fragments/components :: submitButton(label='department.add')"></div>

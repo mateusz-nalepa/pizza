@@ -127,7 +127,7 @@ public class DepartmentExecutor {
         return userRepository
                 .findByDepartmentId(departmentId)
                 .stream()
-                .filter(user -> !user.getId().equals(manager.getId())) //usunięcie managera z listy
+//                .filter(user -> !user.getId().equals(manager.getId())) //usunięcie managera z listy
                 .map(userMapper::entityToDto)
                 .collect(Collectors.toList());
     }

@@ -7,6 +7,8 @@
 <body>
 <div class="container">
     <div th:replace="fragments/header :: header"></div>
+    <div th:replace="fragments/components :: headerH4Reed(text='Dodawanie nowej pizzy')"></div>
+
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-10">
@@ -17,7 +19,6 @@
                     class="form-horizontal"
                     role="form">
                 <div th:replace="fragments/components :: inputTextField(inputName='name', label='pizza.name')"></div>
-                <div th:replace="fragments/components :: inputTextField(inputName='description', label='pizza.description')"></div>
                 <div th:replace="fragments/components :: inputNumberField(inputName='price', label='pizza.price')"></div>
 
                 <table class="table table-bordered table-hover table-striped">
@@ -39,6 +40,7 @@
                     </tr>
                     </tbody>
                 </table>
+                <!--<div th:replace="fragments/components :: inputTextField(inputName='description', label='pizza.description')"></div>-->
 
                 <div th:replace="fragments/components :: submitButton(label='pizza.add')"></div>
 

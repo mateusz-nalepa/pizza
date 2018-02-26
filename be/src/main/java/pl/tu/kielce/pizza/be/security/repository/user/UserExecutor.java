@@ -112,4 +112,12 @@ public class UserExecutor {
         Long userId = UserUtils.getUserId();
         return userRepository.fetchAvatarLocation(userId);
     }
+
+    public List<UserDto> findAllActive() {
+        return userRepository
+                .findAll()
+                .stream()
+                .map(userMapper::entityToDto)
+                .collect(Collectors.toList());
+    }
 }

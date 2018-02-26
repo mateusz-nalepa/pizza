@@ -174,7 +174,7 @@ public class UserUtils {
 //                .collect(Collectors.toList());
 //
 //        return roles.size() == 1 && roles.contains("CLIENT");
-        return hasRole("CLIENT");
+        return hasRole("CLIENT") && !hasRole("USER");
     }
 
     public static boolean isNotAdmin() {

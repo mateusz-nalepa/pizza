@@ -8,13 +8,16 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import pl.tu.kielce.pizza.common.security.dto.AccountStatus;
 import pl.tu.kielce.pizza.common.security.dto.RoleDto;
 import pl.tu.kielce.pizza.common.security.dto.UserDto;
+import pl.tu.kielce.pizza.common.security.enums.MainRoleType;
 import pl.tu.kielce.pizza.common.security.service.RoleService;
 import pl.tu.kielce.pizza.common.security.service.UserService;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -48,6 +51,13 @@ public class UserController {
         return USER_REGISTRATION_TEMPLATE_PATH;
     }
 
+    @GetMapping("/admin/user/list")
+    public String allUsers(Model model) {
+        List<UserDto> users =  userService.findAllActive();
+        model.addAttribute("users", users);
+        return "user/all_users";
+    }
+
     @RequestMapping(value = REGISTRATION_URL, method = RequestMethod.POST)
     public String createNewUser(@Valid UserDto userDto, BindingResult bindingResult, Model model) {
 
@@ -63,6 +73,9 @@ public class UserController {
             return USER_REGISTRATION_TEMPLATE_PATH;
         }
 
+        userDto.setMainRoleType(MainRoleType.USER);
+
+        userDto.setAccountStatus(AccountStatus.INITIAL);
         userService.saveUser(userDto);
         model.addAttribute("successMessage", "User has been registered successfully");
         model.addAttribute("user", new UserDto());

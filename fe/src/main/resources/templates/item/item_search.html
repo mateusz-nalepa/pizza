@@ -7,13 +7,19 @@
 <body>
 <div class="container">
     <div th:replace="fragments/header :: header"></div>
+
+    <div th:replace="fragments/components :: headerH4Reed(text='Lista przedmiotów')"></div>
+
+
     <table class="table table-bordered table-hover table-striped">
         <thead>
         <tr>
             <th th:text="#{common.id}">ID</th>
             <th th:text="#{item.name}"></th>
             <!--<th th:text="#{item.description}"></th>-->
-            <th th:text="#{item.price}"></th>
+            <th>Cena produktu (PLN)</th>
+            <th>Operacja</th>
+
         </tr>
         </thead>
         <tbody>
@@ -24,7 +30,12 @@
             <td th:text="${item.name}"></td>
             <!--<td th:text="${item.description}"></td>-->
             <td th:text="${item.price}"></td>
+            <td>
+                <button type="button" class="btn btn-primary">Edytuj</button>
+                <button type="button" class="btn btn-danger">Dezaktywuj</button>
+            </td>
         </tr>
+
         </tbody>
     </table>
     <div th:replace="fragments/footer :: footer"></div>

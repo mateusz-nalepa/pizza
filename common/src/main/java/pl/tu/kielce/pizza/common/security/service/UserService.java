@@ -26,4 +26,6 @@ public interface UserService {
 
     String fetchAvatarLocation();
 
+    List<UserDto> findAllActive();
+
 }

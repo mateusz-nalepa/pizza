@@ -7,55 +7,62 @@
 <body>
 <div class="container">
     <div th:replace="fragments/header :: header"></div>
-    <h4 class="text-center"><strong>Informacje o profilu</strong></h4>
+    <div th:replace="fragments/components :: headerH4Reed(text='Informacje o profilu')"></div>
+
     <hr/>
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-10">
             <div class="row">
-                <h1 class="text-center" th:text="#{user.address.basic}"></h1>
+                <div th:replace="fragments/components :: headerH4Reed(text=#{user.address.basic})"></div>
+
             </div>
+
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div th:replace="fragments/components :: h4LabelCentered(label='name', value=${userDto.name})"></div>
                 </div>
-                <div class="col-md-2"></div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div th:replace="fragments/components :: h4LabelCentered(label='lastName', value=${userDto.lastName})"></div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div th:replace="fragments/components :: h4LabelCentered(label='email', value=${userDto.email})"></div>
                 </div>
-                <div class="col-md-2"></div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div th:replace="fragments/components :: h4LabelCentered(label='phoneNumber', value=${userDto.phoneNumber})"></div>
                 </div>
             </div>
+
             <div class="row">
-                <h1 class="text-center" th:text="#{user.address.profile}"></h1>
+                <div th:replace="fragments/components :: headerH4Reed(text=#{user.address.profile})"></div>
             </div>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div th:replace="fragments/components :: h4LabelCentered(label='common.address.city', value=${userDto.addressDto.city})"></div>
                 </div>
-                <div class="col-md-2"></div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div th:replace="fragments/components :: h4LabelCentered(label='common.address.street', value=${userDto.addressDto.street})"></div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div th:replace="fragments/components :: h4LabelCentered(label='common.address.houseNumber', value=${userDto.addressDto.houseNumber})"></div>
                 </div>
-                <div class="col-md-2"></div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div th:replace="fragments/components :: h4LabelCentered(label='common.address.flatNumber', value=${userDto.addressDto.flatNumber})"></div>
                 </div>
             </div>
+
+            <!--<div class="row">-->
+                <!--<div class="col-md-4">-->
+                    <!--<div th:replace="fragments/components :: h4LabelCentered(label='common.address.houseNumber', value=${userDto.addressDto.houseNumber})"></div>-->
+                <!--</div>-->
+                <!--<div class="col-md-2"></div>-->
+                <!--<div class="col-md-4">-->
+                    <!--<div th:replace="fragments/components :: h4LabelCentered(label='common.address.flatNumber', value=${userDto.addressDto.flatNumber})"></div>-->
+                <!--</div>-->
+            <!--</div>-->
             <div class="row">
-                <h1 class="text-center" th:text="#{image.changeAvatar}"></h1>
+                <div th:replace="fragments/components :: headerH4Reed(text=#{image.changeAvatar})"></div>
+
             </div>
             <div>
                 <form class="form-horizontal"

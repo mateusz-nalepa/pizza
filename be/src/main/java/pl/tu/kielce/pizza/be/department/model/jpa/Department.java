@@ -6,6 +6,7 @@ import pl.tu.kielce.pizza.be.common.jpa.AuditableEntity;
 import pl.tu.kielce.pizza.be.security.model.jpa.User;
 
 import javax.persistence.*;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,10 @@ public class Department extends AuditableEntity{
     @OneToOne(mappedBy = "department")
     @JoinColumn(name = "manager_id")
     private User manager;
+
+    private String phoneNumber;
+    private LocalTime openHour;
+    private LocalTime closeHour;
 
 //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "department")
 //    private List<Ingredient> ingredientDepartments;

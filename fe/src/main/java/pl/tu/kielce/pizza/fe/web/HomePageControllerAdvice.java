@@ -27,13 +27,17 @@ public class HomePageControllerAdvice {
     public void globalAttributes(Model model) {
 
         String departmentName;
+        String workHours;
         DepartmentDto departmentDto = userContext.fetchDepartment();
         if (departmentDto == null) {
             departmentName = messageSourceAccessor.getMessage("department.actualChoosen");
+            workHours = "";
         } else {
             departmentName = departmentDto.getLabel();
+            workHours = departmentDto.workHours();
         }
-        model.addAttribute("msg", departmentName);
+        model.addAttribute("departmentLabel", departmentName);
+        model.addAttribute("workHours", workHours);
     }
 
     @ModelAttribute

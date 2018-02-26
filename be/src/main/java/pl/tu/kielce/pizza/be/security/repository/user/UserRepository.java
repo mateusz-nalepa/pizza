@@ -43,8 +43,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("select d.manager from Department d where d.id = :departmentId and d.manager.mainRoleType = pl.tu.kielce.pizza.common.security.enums.MainRoleType.MANAGER")
     User findManagerByDepartmentId(@Param("departmentId") Long departmentId);
-
-
+    
     @Modifying
     @Query("update User set avatarLocation = :fileAbsolutePath where id = :userId")
     void updateUserAvatar(@Param("userId") Long userId, @Param("fileAbsolutePath") String fileAbsolutePath);

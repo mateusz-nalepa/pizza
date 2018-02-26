@@ -7,9 +7,15 @@
 <body>
 <div class="container">
     <div th:replace="fragments/header :: header"></div>
-    <div th:replace="fragments/components :: headerH4Reed(text='Lista składników')"></div>
+    <div th:replace="fragments/components :: headerH4Reed(text='Informacje o dostawie')"></div>
 
-    <div th:replace="fragments/pizza :: ingredientTable(ingredients=${ingredients})"></div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            Tutaj jakiś regulamin
+        </div>
+        <div class="col-md-1"></div>
+    </div>
     <div th:replace="fragments/footer :: footer"></div>
 </div>
 </body>

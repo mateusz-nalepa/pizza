@@ -7,6 +7,8 @@
 <body>
 <div class="container">
     <div th:replace="fragments/header :: header"></div>
+    <div th:replace="fragments/components :: headerH4Reed(text='Rejestracja')"></div>
+
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-10">
@@ -16,7 +18,8 @@
                     method="post"
                     class="form-horizontal"
                     role="form">
-                <span th:utext="${successMessage}"></span>
+                <div th:replace="fragments/components :: headerH4Reed(text=${successMessage})"></div>
+
                 <div class="row">
                     <div class="col-md-5">
                         <div th:replace="fragments/components :: inputTextField(inputName='name', label='name')">
@@ -28,10 +31,35 @@
                         </div>
                     </div>
                 </div>
-                <div th:replace="fragments/components :: inputEmailField(inputName='email', label='email')"></div>
-                <div th:replace="fragments/components :: inputPasswordField(inputName='password', label='password')"></div>
 
-                <h1> Adres</h1>
+
+                <div class="row">
+                    <div class="col-md-5">
+                        <div th:replace="fragments/components :: inputEmailField(inputName='email', label='email')"></div>
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-5">
+                        <div th:replace="fragments/components :: inputTextField(inputName='phoneNumber', label='phoneNumber')"></div>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col-md-5">
+                        <div th:replace="fragments/components :: inputPasswordField(inputName='password', label='password')"></div>
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-5">
+                        <div th:replace="fragments/components :: inputPasswordField(inputName='passwordv2', label='password.repeat')"></div>
+                    </div>
+                </div>
+
+
+
+                <div th:replace="fragments/components :: headerH4Reed(text='Adres')"></div>
+
+
 
                 <div class="row">
 
@@ -65,12 +93,13 @@
                 <!--<div th:replace="fragments/components :: inputNumberField(inputName='addressDto.flatNumber', label='common.address.flatNumber')"></div>-->
 
                 <div id="roles" sec:authorize="!isAnonymous()">
+                    <div th:replace="fragments/components :: headerH4Reed(text='Role pracownika')"></div>
 
                 <table class="table table-bordered table-hover table-striped">
                     <thead>
                     <tr>
                         <th>Rola</th>
-                        <th>Active</th>
+                        <th>Aktywna</th>
                     </tr>
                     </thead>
                     <tbody>

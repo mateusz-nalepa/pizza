@@ -7,15 +7,18 @@
 <body>
 <div class="container">
     <div th:replace="fragments/header :: header"></div>
-    <div th:replace="fragments/components :: headerH4Reed(text='Zamówienia czekające na akceptację')"></div>
+    <div th:replace="fragments/components :: headerH4Reed(text='Zamówienia w trakcie przygotowywania')"></div>
+
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-10">
 
             <div th:if="${userOrderDtos.size()} == 0">
-                <h2 class="reedError text-center">Brak aktualnie jakichkolwiek zamowien czekajacych na akceptacje!</h2>
+                <h1>Brak aktualnie jakichkolwiek zamowien czekajacych na akceptacje!</h1>
             </div>
+
             <div th:if="${userOrderDtos.size()} != 0">
+
                 <table class="table table-bordered table-hover table-striped">
                     <thead>
                     <tr>
@@ -26,10 +29,19 @@
                     </thead>
                     <tbody>
                     <tr th:each="userOrderDto : ${userOrderDtos}">
+                        <!--<td>-->
+                        <!--<a th:href="@{/manager/department/} + ${department.id}" th:text="${department.id}"></a>-->
+                        <!--</td>-->
+                        <!--<td th:text="${userOrderDto.id}"></td>-->
                         <td>
                             <div th:replace="order/modal_order :: modalOrder(${userOrderDto})"></div>
+
                         </td>
                         <td th:text="${#numbers.formatDecimal(userOrderDto.totalPrice, 0, 2)}">
+
+
+
+
                         </td>
                         <td th:if="${userOrderDto.orderStatus} == ${T(pl.tu.kielce.pizza.common.common.enums.OrderStatus).WAITING_FOR_APPROVAL}">
                             <a class="orderWaitForAccept"
@@ -55,6 +67,9 @@
                                 <button th:text="${userOrderDto.orderStatus}" class="btn btn-info"></button>
                             </a>
                         </td>
+
+                        <!--orderIsDuringDelivery-->
+                        <!--orderAccepted-->
                     </tr>
                     </tbody>
                 </table>

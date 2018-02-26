@@ -83,4 +83,10 @@ public class UserServiceImpl implements UserService {
         return s;
     }
 
+    @Override
+    public List<UserDto> findAllActive() {
+
+        return userExecutor.findAllActive();
+    }
+
 }

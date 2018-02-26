@@ -7,19 +7,31 @@
 <body>
 <div class="container">
     <div th:replace="fragments/header :: header"></div>
+
+    <div th:replace="fragments/components :: headerH4Reed(text='Lista oddziałów')"></div>
+
     <table class="table table-bordered table-hover table-striped">
         <thead>
         <tr>
             <th>ID</th>
-            <th>City</th>
+            <th>Miasto</th>
+            <th>Mnożnik</th>
+            <th>Operacja</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="department : ${departments}">
             <td>
                 <a th:href="@{/manager/department/} + ${department.id}" th:text="${department.id}"></a>
+
             </td>
-            <td th:text="${department.addressDto.city}">
+            <td th:text="${department.addressDto.city}"></td>
+            <td th:text="${department.multiplier}"></td>
+            <!--<td th:text="${department.multiplier}"></td>-->
+            <td>
+                <button type="button" class="btn btn-success">Szczegóły</button>
+                <button type="button" class="btn btn-primary">Edytuj</button>
+                <button type="button" class="btn btn-danger">Dezaktywuj</button>
             </td>
         </tr>
         </tbody>

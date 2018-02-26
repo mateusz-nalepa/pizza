@@ -7,6 +7,8 @@
 <body>
 <div class="container">
     <div th:replace="fragments/header :: header"></div>
+    <div th:replace="fragments/components :: headerH4Reed(text='Informacje o danym składniku')"></div>
+
     <div th:replace="fragments/components :: h2LabelCentered(label='ingredient', value=${ingredientDto.id})"></div>
     <div class="row">
         <div class="col-md-12">

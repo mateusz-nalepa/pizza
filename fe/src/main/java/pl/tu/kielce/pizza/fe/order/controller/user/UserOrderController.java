@@ -30,14 +30,14 @@ public class UserOrderController {
     public String findAllInProgress(Model model) {
         List<UserOrderDto> userOrderDtos = orderService.findAllInProgress();
         model.addAttribute("userOrderDtos", userOrderDtos);
-        return "order/waiting_for_approval";
+        return "order/in_progress";
     }
 
     @GetMapping("duringDelivery")
     public String findAllDuringDelivery(Model model) {
         List<UserOrderDto> userOrderDtos = orderService.findAllDuringDelivery();
         model.addAttribute("userOrderDtos", userOrderDtos);
-        return "order/waiting_for_approval";
+        return "order/during_delivery";
     }
 
 

@@ -22,7 +22,7 @@
             <td>
                 <a class="dodajPizze"
                    th:attrappend="pizza-id=${pizza.id}, pizza-type=${T(pl.tu.kielce.pizza.common.common.enums.PizzaType).SMALL.ordinal()}">
-                    <button th:text="${pizza.price}" class="btn btn-info"></button>
+                    <button th:text="${#numbers.formatDecimal(pizza.price, 0, 2)}" class="btn btn-info"></button>
                 </a>
             </td>
 
@@ -46,4 +46,10 @@
 
 </div>
 </body>
+
+<!--<button-->
+        <!--class="btn btn-primary btn-lg btn-block"-->
+        <!--th:text="#{order.submitOrder}">-->
+    <!--<a th:href="@{/client/order/submitOrder}"></a>-->
+<!--</button>-->
 </html>

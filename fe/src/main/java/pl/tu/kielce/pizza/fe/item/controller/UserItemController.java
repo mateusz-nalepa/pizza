@@ -36,8 +36,8 @@ public class UserItemController {
 //    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/all")
     public String allItems(Model model) {
-//        List<ItemDto> items = itemService.findAll();
-        List<ItemDto> items = itemService.findAllWithMultiplier();
+        List<ItemDto> items = itemService.findAll();
+//        List<ItemDto> items = itemService.findAllWithMultiplier();
         model.addAttribute("items", items);
         return "item/item_search";
     }

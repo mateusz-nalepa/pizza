@@ -15,7 +15,6 @@ public class LanguageController {
     @ResponseBody
     public String en(@RequestParam(value = "messageCode", required = false) String messageCode) {
 
-        System.out.println(messageSourceAccessor.getMessage("dupa", 1, 2));
         System.out.println(messageSourceAccessor.getMessage("napis"));
         return "HODOR";
     }

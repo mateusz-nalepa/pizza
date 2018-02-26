@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.tu.kielce.pizza.common.security.dto.ChangePasswordDto;
 import pl.tu.kielce.pizza.common.security.service.UserService;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
@@ -32,9 +33,17 @@ public class ChangePasswordController {
     public String changePasswordPost(
             @Valid ChangePasswordDto changePasswordDto,
             BindingResult bindingResult,
-            Model model) {
+            Model model,
+            HttpSession session) {
+
+        if (!changePasswordDto.getNewPassword().equals(changePasswordDto.getNewPasswordv2())) {
+            model.addAttribute("passwordNotTheSame", true);
+            return "user/change_password";
+        }
 
         userService.changePassword(changePasswordDto);
+
+        session.setAttribute("mySessionAttribute", "someValue");
         return "redirect:/logout";
     }
 

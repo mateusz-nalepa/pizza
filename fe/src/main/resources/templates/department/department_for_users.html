@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/header :: header"></div>
+
+    <div th:replace="fragments/components :: headerH4Reed(text='Godziny otwarcia poszczególnych oddziałów')"></div>
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <table class="table table-bordered table-hover table-striped">
+                <thead>
+                <tr>
+                    <!--<th>Id</th>-->
+                    <th>Adres</th>
+                    <th>Numer telefonu</th>
+                    <th>Kierownik</th>
+                    <th>Godzina otwarcia</th>
+                    <th>Godzina zamknięcia</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="department : ${departments}">
+                    <!--<td>-->
+                    <!--<a th:href="@{/manager/department/} + ${department.id}" th:text="${department.id}"></a>-->
+                    <!--</td>-->
+                    <td th:text="${department.getLabel()}"></td>
+                    <td th:text="${department.phoneNumber}"></td>
+                    <td th:text="${department.manager.getLabel()}"></td>
+                    <td th:text="${department.openHour}"></td>
+                    <td th:text="${department.closeHour}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+
+
+    <div th:replace="fragments/footer :: footer"></div>
+</div>
+</body>
+</html>

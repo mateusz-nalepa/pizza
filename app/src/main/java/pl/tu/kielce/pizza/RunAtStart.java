@@ -23,6 +23,7 @@ import pl.tu.kielce.pizza.common.security.enums.MainRoleType;
 import pl.tu.kielce.pizza.common.security.service.UserService;
 
 import javax.annotation.PostConstruct;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -71,17 +72,17 @@ public class RunAtStart {
     private void defaultPizzas() {
 
 
-        makePizza("Margherita", 22.10D, 3, 4, 5);
-        makePizza("Funghi", 22.95D, 3, 4, 5, 6);
+//        makePizza("Margherita", 22.10D, 3, 4, 5);
+//        makePizza("Funghi", 22.95D, 3, 4, 5, 6);
         makePizza("Salami", 23.80D, 3, 4, 5, 7);
-        makePizza("Rustica", 23.80D, 3, 4, 5, 8);
-        makePizza("Wegetariana", 23.80D, 3, 4, 5, 6, 9, 10);
-        makePizza("Hawajska", 23.80D, 3, 4, 5, 1, 14);
-        makePizza("Wiejska", 23.80D, 3, 4, 5, 11, 12, 13);
-        makePizza("Capricciosa", 23.80D, 3, 4, 1, 5, 6, 9);
-        makePizza("Studencka", 23.80D, 3, 4, 6, 5, 1, 18);
-        makePizza("Fantazja", 23.80D, 3, 4, 1, 5, 18, 9);
-        makePizza("Rafaello", 23.80D, 3, 4, 5, 6, 1, 12);
+//        makePizza("Rustica", 24.20D, 3, 4, 5, 8);
+        makePizza("Wegetariana", 24.50D, 3, 4, 5, 6, 9, 10);
+//        makePizza("Hawajska", 25.40D, 3, 4, 5, 1, 14);
+        makePizza("Wiejska", 25.90D, 3, 4, 5, 11, 12, 13);
+//        makePizza("Capricciosa", 26.30D, 3, 4, 1, 5, 6, 9);
+//        makePizza("Studencka", 26.80D, 3, 4, 6, 5, 1, 18);
+//        makePizza("Fantazja", 27.40D, 3, 4, 1, 5, 18, 9);
+//        makePizza("Rafaello", 28.80D, 3, 4, 5, 6, 1, 12);
     }
 
     private void defaultItems() {
@@ -89,16 +90,17 @@ public class RunAtStart {
         addItem("Coca-Cola", 3.30D);
         addItem("Fanta", 3.30D);
         addItem("Kawa rozpuszczalna", 7D);
-        addItem("Capuccino", 5.5D);
-        addItem("Latte", 10D);
-        addItem("Latte blue", 11D);
-        addItem("Czekolada na gorąco", 5D);
-        addItem("Herbata Owocowa", 5D);
-        addItem("Herbata Zielona", 5D);
-        addItem("Herbata Miętowa", 5D);
-        addItem("Frytki", 4D);
+//        addItem("Capuccino", 5.5D);
+//        addItem("Latte", 10D);
+//        addItem("Latte blue", 11D);
+//        addItem("Czekolada na gorąco", 5D);
+//        addItem("Herbata Owocowa", 5D);
+//        addItem("Herbata Zielona", 5D);
+//        addItem("Herbata Miętowa", 5D);
+//        addItem("Frytki", 4D);
 
     }
+
 
     private void addItem(String name, double price) {
         ItemDto itemDto = ItemDto
@@ -126,32 +128,33 @@ public class RunAtStart {
 
         ingredientDto = IngredientDto.builder().name("Sos pomidorowy").build();
         ingredientService.create(ingredientDto);
+        ingredientService.create(ingredientDto);
 
         ingredientDto = IngredientDto.builder().name(" Ser mozzarella").build();
         ingredientService.create(ingredientDto);
 
-        addIngredient("Szynka");
-        addIngredient("Ser");
-        addIngredient("Sos pomidorowy");
-        addIngredient("Ser mozzarella");
+//        addIngredient("Szynka");
+//        addIngredient("Ser");
+//        addIngredient("Sos pomidorowy");
+//        addIngredient("Ser mozzarella");
 
 
-        addIngredient("Oregano");
-        addIngredient("Pieczarki");
-        addIngredient("Salami");
-        addIngredient("Boczek");
-        addIngredient("Papryka");
-        addIngredient("Kukurydza");
-
-        addIngredient("Cebula");
-        addIngredient("Kiełbasa");
-        addIngredient("Ogórek kiszony");
-        addIngredient("Ananas");
-        addIngredient("Wołowina");
-
-        addIngredient("Kurczak");
-        addIngredient("Tymianek");
-        addIngredient("Oliwki zielone");
+//        addIngredient("Oregano");
+//        addIngredient("Pieczarki");
+//        addIngredient("Salami");
+//        addIngredient("Boczek");
+//        addIngredient("Papryka");
+//        addIngredient("Kukurydza");
+//
+//        addIngredient("Cebula");
+//        addIngredient("Kiełbasa");
+//        addIngredient("Ogórek kiszony");
+//        addIngredient("Ananas");
+//        addIngredient("Wołowina");
+//
+//        addIngredient("Kurczak");
+//        addIngredient("Tymianek");
+//        addIngredient("Oliwki zielone");
         return ingredientDtoList;
     }
 
@@ -187,22 +190,72 @@ public class RunAtStart {
         departmentDto.setManager(manager);
         departmentDto.setMultiplier(0.10D);
         departmentDto.setActive(true);
+        departmentDto.setPhoneNumber("111111111");
+        departmentDto.setOpenHour(LocalTime.of(15, 0));
+        departmentDto.setCloseHour(LocalTime.of(23, 0));
         departmentService.create(departmentDto);
 
 
-        manager = new UserDto();
-        manager.setId(2L);
+//        UserDto manager = new UserDto();
+//        manager.setId(1L);
         departmentDto = new DepartmentDto();
-        departmentDto.setAddressDto(defaultAddress());
+        departmentDto.setAddressDto(defaultAddress("Warszawa", "Kielecka", 5,4));
         departmentDto.setManager(manager);
         departmentDto.setMultiplier(0.20D);
         departmentDto.setActive(true);
+        departmentDto.setPhoneNumber("712394726");
+        departmentDto.setOpenHour(LocalTime.of(15, 0));
+        departmentDto.setCloseHour(LocalTime.of(23, 0));
         departmentService.create(departmentDto);
+
+        departmentDto = new DepartmentDto();
+        departmentDto.setAddressDto(defaultAddress("Radom", "Sosnowska", 7,23));
+        departmentDto.setManager(manager);
+        departmentDto.setMultiplier(0.15D);
+        departmentDto.setActive(true);
+        departmentDto.setPhoneNumber("712394727");
+        departmentDto.setOpenHour(LocalTime.of(13, 0));
+        departmentDto.setCloseHour(LocalTime.of(23, 0));
+        departmentService.create(departmentDto);
+
+
+//        manager = new UserDto();
+//        manager.setId(2L);
+//        departmentDto = new DepartmentDto();
+//        departmentDto.setAddressDto(defaultAddress());
+//        departmentDto.setManager(manager);
+//        departmentDto.setMultiplier(0.15D);
+//        departmentDto.setActive(true);
+//        departmentDto.setPhoneNumber("111111189");
+//        departmentDto.setOpenHour(LocalTime.of(15, 0));
+//        departmentDto.setCloseHour(LocalTime.of(23, 0));
+//        departmentService.create(departmentDto);
+
+
+//        manager = new UserDto();
+//        manager.setId(2L);
+//        departmentDto = new DepartmentDto();
+//        departmentDto.setAddressDto(defaultAddress());
+////        departmentDto.setManager(manager);
+//        departmentDto.setMultiplier(0.20D);
+//        departmentDto.setPhoneNumber("111111111");
+//        departmentDto.setActive(true);
+//        departmentService.create(departmentDto);
 
 
         UserDto byEmail = userService.findByEmail("manager@pizza.pl");
 
 
+    }
+
+    private AddressDto defaultAddress(String city, String street, int houseNumber, int flatNumber) {
+        AddressDto addressDto = new AddressDto();
+        addressDto.setCity(city);
+        number++;
+        addressDto.setStreet(street);
+        addressDto.setHouseNumber(houseNumber);
+        addressDto.setFlatNumber(flatNumber);
+        return addressDto;
     }
 
     private AddressDto defaultAddress() {
@@ -219,8 +272,8 @@ public class RunAtStart {
         UserDto userDto = new UserDto();
         userDto.setName("HODOREK");
         userDto.setEmail("admin@pizza.pl");
-        userDto.setName("Mateusz");
-        userDto.setLastName("Nalepa");
+        userDto.setName("Jan");
+        userDto.setLastName("Kowalski");
         userDto.setPassword("asd123");
         userDto.setActive(true);
         userDto.setMainRoleType(MainRoleType.ADMIN);
@@ -237,6 +290,7 @@ public class RunAtStart {
 
         userDto.setRoles(roleDtos);
         userService.saveUser(userDto);
+
         userDto = new UserDto();
         userDto.setMainRoleType(MainRoleType.MANAGER);
         userDto.setAvatarLocation("/images/default_avatar.png");
@@ -244,8 +298,8 @@ public class RunAtStart {
         userDto.setPhoneNumber("222222222");
         userDto.setName("DWA");
         userDto.setEmail("manager@pizza.pl");
-        userDto.setName("NAME DWA");
-        userDto.setLastName("NAZWISKO DWA");
+        userDto.setName("Mariusz");
+        userDto.setLastName("Nowak");
         userDto.setPassword("asd123");
         userDto.setActive(true);
         userDto.setAddressDto(defaultAddress());
@@ -260,17 +314,18 @@ public class RunAtStart {
         userService.saveUser(userDto);
 
         userDto = new UserDto();
-        userDto.setMainRoleType(MainRoleType.USER);
+        userDto.setMainRoleType(MainRoleType.MANAGER);
         userDto.setPhoneNumber("333333333");
         userDto.setName("TRZY");
         userDto.setAvatarLocation("/images/default_avatar.png");
         userDto.setEmail("user1@pizza.pl");
-        userDto.setName("NAME TRZY");
-        userDto.setLastName("NAZWISKO TRZY");
+        userDto.setName("Mariusz");
+        userDto.setLastName("Nowakowski");
         userDto.setPassword("asd123");
         userDto.setActive(true);
         userDto.setAddressDto(defaultAddress());
         roleDtos = new ArrayList<>();
+        roleDtos.add(RoleDto.builder().id(2L).selected(true).build());
         roleDtos.add(RoleDto.builder().id(3L).selected(true).build());
         roleDtos.add(RoleDto.builder().id(4L).selected(true).build());
         userDto.setRoles(roleDtos);
@@ -284,9 +339,9 @@ public class RunAtStart {
         userDto.setPhoneNumber("444444444");
         userDto.setMainRoleType(MainRoleType.CLIENT);
         userDto.setEmail("client@pizza.pl");
-        userDto.setName("NAME CZTERY");
+        userDto.setName("Zenon");
         userDto.setAvatarLocation("/images/default_avatar.png");
-        userDto.setLastName("NAZWISKO CZTERY");
+        userDto.setLastName("Pawełkiewicz");
         userDto.setPassword("asd123");
         userDto.setActive(true);
         userDto.setAddressDto(defaultAddress());

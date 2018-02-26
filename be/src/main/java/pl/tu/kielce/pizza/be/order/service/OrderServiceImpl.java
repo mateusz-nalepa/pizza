@@ -16,6 +16,7 @@ import pl.tu.kielce.pizza.common.pizza.dto.PizzaDto;
 import pl.tu.kielce.pizza.common.pizza.service.PizzaService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -225,10 +226,12 @@ public class OrderServiceImpl implements OrderService {
         Long orderId = userContext.getUserOrderDto().getId();
 
         if (orderId == null) {
-            return null;
+            return new UserOrderDto();
         }
 
-        return orderExecutor.findOne(orderId);
+        return Optional
+                .of(orderExecutor.findOne(orderId))
+                .orElse(new UserOrderDto());
     }
 
     @Override

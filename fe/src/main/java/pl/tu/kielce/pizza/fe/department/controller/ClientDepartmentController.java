@@ -39,6 +39,24 @@ public class ClientDepartmentController {
         return "redirect:/client/order";
     }
 
+
+    @GetMapping("/all")
+    public String allDepartments(Model model) {
+        List<DepartmentDto> departments = departmentService.findAll();
+        model.addAttribute("departments", departments);
+        return "department/department_for_users";
+    }
+
+    @GetMapping("/deliveryinfo")
+    public String deliveryInfo(Model model) {
+        return "department/delivery_info";
+    }
+
+    @GetMapping("/regulamin")
+    public String regulamin(Model model) {
+        return "department/regulamin_info";
+    }
+
     @ModelAttribute("departments")
     public List<DepartmentDto> departments() {
         return departmentService.findAll();

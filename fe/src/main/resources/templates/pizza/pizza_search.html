@@ -7,13 +7,15 @@
 <body>
 <div class="container">
     <div th:replace="fragments/header :: header"></div>
+    <div th:replace="fragments/components :: headerH4Reed(text='Lista pizz')"></div>
+
     <table class="table table-bordered table-hover table-striped">
         <thead>
         <tr>
             <th th:text="#{pizza.id}">ID</th>
             <th th:text="#{pizza.name}"></th>
             <th th:text="#{pizza.description}"></th>
-            <th th:text="#{pizza.price}"></th>
+            <th>Cena produktu (PLN)</th>
         </tr>
         </thead>
         <tbody>

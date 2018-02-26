@@ -162,8 +162,8 @@ public class ClientOrderController {
     public String orderSubmitted(Model model) {
 
         model.addAttribute("submitted", true);
-        UserOrderDto userOrderDto = orderService.getUserContext();
-        model.addAttribute("userOrderDto", userOrderDto);
+        UserOrderDto one = orderService.findOne();
+        model.addAttribute("userOrderDto", one);
         return "order/order_info";
     }
 

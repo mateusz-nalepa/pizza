@@ -12,6 +12,19 @@
     </h4>
 </div>
 
+<div th:fragment="headerH4Reed(text)">
+    <h4 class="text-center reed">
+        <label th:text="${text}"></label>
+    </h4>
+</div>
+
+<div th:fragment="headerH4ReedError(text)">
+    <h4 class="text-center reedError">
+        <label th:text="${text}"></label>
+    </h4>
+</div>
+
+
 <div th:fragment="headerH4forInput(inputName, label)">
     <h4>
         <label th:for="${inputName}" th:text="#{${label}}"></label>
@@ -19,7 +32,7 @@
 </div>
 
 <div th:fragment="fieldError(inputName)">
-    <p th:if="${#fields.hasErrors('__${inputName}__')}" th:errors="*{__${inputName}__}"></p>
+    <p class="reedError" th:if="${#fields.hasErrors('__${inputName}__')}" th:errors="*{__${inputName}__}"></p>
 </div>
 
 <div th:fragment="inputTextField(inputName, label)">
@@ -30,12 +43,27 @@
                 class="form-control input-lg"
                 th:name="${inputName}"
                 th:placeholder="#{${label}}"
-                required="required"
+                th:field="*{__${inputName}__}"/>
+        <div th:replace="fragments/components :: fieldError(inputName=${inputName})"></div>
+    </div>
+</div>
+                <!--required="required"-->
+
+
+<div th:fragment="inputTimeField(inputName, label)">
+    <div class="form-group">
+        <div th:replace="fragments/components :: headerH4forInput(inputName=${inputName}, label=${label})"></div>
+        <input
+                type="time"
+                class="form-control input-lg"
+                th:name="${inputName}"
+                th:placeholder="#{${label}}"
                 th:field="*{__${inputName}__}"/>
         <div th:replace="fragments/components :: fieldError(inputName=${inputName})"></div>
     </div>
 </div>
 
+                <!--required="required"-->
 <div th:fragment="inputNumberField(inputName, label)">
     <div class="form-group">
         <div th:replace="fragments/components :: headerH4forInput(inputName=${inputName}, label=${label})"></div>
@@ -44,11 +72,11 @@
                 class="form-control input-lg"
                 th:name="${inputName}"
                 th:placeholder="#{${label}}"
-                required="required"
                 th:field="*{__${inputName}__}"/>
         <div th:replace="fragments/components :: fieldError(inputName=${inputName})"></div>
     </div>
 </div>
+                <!--required="required"-->
 
 <div th:fragment="inputCheckboxField(inputName, label)">
     <div class="form-group">
@@ -58,11 +86,11 @@
                 class="form-control input-lg"
                 th:name="${inputName}"
                 th:placeholder="#{${label}}"
-                required="required"
                 th:field="*{__${inputName}__}"/>
         <div th:replace="fragments/components :: fieldError(inputName=${inputName})"></div>
     </div>
 </div>
+                <!--required="required"-->
 
 <div th:fragment="inputNormalEmailField(inputName, label)">
     <div class="form-group">
@@ -72,9 +100,10 @@
                 th:name="${inputName}"
                 th:id="${inputName}"
                 th:placeholder="#{${label}}"
-                required="required"/>
+        />
     </div>
 </div>
+                <!--required="required"-->
 
 <div th:fragment="inputNormalPasswordField(inputName, label)">
     <div class="form-group">
@@ -84,9 +113,10 @@
                 th:name="${inputName}"
                 th:id="${inputName}"
                 th:placeholder="#{${label}}"
-                required="required"/>
+        />
     </div>
 </div>
+                <!--required="required"-->
 
 <div th:fragment="inputHiddenField(inputName)">
         <input
@@ -95,9 +125,10 @@
                 th:name="${inputName}"
                 th:id="${inputName}"
                 th:field="*{__${inputName}__}"
-                required="required"/>
+        />
 </div>
 
+                <!--required="required"-->
 
 <div th:fragment="inputEmailField(inputName, label)">
     <div class="form-group">
@@ -107,11 +138,11 @@
                 class="form-control input-lg"
                 th:name="${inputName}"
                 th:placeholder="#{${label}}"
-                required="required"
                 th:field="*{__${inputName}__}"/>
         <div th:replace="fragments/components :: fieldError(inputName=${inputName})"></div>
     </div>
 </div>
+                <!--required="required"-->
 
 <div th:fragment="inputFileField(inputName, label)">
     <div class="form-group">
@@ -121,11 +152,11 @@
                 class="form-control input-lg"
                 th:name="${inputName}"
                 th:placeholder="#{${label}}"
-                required="required"
                 th:field="*{__${inputName}__}"/>
         <div th:replace="fragments/components :: fieldError(inputName=${inputName})"></div>
     </div>
 </div>
+                <!--required="required"-->
 
 <div th:fragment="inputPasswordField(inputName, label)">
     <div class="form-group">
@@ -135,11 +166,11 @@
                 class="form-control input-lg"
                 th:name="${inputName}"
                 th:placeholder="#{${label}}"
-                required="required"
                 th:field="*{__${inputName}__}"/>
         <div th:replace="fragments/components :: fieldError(inputName=${inputName})"></div>
     </div>
 </div>
+                <!--required="required"-->
 
 <div th:fragment="submitButton(label)">
     <div class="form-group">
@@ -150,6 +181,18 @@
         </button>
     </div>
 </div>
+
+<div th:fragment="submitButtonNormal(label)">
+    <div class="form-group">
+        <button
+                type="submit"
+                class="btn btn-primary btn-lg btn-block"
+                th:text="${label}">
+        </button>
+    </div>
+</div>
+
+
 <div th:fragment="submitButtonMedium(label)">
     <div class="form-group">
         <button
@@ -174,7 +217,12 @@
 </div>
 
 <div th:fragment="h4LabelCentered(label, value)">
-    <h4 class="text-center" th:text="#{${label}} + ' ' + ${value}"></h4>
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border " th:text="#{${label}}"></legend>
+            <div>
+                    <label class="text-center" th:text="${value}" style="font-size:125%; " ></label>
+            </div>
+        </fieldset>
 </div>
 
 
