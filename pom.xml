@@ -31,38 +31,60 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <start-class>pl.tu.kielce.pizza.PizzaApplication</start-class>
         <!--<buildDirHARD>${env.PIZZA_TARGET}</buildDirHARD>-->
+        <springBootVersion>1.5.8.RELEASE</springBootVersion>
+        <commonsLang>3.6</commonsLang>
+        <commonsMath3>3.6.1</commonsMath3>
+        <hibernateValidator>5.4.1.Final</hibernateValidator>
+        <bootstrap>3.3.7</bootstrap>
+        <jQuery>3.2.1</jQuery>
+        <mySqlConnector>5.1.36</mySqlConnector>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>5.4.1.Final</version>
+            <version>${hibernateValidator}</version>
         </dependency>
-
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <!--<version>1.16.18.1</version>-->
-            <!--<type>pom</type>-->
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.6</version>
+            <version>${commonsLang}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
-            <version>1.5.8.RELEASE</version>
+            <version>${springBootVersion}</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
-
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>pl.tu.kielce</groupId>
+                <artifactId>common</artifactId>
+                <version>0.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>pl.tu.kielce</groupId>
+                <artifactId>be</artifactId>
+                <version>0.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>pl.tu.kielce</groupId>
+                <artifactId>fe</artifactId>
+                <version>0.0.1</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <!--<build>-->
         <!--<directory>${buildDirHARD}\target\${project.artifactId}\target</directory>-->
