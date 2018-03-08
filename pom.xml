@@ -15,7 +15,6 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>1.5.8.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <modules>
         <module>common</module>
@@ -31,6 +30,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <start-class>pl.tu.kielce.pizza.PizzaApplication</start-class>
+        <!--<buildDirHARD>${env.PIZZA_TARGET}</buildDirHARD>-->
     </properties>
 
     <dependencies>
@@ -39,7 +39,6 @@
             <artifactId>hibernate-validator</artifactId>
             <version>5.4.1.Final</version>
         </dependency>
-
 
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -58,13 +57,27 @@
             <version>1.5.8.RELEASE</version>
         </dependency>
 
-
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
     </dependencies>
+
+    <!--<build>-->
+        <!--<directory>${buildDirHARD}\target\${project.artifactId}\target</directory>-->
+        <!--<outputDirectory>${buildDirHARD}\target\${project.artifactId}\target\classes</outputDirectory>-->
+        <!--<testOutputDirectory>${buildDirHARD}\target\${project.artifactId}\target\test-classes</testOutputDirectory>-->
+        <!--<plugins>-->
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-jar-plugin</artifactId>-->
+                <!--<version>2.3.1</version>-->
+                <!--<configuration>-->
+                    <!--<outputDirectory>${buildDirHARD}\target\${project.artifactId}\target</outputDirectory>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
+        <!--</plugins>-->
+    <!--</build>-->
 
 </project>
