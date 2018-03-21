@@ -14,4 +14,7 @@ public interface ItemService {
     List<ItemDto> findAll();
 
     List<ItemDto> findAllWithMultiplier();
+    
+    Long returnFive();
+    
 }

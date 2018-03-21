@@ -46,5 +46,11 @@ public class ItemServiceImpl implements ItemService {
                 .peek(itemDto -> itemDto.setPrice(newPriceContextUtils.priceWithMultiplier(itemDto.getPrice())))
                 .collect(Collectors.toList());
     }
-
+    
+    @Override
+    public Long returnFive()
+    {
+        return 5L;
+    }
+    
 }
