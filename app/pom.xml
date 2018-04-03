@@ -30,6 +30,7 @@
             <properties>
                 <spring.datasource.url>jdbc:h2:file:~/test</spring.datasource.url>
                 <spring.profiles.active>dev</spring.profiles.active>
+                <someProperty>true</someProperty>
             </properties>
         </profile>
     </profiles>

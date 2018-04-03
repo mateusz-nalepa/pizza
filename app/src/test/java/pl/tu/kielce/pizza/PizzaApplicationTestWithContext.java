@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import pl.tu.kielce.pizza.empty.EmptyComponent;
-import sun.invoke.empty.Empty;
 
 //@RunWith(SpringJUnit4ClassRunner.class)
 //@SqlGroup({

@@ -3,6 +3,7 @@ logging:
     org:
       springframework:
         security: DEBUG
+  performanceLogging: false
 spring:
   datasource:
     url: @spring.datasource.url@
@@ -18,3 +19,5 @@ spring:
         dialect: org.hibernate.dialect.MySQL5Dialect
   thymeleaf:
     cache: false
+
+someProperty: @someProperty@
