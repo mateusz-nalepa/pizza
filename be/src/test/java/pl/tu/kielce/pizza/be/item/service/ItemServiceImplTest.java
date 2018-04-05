@@ -22,10 +22,7 @@ public class ItemServiceImplTest
     @Test
     public void shouldAddItemToDatabase()
     {
-        
-        //TODO add save on repo!
         ItemDto itemDto = itemService.create(exampleItem());
-    
         Assert.assertNotNull(itemDto.getId());
     }
     
