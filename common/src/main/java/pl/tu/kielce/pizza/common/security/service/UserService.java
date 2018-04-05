@@ -20,8 +20,7 @@ public interface UserService {
     void changePassword(ChangePasswordDto changePasswordDto);
 
     List<FreeUserDto> findAllFreeUsers();
-
-    @SneakyThrows
+    
     void storeAvatar(MultipartFile file);
 
     String fetchAvatarLocation();

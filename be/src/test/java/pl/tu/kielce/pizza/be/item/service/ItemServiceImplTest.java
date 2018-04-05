@@ -20,13 +20,13 @@ public class ItemServiceImplTest
     ItemService itemService;
     
     @Test
-    public void shouldReturnFive()
+    public void shouldAddItemToDatabase()
     {
         
         //TODO add save on repo!
-        Long aLong = itemService.returnFive();
+        ItemDto itemDto = itemService.create(exampleItem());
     
-        Assert.assertEquals(aLong.longValue(), 5L);
+        Assert.assertNotNull(itemDto.getId());
     }
     
     @Test

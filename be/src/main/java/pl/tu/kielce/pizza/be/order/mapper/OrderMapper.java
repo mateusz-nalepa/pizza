@@ -40,11 +40,7 @@ public class OrderMapper {
 
         UserOrderDto userOrderDto = new UserOrderDto();
         userOrderDto.setId(order.getId());
-
-
-        //TODO na pewno to ma być?
-//        User user = order.getUser();
-//        User buyer = order.getBuyer();
+        
 
         userOrderDto.setBoughtItems(fetchItems(order.getBoughtItems()));
         userOrderDto.setBoughtPizzas(fetchPizzas(order.getBoughtPizzas()));

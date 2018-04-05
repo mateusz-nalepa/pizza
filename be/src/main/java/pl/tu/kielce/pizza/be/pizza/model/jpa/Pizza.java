@@ -27,6 +27,7 @@ public class Pizza {
     private Double price;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @Builder.Default
     private Set<Ingredient> ingredients = new HashSet<>();
 
     private boolean active;

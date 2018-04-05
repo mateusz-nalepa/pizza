@@ -28,6 +28,7 @@ public class Department extends AuditableEntity{
     private Address address;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "department")
+    @Builder.Default
     private List<User> employees = new ArrayList<>();
 
     @OneToOne(mappedBy = "department")

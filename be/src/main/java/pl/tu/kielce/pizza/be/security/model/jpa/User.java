@@ -19,7 +19,7 @@ import java.util.Set;
 
 
 
-@EqualsAndHashCode(exclude = {"roles", "department", "orders"})
+@EqualsAndHashCode(exclude = {"roles", "department", "orders"}, callSuper = true)
 @Data
 @Entity
 @AllArgsConstructor
@@ -35,7 +35,6 @@ public class User extends AuditableEntity{
     private Long id;
 
     @Email(message = "*Please provide a valid Email")
-//    @Column(name = "user_email")
     private String email;
 
     @Column(unique = true)
@@ -43,10 +42,8 @@ public class User extends AuditableEntity{
 
     private String password;
 
-//    @Column(name = "user_name")
     private String name;
 
-//    @Column(name = "user_last_name")
     private String lastName;
 
 
