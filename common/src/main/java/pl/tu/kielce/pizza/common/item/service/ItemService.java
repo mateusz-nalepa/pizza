@@ -17,4 +17,8 @@ public interface ItemService {
     
     Long returnFive();
     
+    void returnAnotherValueOnExecution();
+    
+    void voidMethod();
+    
 }

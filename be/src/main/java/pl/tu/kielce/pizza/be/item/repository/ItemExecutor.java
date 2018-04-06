@@ -42,4 +42,10 @@ public class ItemExecutor {
         Item item = itemRepository.findOne(itemId);
         return itemMapper.entityToDto(item);
     }
+    
+    public String returnString(String str) {
+        return str;
+    }
+    
+    public void voidMethod() {}
 }

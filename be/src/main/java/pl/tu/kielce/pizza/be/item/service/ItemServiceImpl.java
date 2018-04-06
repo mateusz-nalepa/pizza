@@ -53,4 +53,18 @@ public class ItemServiceImpl implements ItemService {
         return 5L;
     }
     
+    @Override
+    public void returnAnotherValueOnExecution()
+    {
+        System.out.println(itemExecutor.returnString("jeden"));
+        System.out.println(itemExecutor.returnString("dwa"));
+        System.out.println(itemExecutor.returnString("trzy"));
+    }
+    
+    @Override
+    public void voidMethod()
+    {
+        itemExecutor.voidMethod();
+    }
+    
 }
