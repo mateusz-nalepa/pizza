@@ -21,4 +21,5 @@ public interface ItemService {
     
     void voidMethod();
     
+    void doNothing();
 }

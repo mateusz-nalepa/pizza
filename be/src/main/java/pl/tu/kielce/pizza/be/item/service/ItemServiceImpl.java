@@ -67,4 +67,9 @@ public class ItemServiceImpl implements ItemService {
         itemExecutor.voidMethod();
     }
     
+    @Override
+    public void doNothing()
+    {
+        System.out.println(itemExecutor.returnString("trzy"));
+    }
 }

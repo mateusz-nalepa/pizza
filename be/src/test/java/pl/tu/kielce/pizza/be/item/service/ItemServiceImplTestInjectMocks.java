@@ -1,8 +1,9 @@
 package pl.tu.kielce.pizza.be.item.service;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -10,10 +11,16 @@ import pl.tu.kielce.pizza.be.item.repository.ItemExecutor;
 import pl.tu.kielce.pizza.common.common.util.NewPriceContextUtils;
 import pl.tu.kielce.pizza.common.item.dto.ItemDto;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyDouble;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.atMost;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -30,6 +37,9 @@ public class ItemServiceImplTestInjectMocks
     
     @InjectMocks
     private ItemServiceImpl itemService;
+    
+    @Captor
+    private ArgumentCaptor<ItemDto> itemDtoArgumentCaptor;
     
     @Test
     public void testInjectMocks()
@@ -59,21 +69,6 @@ public class ItemServiceImplTestInjectMocks
             .name("Pepsi")
             .price(5D)
             .build();
-    }
-    
-    @Test
-    public void testReturningAnotherValueAfterEveryExecution()
-    {
-        //TODO finsh that!
-        //given
-//        when(itemExecutor.returnString(any()))
-//            .thenReturn(1, 2, 3);
-        
-        //when
-//        itemService.returnAnotherValueOnExecution();
-        
-        //then
-        Assert.assertTrue(true);
     }
     
     @SuppressWarnings("unchecked")
@@ -125,7 +120,7 @@ public class ItemServiceImplTestInjectMocks
     @Test(expected = RuntimeException.class)
     public void testDoThrow()
     {
-    
+        
         //given
         doThrow(RuntimeException.class)
             .when(itemExecutor)
@@ -134,5 +129,59 @@ public class ItemServiceImplTestInjectMocks
         //when
         itemService.voidMethod();
         
+    }
+    
+    @Test
+    public void testAtMost()
+    {
+        //musi się wykonać co najwyżej tyle razy!
+        //given
+        
+        //when
+        itemService.returnAnotherValueOnExecution();
+        
+        //then
+        verify(itemExecutor, atMost(5)).returnString(any(String.class));
+    }
+    
+    @Test
+    public void testAtLeast()
+    {
+        //musi się wykonać co najmniej tyle razy!
+        
+        //given
+        
+        //when
+        itemService.returnAnotherValueOnExecution();
+        
+        //then
+        verify(itemExecutor, atLeast(2)).returnString(any(String.class));
+    }
+    
+    @Test
+    public void testNever()
+    {
+        //nie może się wykonać nigdy!
+        
+        //given
+        
+        //when
+        itemService.doNothing();
+        
+        //then
+        verify(itemExecutor, never()).voidMethod();
+    }
+    
+    @Test
+    public void testArgumentCapture()
+    {
+        //given
+        itemService.create(exampleItem());
+        
+        //capture, to przez ten itemDtoArgumentCaptor!!
+        verify(itemExecutor).add(itemDtoArgumentCaptor.capture());
+        
+        //then
+        assertThat(itemDtoArgumentCaptor.getValue().getPrice(), is(notNullValue()));
     }
 }
