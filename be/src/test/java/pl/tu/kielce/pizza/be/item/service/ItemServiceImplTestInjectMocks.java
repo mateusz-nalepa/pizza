@@ -26,7 +26,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ItemServiceImplTestInjectMocks
+public class ItemServiceImplTestInjectMocks extends BaseItemServiceTest
 {
     
     @Mock
@@ -59,16 +59,6 @@ public class ItemServiceImplTestInjectMocks
         //then
         verify(itemExecutor, times(1)).findOne(any(Long.class));
         verify(newPriceContextUtils, times(1)).priceWithMultiplier(anyDouble());
-    }
-    
-    private ItemDto exampleItem()
-    {
-        return ItemDto
-            .builder()
-            .id(1L)
-            .name("Pepsi")
-            .price(5D)
-            .build();
     }
     
     @SuppressWarnings("unchecked")

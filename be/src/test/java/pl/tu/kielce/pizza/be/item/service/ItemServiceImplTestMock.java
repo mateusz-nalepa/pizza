@@ -7,12 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import pl.tu.kielce.pizza.ItemServiceTestContextMock;
-import pl.tu.kielce.pizza.common.item.dto.ItemDto;
 import pl.tu.kielce.pizza.common.item.service.ItemService;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = ItemServiceTestContextMock.class)
-public class ItemServiceImplTestMock
+public class ItemServiceImplTestMock extends BaseItemServiceTest
 {
     
     @Autowired
@@ -32,12 +31,4 @@ public class ItemServiceImplTestMock
         Assert.assertNotEquals(exampleItem().getPrice(), 5L);
     }
     
-    private ItemDto exampleItem()
-    {
-        return ItemDto
-            .builder()
-            .name("Example Item")
-            .price(12D)
-            .build();
-    }
 }
