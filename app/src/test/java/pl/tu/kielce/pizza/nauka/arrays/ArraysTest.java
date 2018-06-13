@@ -6,6 +6,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 @Slf4j
@@ -18,7 +23,7 @@ public class ArraysTest
     {
         
         //NAJPIERW WIERSZ, POTEM KOLUMNA!
-        double[][] threeRowsTwoColumns = new double[3][2];
+        double threeRowsTwoColumns[][] = new double[3][2];
         
         double[][] doubleArray = new double[][]{
             {1.1, 1.2, 1.3},
@@ -99,6 +104,34 @@ public class ArraysTest
         
         int[][] intArray = new int[2][2];
         Assert.assertEquals(5, intArray[intArray.length].length);
+    }
+
+    @Test
+    public void compilationFails() {
+//        Hashtable //synchronized
+//        HashMap //not synchronized
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put(null, null);
+
+
+
+        Hashtable<String, String> hashtable = new Hashtable<>();
+        hashtable.put("asd", "asd");
+
+        List<Integer> numbers = new ArrayList<>();
+        numbers.add(5);
+        numbers.add(5);
+        numbers.add(5);
+
+        Iterator<Integer> iterator = numbers.iterator();
+        while (iterator.hasNext()) {
+            Integer number = iterator.next();
+            numbers.add(50);
+        }
+
+        String[][]strs = new String[5][];
+        System.out.println(strs.length);
+
     }
     
 }
