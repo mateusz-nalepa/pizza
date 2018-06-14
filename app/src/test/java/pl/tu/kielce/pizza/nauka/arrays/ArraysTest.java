@@ -6,11 +6,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Random;
 
 @Slf4j
@@ -110,28 +105,32 @@ public class ArraysTest
     public void compilationFails() {
 //        Hashtable //synchronized
 //        HashMap //not synchronized
-        HashMap<String, String> hashMap = new HashMap<>();
-        hashMap.put(null, null);
+//        HashMap<String, String> hashMap = new HashMap<>();
+//        hashMap.put(null, null);
+//
+//
+//
+//        Hashtable<String, String> hashtable = new Hashtable<>();
+//        hashtable.put("asd", "asd");
+//
+//        List<Integer> numbers = new ArrayList<>();
+//        numbers.add(5);
+//        numbers.add(5);
+//        numbers.add(5);
+//
+//        Iterator<Integer> iterator = numbers.iterator();
+//        while (iterator.hasNext()) {
+//            Integer number = iterator.next();
+//            numbers.add(50);
+//        }
+//
+//        String[][]strs = new String[5][];
+//        System.out.println(strs.length);
+//
 
 
-
-        Hashtable<String, String> hashtable = new Hashtable<>();
-        hashtable.put("asd", "asd");
-
-        List<Integer> numbers = new ArrayList<>();
-        numbers.add(5);
-        numbers.add(5);
-        numbers.add(5);
-
-        Iterator<Integer> iterator = numbers.iterator();
-        while (iterator.hasNext()) {
-            Integer number = iterator.next();
-            numbers.add(50);
-        }
-
-        String[][]strs = new String[5][];
-        System.out.println(strs.length);
 
     }
+
     
 }
