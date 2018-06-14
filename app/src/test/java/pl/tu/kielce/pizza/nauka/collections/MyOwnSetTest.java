@@ -91,6 +91,3 @@ public class MyOwnSetTest {
 
 }
 
-class ExampleClass {
-    int number;
-}
