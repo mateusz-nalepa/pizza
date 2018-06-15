@@ -1,11 +1,13 @@
 package pl.tu.kielce.pizza.nauka.collections;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.util.StopWatch;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,7 +18,7 @@ public class MyOwnListTest {
 
     @Test
     public void addNewElementToArrayListVsLinkedListOnTheEnd() {
-        int numberOfElements = 50000000;
+        int numberOfElements = 50_000_000;
         StopWatch watch = new StopWatch();
         List<Integer> integers = new ArrayList<>();
         watch.start();
@@ -214,5 +216,24 @@ public class MyOwnListTest {
         }
         watch.stop();
         System.out.println("Total time for add 1000K objects for ArrayList with initial capacity 1000K:  " + watch.getTotalTimeMillis());
+    }
+
+    @Test
+    public void asd() throws NoSuchFieldException, IllegalAccessException {
+        Field field = ArrayList.class.getDeclaredField("elementData");
+        field.setAccessible(true);
+        List<Integer> integers = new ArrayList<>(10);
+
+
+        for (int i = 0; i< 100; i++) {
+            addAndDisplayNumberOfItems(integers);
+        }
+    }
+
+
+    private void addAndDisplayNumberOfItems(List<Integer> integers) throws IllegalAccessException {
+        integers.add(2);
+        Object[] elementData = (Object[]) FieldUtils.readField(integers, "elementData", true);
+        System.out.println(elementData.length);
     }
 }

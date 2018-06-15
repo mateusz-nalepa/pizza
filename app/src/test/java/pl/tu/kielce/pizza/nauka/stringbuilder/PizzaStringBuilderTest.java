@@ -51,10 +51,16 @@ public class PizzaStringBuilderTest
     }
 
     @Test
-    public void shouldHaveCapacity36()
-    {
-        StringBuilder sb = new StringBuilder(18);
-        sb.ensureCapacity(15);
-        Assert.assertEquals(18, sb.capacity());
+    public void shouldHaveCapacity36() {
+        StringBuilder sb = new StringBuilder();
+        System.out.println(sb.toString());
+        for (int i = 0; i< 100; i++) {
+            addAndDisplayCapacity(sb);
+        }
+    }
+
+    private void addAndDisplayCapacity(StringBuilder sb) {
+        sb.append(1);
+        sb.capacity();
     }
 }
