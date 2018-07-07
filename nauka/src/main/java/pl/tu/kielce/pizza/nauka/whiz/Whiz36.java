@@ -21,13 +21,11 @@ class Person
     }
 }
 
-class Manager extends Person
-{
-    Manager()
-    {
+class Manager extends Person {
+    Manager() {
         System.out.print("CT ");
     }
-    
+
     {
         System.out.print("IT ");
     }

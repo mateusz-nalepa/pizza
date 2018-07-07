@@ -21,6 +21,7 @@
         <module>be</module>
         <module>fe</module>
         <module>app</module>
+        <module>nauka</module>
     </modules>
 
     <properties>

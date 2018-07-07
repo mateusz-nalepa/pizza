@@ -6,3 +6,4 @@ public class MamSkrzydlaToLatam implements LatanieInterface {
         System.out.println("Mam skrzydla to latam!");
     }
 }
+    
