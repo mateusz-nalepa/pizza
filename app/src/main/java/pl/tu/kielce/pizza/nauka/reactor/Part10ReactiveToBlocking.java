@@ -1,6 +1,6 @@
 package pl.tu.kielce.pizza.nauka.reactor;
 
-import io.pivotal.literx.domain.User;
+import pl.tu.kielce.pizza.nauka.reactor.domain.ReactiveUser;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -13,15 +13,15 @@ public class Part10ReactiveToBlocking {
 
 //========================================================================================
 
-	// TODO Return the user contained in that Mono
-	User monoToValue(Mono<User> mono) {
+	// TODO Return the ReactiveUser contained in that Mono
+	ReactiveUser monoToValue(Mono<ReactiveUser> mono) {
 		return null;
 	}
 
 //========================================================================================
 
 	// TODO Return the users contained in that Flux
-	Iterable<User> fluxToValues(Flux<User> flux) {
+	Iterable<ReactiveUser> fluxToValues(Flux<ReactiveUser> flux) {
 		return null;
 	}
 

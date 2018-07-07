@@ -1,11 +1,11 @@
 package pl.tu.kielce.pizza.nauka.reactor.repository;
 
-import io.pivotal.literx.domain.User;
+import pl.tu.kielce.pizza.nauka.reactor.domain.ReactiveUser;
 import reactor.core.publisher.Mono;
 
-public class BlockingUserRepository implements BlockingRepository<User>{
+public class BlockingUserRepository implements BlockingRepository<ReactiveUser>{
 
-	private final ReactiveRepository<User> reactiveRepository;
+	private final ReactiveRepository<ReactiveUser> reactiveRepository;
 
 	private int callCount = 0;
 
@@ -17,35 +17,35 @@ public class BlockingUserRepository implements BlockingRepository<User>{
 		reactiveRepository = new ReactiveUserRepository(delayInMs);
 	}
 
-	public BlockingUserRepository(User... users) {
+	public BlockingUserRepository(ReactiveUser... users) {
 		reactiveRepository = new ReactiveUserRepository(users);
 	}
 
-	public BlockingUserRepository(long delayInMs, User... users) {
+	public BlockingUserRepository(long delayInMs, ReactiveUser... users) {
 		reactiveRepository = new ReactiveUserRepository(delayInMs, users);
 	}
 
 
 	@Override
-	public void save(User user) {
+	public void save(ReactiveUser ReactiveUser) {
 		callCount++;
-		reactiveRepository.save(Mono.just(user)).block();
+		reactiveRepository.save(Mono.just(ReactiveUser)).block();
 	}
 
 	@Override
-	public User findFirst() {
+	public ReactiveUser findFirst() {
 		callCount++;
 		return reactiveRepository.findFirst().block();
 	}
 
 	@Override
-	public Iterable<User> findAll() {
+	public Iterable<ReactiveUser> findAll() {
 		callCount++;
 		return reactiveRepository.findAll().toIterable();
 	}
 
 	@Override
-	public User findById(String username) {
+	public ReactiveUser findById(String username) {
 		callCount++;
 		return reactiveRepository.findById(username).block();
 	}

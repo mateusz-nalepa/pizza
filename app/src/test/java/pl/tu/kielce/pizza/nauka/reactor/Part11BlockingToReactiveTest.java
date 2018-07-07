@@ -1,10 +1,11 @@
 package pl.tu.kielce.pizza.nauka.reactor;
 
-import io.pivotal.literx.domain.User;
-import io.pivotal.literx.repository.BlockingUserRepository;
-import io.pivotal.literx.repository.ReactiveRepository;
-import io.pivotal.literx.repository.ReactiveUserRepository;
+import org.junit.Ignore;
 import org.junit.Test;
+import pl.tu.kielce.pizza.nauka.reactor.domain.ReactiveUser;
+import pl.tu.kielce.pizza.nauka.reactor.repository.BlockingUserRepository;
+import pl.tu.kielce.pizza.nauka.reactor.repository.ReactiveRepository;
+import pl.tu.kielce.pizza.nauka.reactor.repository.ReactiveUserRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Scheduler;
@@ -13,6 +14,7 @@ import reactor.test.StepVerifier;
 
 import java.util.Iterator;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 /**
@@ -28,6 +30,9 @@ import static org.junit.Assert.assertFalse;
  * @see Flux#publishOn(Scheduler)
  * @see Schedulers
  */
+@Ignore
+
+
 public class Part11BlockingToReactiveTest {
 
 	Part11BlockingToReactive workshop = new Part11BlockingToReactive();
@@ -35,30 +40,32 @@ public class Part11BlockingToReactiveTest {
 //========================================================================================
 
 	@Test
+    @Ignore
 	public void slowPublisherFastSubscriber() {
 		BlockingUserRepository repository = new BlockingUserRepository();
-		Flux<User> flux = workshop.blockingRepositoryToFlux(repository);
+		Flux<ReactiveUser> flux = workshop.blockingRepositoryToFlux(repository);
 		assertEquals("The call to findAll must be deferred until the flux is subscribed", 0, repository.getCallCount());
 		StepVerifier.create(flux)
-				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
+				.expectNext(ReactiveUser.SKYLER, ReactiveUser.JESSE, ReactiveUser.WALTER, ReactiveUser.SAUL)
 				.verifyComplete();
 	}
 
 //========================================================================================
 
 	@Test
+    @Ignore
 	public void fastPublisherSlowSubscriber() {
-		ReactiveRepository<User> reactiveRepository = new ReactiveUserRepository();
-		BlockingUserRepository blockingRepository = new BlockingUserRepository(new User[]{});
+		ReactiveRepository<ReactiveUser> reactiveRepository = new ReactiveUserRepository();
+		BlockingUserRepository blockingRepository = new BlockingUserRepository(new ReactiveUser[]{});
 		Mono<Void> complete = workshop.fluxToBlockingRepository(reactiveRepository.findAll(), blockingRepository);
 		assertEquals(0, blockingRepository.getCallCount());
 		StepVerifier.create(complete)
 				.verifyComplete();
-		Iterator<User> it = blockingRepository.findAll().iterator();
-		assertEquals(User.SKYLER, it.next());
-		assertEquals(User.JESSE, it.next());
-		assertEquals(User.WALTER, it.next());
-		assertEquals(User.SAUL, it.next());
+		Iterator<ReactiveUser> it = blockingRepository.findAll().iterator();
+		assertEquals(ReactiveUser.SKYLER, it.next());
+		assertEquals(ReactiveUser.JESSE, it.next());
+		assertEquals(ReactiveUser.WALTER, it.next());
+		assertEquals(ReactiveUser.SAUL, it.next());
 		assertFalse(it.hasNext());
 	}
 

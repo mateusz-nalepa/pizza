@@ -16,13 +16,13 @@
 
 package pl.tu.kielce.pizza.nauka.reactor;
 
-import io.pivotal.literx.domain.User;
-import io.pivotal.literx.repository.ReactiveRepository;
-import io.pivotal.literx.repository.ReactiveUserRepository;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import org.reactivestreams.Publisher;
+import pl.tu.kielce.pizza.nauka.reactor.domain.ReactiveUser;
+import pl.tu.kielce.pizza.nauka.reactor.repository.ReactiveRepository;
+import pl.tu.kielce.pizza.nauka.reactor.repository.ReactiveUserRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -41,53 +41,53 @@ import java.util.concurrent.CompletableFuture;
  */
 public class Part09Adapt {
 
-	ReactiveRepository<User> repository = new ReactiveUserRepository();
+	ReactiveRepository<ReactiveUser> repository = new ReactiveUserRepository();
 
 //========================================================================================
 
 	// TODO Adapt Flux to RxJava Flowable
-	Flowable<User> fromFluxToFlowable(Flux<User> flux) {
+	Flowable<ReactiveUser> fromFluxToFlowable(Flux<ReactiveUser> flux) {
 		return null;
 	}
 
 	// TODO Adapt RxJava Flowable to Flux
-	Flux<User> fromFlowableToFlux(Flowable<User> flowable) {
+	Flux<ReactiveUser> fromFlowableToFlux(Flowable<ReactiveUser> flowable) {
 		return null;
 	}
 
 //========================================================================================
 
 	// TODO Adapt Flux to RxJava Observable
-	Observable<User> fromFluxToObservable(Flux<User> flux) {
+	Observable<ReactiveUser> fromFluxToObservable(Flux<ReactiveUser> flux) {
 		return null;
 	}
 
 	// TODO Adapt RxJava Observable to Flux
-	Flux<User> fromObservableToFlux(Observable<User> observable) {
+	Flux<ReactiveUser> fromObservableToFlux(Observable<ReactiveUser> observable) {
 		return null;
 	}
 
 //========================================================================================
 
 	// TODO Adapt Mono to RxJava Single
-	Single<User> fromMonoToSingle(Mono<User> mono) {
+	Single<ReactiveUser> fromMonoToSingle(Mono<ReactiveUser> mono) {
 		return null;
 	}
 
 	// TODO Adapt RxJava Single to Mono
-	Mono<User> fromSingleToMono(Single<User> single) {
+	Mono<ReactiveUser> fromSingleToMono(Single<ReactiveUser> single) {
 		return null;
 	}
 
 //========================================================================================
 
 	// TODO Adapt Mono to Java 8+ CompletableFuture
-	CompletableFuture<User> fromMonoToCompletableFuture(Mono<User> mono) {
+	CompletableFuture<ReactiveUser> fromMonoToCompletableFuture(Mono<ReactiveUser> mono) {
 		return null;
 	}
 
 	// TODO Adapt Java 8+ CompletableFuture to Mono
-	Mono<User> fromCompletableFutureToMono(CompletableFuture<User> future) {
+	Mono<ReactiveUser> fromCompletableFutureToMono(CompletableFuture<ReactiveUser> future) {
 		return null;
 	}
 

@@ -16,14 +16,15 @@
 
 package pl.tu.kielce.pizza.nauka.reactor;
 
-import io.pivotal.literx.domain.User;
-import io.pivotal.literx.repository.ReactiveRepository;
-import io.pivotal.literx.repository.ReactiveUserRepository;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.reactivestreams.Publisher;
+import pl.tu.kielce.pizza.nauka.reactor.domain.ReactiveUser;
+import pl.tu.kielce.pizza.nauka.reactor.repository.ReactiveRepository;
+import pl.tu.kielce.pizza.nauka.reactor.repository.ReactiveUserRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
@@ -41,19 +42,21 @@ import java.util.concurrent.CompletableFuture;
  *
  * @author Sebastien Deleuze
  */
+@Ignore
+
 public class Part09AdaptTest {
 
 	Part09Adapt workshop = new Part09Adapt();
-	ReactiveRepository<User> repository = new ReactiveUserRepository();
+	ReactiveRepository<ReactiveUser> repository = new ReactiveUserRepository();
 
 //========================================================================================
 
 	@Test
 	public void adaptToFlowable() {
-		Flux<User> flux = repository.findAll();
-		Flowable<User> flowable = workshop.fromFluxToFlowable(flux);
+		Flux<ReactiveUser> flux = repository.findAll();
+		Flowable<ReactiveUser> flowable = workshop.fromFluxToFlowable(flux);
 		StepVerifier.create(workshop.fromFlowableToFlux(flowable))
-				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
+				.expectNext(ReactiveUser.SKYLER, ReactiveUser.JESSE, ReactiveUser.WALTER, ReactiveUser.SAUL)
 				.verifyComplete();
 	}
 
@@ -61,10 +64,10 @@ public class Part09AdaptTest {
 
 	@Test
 	public void adaptToObservable() {
-		Flux<User> flux = repository.findAll();
-		Observable<User> observable = workshop.fromFluxToObservable(flux);
+		Flux<ReactiveUser> flux = repository.findAll();
+		Observable<ReactiveUser> observable = workshop.fromFluxToObservable(flux);
 		StepVerifier.create(workshop.fromObservableToFlux(observable))
-				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
+				.expectNext(ReactiveUser.SKYLER, ReactiveUser.JESSE, ReactiveUser.WALTER, ReactiveUser.SAUL)
 				.verifyComplete();
 	}
 
@@ -72,10 +75,10 @@ public class Part09AdaptTest {
 
 	@Test
 	public void adaptToSingle() {
-		Mono<User> mono = repository.findFirst();
-		Single<User> single = workshop.fromMonoToSingle(mono);
+		Mono<ReactiveUser> mono = repository.findFirst();
+		Single<ReactiveUser> single = workshop.fromMonoToSingle(mono);
 		StepVerifier.create(workshop.fromSingleToMono(single))
-				.expectNext(User.SKYLER)
+				.expectNext(ReactiveUser.SKYLER)
 				.verifyComplete();
 	}
 
@@ -83,10 +86,10 @@ public class Part09AdaptTest {
 
 	@Test
 	public void adaptToCompletableFuture() {
-		Mono<User> mono = repository.findFirst();
-		CompletableFuture<User> future = workshop.fromMonoToCompletableFuture(mono);
+		Mono<ReactiveUser> mono = repository.findFirst();
+		CompletableFuture<ReactiveUser> future = workshop.fromMonoToCompletableFuture(mono);
 		StepVerifier.create(workshop.fromCompletableFutureToMono(future))
-				.expectNext(User.SKYLER)
+				.expectNext(ReactiveUser.SKYLER)
 				.verifyComplete();
 	}
 

@@ -10,6 +10,8 @@ import pl.tu.kielce.pizza.common.messages.MessageSourceAccessor;
 import pl.tu.kielce.pizza.common.order.session.UserContext;
 import pl.tu.kielce.pizza.common.security.service.UserService;
 
+import java.util.TimeZone;
+
 @ControllerAdvice
 @RequiredArgsConstructor
 public class HomePageControllerAdvice {
@@ -38,7 +40,10 @@ public class HomePageControllerAdvice {
         }
         model.addAttribute("departmentLabel", departmentName);
         model.addAttribute("workHours", workHours);
+        model.addAttribute("asd", TimeZone.getDefault());
     }
+
+
 
     @ModelAttribute
     public void avatarLocation(Model model) {

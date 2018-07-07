@@ -16,8 +16,9 @@
 
 package pl.tu.kielce.pizza.nauka.reactor;
 
-import io.pivotal.literx.domain.User;
+import org.junit.Ignore;
 import org.junit.Test;
+import pl.tu.kielce.pizza.nauka.reactor.domain.ReactiveUser;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -29,6 +30,7 @@ import java.time.Duration;
  * @author Sebastien Deleuze
  * @see <a href="http://projectreactor.io/docs/test/release/api/reactor/test/StepVerifier.html">StepVerifier Javadoc</a>
  */
+@Ignore
 public class Part03StepVerifierTest {
 
 	Part03StepVerifier workshop = new Part03StepVerifier();
@@ -51,7 +53,7 @@ public class Part03StepVerifierTest {
 
 	@Test
 	public void expectElementsWithThenComplete() {
-		workshop.expectSkylerJesseComplete(Flux.just(new User("swhite", null, null), new User("jpinkman", null, null)));
+		workshop.expectSkylerJesseComplete(Flux.just(new ReactiveUser("swhite", null, null), new ReactiveUser("jpinkman", null, null)));
 	}
 
 //========================================================================================

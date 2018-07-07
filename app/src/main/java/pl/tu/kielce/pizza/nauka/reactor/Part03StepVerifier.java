@@ -16,7 +16,7 @@
 
 package pl.tu.kielce.pizza.nauka.reactor;
 
-import io.pivotal.literx.domain.User;
+import pl.tu.kielce.pizza.nauka.reactor.domain.ReactiveUser;
 import reactor.core.publisher.Flux;
 
 import java.util.function.Supplier;
@@ -45,9 +45,9 @@ public class Part03StepVerifier {
 
 //========================================================================================
 
-	// TODO Use StepVerifier to check that the flux parameter emits a User with "swhite"username
+	// TODO Use StepVerifier to check that the flux parameter emits a ReactiveUser with "swhite"username
 	// and another one with "jpinkman" then completes successfully.
-	void expectSkylerJesseComplete(Flux<User> flux) {
+	void expectSkylerJesseComplete(Flux<ReactiveUser> flux) {
 		fail();
 	}
 

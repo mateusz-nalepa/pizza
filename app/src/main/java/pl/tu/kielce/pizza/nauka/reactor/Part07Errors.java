@@ -16,7 +16,7 @@
 
 package pl.tu.kielce.pizza.nauka.reactor;
 
-import io.pivotal.literx.domain.User;
+import pl.tu.kielce.pizza.nauka.reactor.domain.ReactiveUser;
 import reactor.core.Exceptions;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -31,31 +31,31 @@ public class Part07Errors {
 
 //========================================================================================
 
-	// TODO Return a Mono<User> containing User.SAUL when an error occurs in the input Mono, else do not change the input Mono.
-	Mono<User> betterCallSaulForBogusMono(Mono<User> mono) {
+	// TODO Return a Mono<ReactiveUser> containing ReactiveUser.SAUL when an error occurs in the input Mono, else do not change the input Mono.
+	Mono<ReactiveUser> betterCallSaulForBogusMono(Mono<ReactiveUser> mono) {
 		return null;
 	}
 
 //========================================================================================
 
-	// TODO Return a Flux<User> containing User.SAUL and User.JESSE when an error occurs in the input Flux, else do not change the input Flux.
-	Flux<User> betterCallSaulAndJesseForBogusFlux(Flux<User> flux) {
+	// TODO Return a Flux<ReactiveUser> containing ReactiveUser.SAUL and ReactiveUser.JESSE when an error occurs in the input Flux, else do not change the input Flux.
+	Flux<ReactiveUser> betterCallSaulAndJesseForBogusFlux(Flux<ReactiveUser> flux) {
 		return null;
 	}
 
 //========================================================================================
 
-	// TODO Implement a method that capitalizes each user of the incoming flux using the
+	// TODO Implement a method that capitalizes each ReactiveUser of the incoming flux using the
 	// #capitalizeUser method and emits an error containing a GetOutOfHereException error
-	Flux<User> capitalizeMany(Flux<User> flux) {
+	Flux<ReactiveUser> capitalizeMany(Flux<ReactiveUser> flux) {
 		return null;
 	}
 
-	User capitalizeUser(User user) throws GetOutOfHereException {
-		if (user.equals(User.SAUL)) {
+	ReactiveUser capitalizeUser(ReactiveUser ReactiveUser) throws GetOutOfHereException {
+		if (ReactiveUser.equals(ReactiveUser.SAUL)) {
 			throw new GetOutOfHereException();
 		}
-		return new User(user.getUsername(), user.getFirstname(), user.getLastname());
+		return new ReactiveUser(ReactiveUser.getUsername(), ReactiveUser.getFirstname(), ReactiveUser.getLastname());
 	}
 
 	protected final class GetOutOfHereException extends Exception {

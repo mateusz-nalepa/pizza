@@ -5,7 +5,7 @@ import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.util.StopWatch;
 
 import java.util.HashMap;

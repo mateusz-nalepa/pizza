@@ -3,7 +3,7 @@ package pl.tu.kielce.pizza.nauka.basic;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 @Slf4j
 @RunWith(MockitoJUnitRunner.class)

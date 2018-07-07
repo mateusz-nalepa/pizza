@@ -16,8 +16,9 @@
 
 package pl.tu.kielce.pizza.nauka.reactor;
 
-import io.pivotal.literx.domain.User;
+import org.junit.Ignore;
 import org.junit.Test;
+import pl.tu.kielce.pizza.nauka.reactor.domain.ReactiveUser;
 import reactor.core.Exceptions;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -29,6 +30,8 @@ import reactor.test.StepVerifier;
  * @author Sebastien Deleuze
  * @see Exceptions#propagate(Throwable)
  */
+@Ignore
+
 public class Part07ErrorsTest {
 
 	Part07Errors workshop = new Part07Errors();
@@ -37,14 +40,14 @@ public class Part07ErrorsTest {
 
 	@Test
 	public void monoWithValueInsteadOfError() {
-		Mono<User> mono = workshop.betterCallSaulForBogusMono(Mono.error(new IllegalStateException()));
+		Mono<ReactiveUser> mono = workshop.betterCallSaulForBogusMono(Mono.error(new IllegalStateException()));
 		StepVerifier.create(mono)
-				.expectNext(User.SAUL)
+				.expectNext(ReactiveUser.SAUL)
 				.verifyComplete();
 
-		mono = workshop.betterCallSaulForBogusMono(Mono.just(User.SKYLER));
+		mono = workshop.betterCallSaulForBogusMono(Mono.just(ReactiveUser.SKYLER));
 		StepVerifier.create(mono)
-				.expectNext(User.SKYLER)
+				.expectNext(ReactiveUser.SKYLER)
 				.verifyComplete();
 	}
 
@@ -52,14 +55,14 @@ public class Part07ErrorsTest {
 
 	@Test
 	public void fluxWithValueInsteadOfError() {
-		Flux<User> flux = workshop.betterCallSaulAndJesseForBogusFlux(Flux.error(new IllegalStateException()));
+		Flux<ReactiveUser> flux = workshop.betterCallSaulAndJesseForBogusFlux(Flux.error(new IllegalStateException()));
 		StepVerifier.create(flux)
-				.expectNext(User.SAUL, User.JESSE)
+				.expectNext(ReactiveUser.SAUL, ReactiveUser.JESSE)
 				.verifyComplete();
 
-		flux = workshop.betterCallSaulAndJesseForBogusFlux(Flux.just(User.SKYLER, User.WALTER));
+		flux = workshop.betterCallSaulAndJesseForBogusFlux(Flux.just(ReactiveUser.SKYLER, ReactiveUser.WALTER));
 		StepVerifier.create(flux)
-				.expectNext(User.SKYLER, User.WALTER)
+				.expectNext(ReactiveUser.SKYLER, ReactiveUser.WALTER)
 				.verifyComplete();
 	}
 
@@ -67,7 +70,7 @@ public class Part07ErrorsTest {
 
 	@Test
 	public void handleCheckedExceptions() {
-		Flux<User> flux = workshop.capitalizeMany(Flux.just(User.SAUL, User.JESSE));
+		Flux<ReactiveUser> flux = workshop.capitalizeMany(Flux.just(ReactiveUser.SAUL, ReactiveUser.JESSE));
 
 		StepVerifier.create(flux)
 				.verifyError(Part07Errors.GetOutOfHereException.class);

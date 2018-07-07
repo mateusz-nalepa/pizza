@@ -1,11 +1,11 @@
 package pl.tu.kielce.pizza.nauka.reactor.domain;
 
-public class User {
+public class ReactiveUser {
 
-	public static final User SKYLER = new User("swhite", "Skyler", "White");
-	public static final User JESSE = new User("jpinkman", "Jesse", "Pinkman");
-	public static final User WALTER = new User("wwhite", "Walter", "White");
-	public static final User SAUL = new User("sgoodman", "Saul", "Goodman");
+	public static final ReactiveUser SKYLER = new ReactiveUser("swhite", "Skyler", "White");
+	public static final ReactiveUser JESSE = new ReactiveUser("jpinkman", "Jesse", "Pinkman");
+	public static final ReactiveUser WALTER = new ReactiveUser("wwhite", "Walter", "White");
+	public static final ReactiveUser SAUL = new ReactiveUser("sgoodman", "Saul", "Goodman");
 
 	private final String username;
 
@@ -13,7 +13,7 @@ public class User {
 
 	private final String lastname;
 
-	public User(String username, String firstname, String lastname) {
+	public ReactiveUser(String username, String firstname, String lastname) {
 		this.username = username;
 		this.firstname = firstname;
 		this.lastname = lastname;
@@ -40,15 +40,15 @@ public class User {
 			return false;
 		}
 
-		User user = (User) o;
+		ReactiveUser ReactiveUser = (ReactiveUser) o;
 
-		if (!username.equals(user.username)) {
+		if (!username.equals(ReactiveUser.username)) {
 			return false;
 		}
-		if (!firstname.equals(user.firstname)) {
+		if (!firstname.equals(ReactiveUser.firstname)) {
 			return false;
 		}
-		return lastname.equals(user.lastname);
+		return lastname.equals(ReactiveUser.lastname);
 
 	}
 

@@ -1,5 +1,6 @@
 package pl.tu.kielce.pizza.nauka.reactor;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
@@ -12,6 +13,7 @@ import java.time.Duration;
  * @author Sebastien Deleuze
  * @see <a href="http://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html">Mono Javadoc</a>
  */
+@Ignore
 public class Part02MonoTest {
 
 	Part02Mono workshop = new Part02Mono();

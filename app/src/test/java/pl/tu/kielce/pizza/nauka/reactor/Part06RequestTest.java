@@ -1,9 +1,10 @@
 package pl.tu.kielce.pizza.nauka.reactor;
 
-import io.pivotal.literx.domain.User;
-import io.pivotal.literx.repository.ReactiveRepository;
-import io.pivotal.literx.repository.ReactiveUserRepository;
+import org.junit.Ignore;
 import org.junit.Test;
+import pl.tu.kielce.pizza.nauka.reactor.domain.ReactiveUser;
+import pl.tu.kielce.pizza.nauka.reactor.repository.ReactiveRepository;
+import pl.tu.kielce.pizza.nauka.reactor.repository.ReactiveUserRepository;
 import reactor.core.publisher.Flux;
 import reactor.test.StepVerifier;
 
@@ -12,16 +13,18 @@ import reactor.test.StepVerifier;
  *
  * @author Sebastien Deleuze
  */
+@Ignore
+
 public class Part06RequestTest {
 
 	Part06Request workshop = new Part06Request();
-	ReactiveRepository<User> repository = new ReactiveUserRepository();
+	ReactiveRepository<ReactiveUser> repository = new ReactiveUserRepository();
 
 //========================================================================================
 
 	@Test
 	public void requestAll() {
-		Flux<User> flux = repository.findAll();
+		Flux<ReactiveUser> flux = repository.findAll();
 		StepVerifier verifier = workshop.requestAllExpectFour(flux);
 		verifier.verify();
 	}
@@ -30,7 +33,7 @@ public class Part06RequestTest {
 
 	@Test
 	public void requestOneByOne() {
-		Flux<User> flux = repository.findAll();
+		Flux<ReactiveUser> flux = repository.findAll();
 		StepVerifier verifier = workshop.requestOneExpectSkylerThenRequestOneExpectJesse(flux);
 		verifier.verify();
 	}
@@ -39,7 +42,7 @@ public class Part06RequestTest {
 
 	@Test
 	public void experimentWithLog() {
-		Flux<User> flux = workshop.fluxWithLog();
+		Flux<ReactiveUser> flux = workshop.fluxWithLog();
 		StepVerifier.create(flux, 0)
 				.thenRequest(1)
 				.expectNextMatches(u -> true)
@@ -55,7 +58,7 @@ public class Part06RequestTest {
 
 	@Test
 	public void experimentWithDoOn() {
-		Flux<User> flux = workshop.fluxWithDoOnPrintln();
+		Flux<ReactiveUser> flux = workshop.fluxWithDoOnPrintln();
 		StepVerifier.create(flux)
 				.expectNextCount(4)
 				.verifyComplete();
