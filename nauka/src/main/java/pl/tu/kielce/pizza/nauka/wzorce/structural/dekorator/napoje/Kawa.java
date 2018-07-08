@@ -1,15 +1,15 @@
-package pl.tu.kielce.pizza.nauka.wzorce.structural.dekorator;
+package pl.tu.kielce.pizza.nauka.wzorce.structural.dekorator.napoje;
 
 import java.math.BigDecimal;
 
 public class Kawa extends Napoj {
     @Override
-    String getOpis() {
+    public String getOpis() {
         return "Kawa";
     }
 
     @Override
-    BigDecimal koszt() {
+    public BigDecimal koszt() {
         return new BigDecimal("2");
     }
 }

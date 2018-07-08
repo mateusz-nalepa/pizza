@@ -1,4 +1,6 @@
-package pl.tu.kielce.pizza.nauka.wzorce.structural.dekorator;
+package pl.tu.kielce.pizza.nauka.wzorce.structural.dekorator.skladniki;
+
+import pl.tu.kielce.pizza.nauka.wzorce.structural.dekorator.napoje.Napoj;
 
 import java.math.BigDecimal;
 
@@ -9,12 +11,12 @@ public class Mleczko extends SkladnikDekorator {
     }
 
     @Override
-    String getOpis() {
+    public String getOpis() {
         return napoj.getOpis() + " mleczko";
     }
 
     @Override
-    BigDecimal koszt() {
+    public BigDecimal koszt() {
         return napoj.koszt().add(new BigDecimal("0.20"));
     }
 }
