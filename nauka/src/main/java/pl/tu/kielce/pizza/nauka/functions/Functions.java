@@ -1,4 +1,4 @@
-package pl.tu.kielce.pizza.nauka;
+package pl.tu.kielce.pizza.nauka.functions;
 
 import java.io.File;
 import java.util.function.BiFunction;
